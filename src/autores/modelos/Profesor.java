@@ -1,0 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package autores.modelos;
+
+/**
+ *
+ * @author Windows 10
+ */
+public class Profesor {
+    private int dni;
+    private String apellidos, nombres, clave, cargo;
+    
+    public Profesor (String nombres, String apellidos, String clave, int dni, String cargo){
+            this.nombres = nombres;
+            this.apellidos = apellidos;
+            this.clave = clave;
+            this.dni = dni;
+            this.cargo = cargo;
+    }
+    public String verNombres(){
+        return nombres;
+    }
+    public void asignarNombres(String nombres){
+        this.nombres = nombres;
+    }
+    public String verApellidos(){
+        return apellidos;
+    }
+    public void asignarApellidos(String apellidos){
+        this.apellidos = apellidos;
+    }
+    public String verClave(){
+        return clave;
+    }
+    public void asignarClave(String clave){
+        this.clave = clave;
+    }
+    public int verDni(){
+        return dni;
+    }
+    public void asignarDni(int dni){
+        this.dni = dni;
+    }
+    public String verCargo(){
+        return cargo;
+    }
+    public void asignarCargo(String cargo){
+        this.cargo = cargo;
+    }
+    
+    public void mostrar(){
+        System.out.println("\nProfesor: " + apellidos.toUpperCase() + ", " + nombres);
+        System.out.println("DNI: " + dni);
+        System.out.println("Cargo: " + cargo);
+    }
+}
