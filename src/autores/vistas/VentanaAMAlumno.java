@@ -20,6 +20,7 @@ public class VentanaAMAlumno extends JDialog {
     public VentanaAMAlumno(Dialog ventanaPadre) {
         super(ventanaPadre, true);
         initComponents();
+        this.setVisible(true);
     }
       
     /**
