@@ -89,8 +89,8 @@ public class VentanaAPalabraClave extends JDialog {
         String nombre = this.txtNombre.getText().trim();
         PalabraClave palabraclave = new PalabraClave(nombre);
         this.palabrasClaves.add(palabraclave);
-        for(PalabraClave l : this.palabrasClaves)
-            System.out.println(l);
+        for(PalabraClave p : this.palabrasClaves)
+            System.out.println(p);
     }//GEN-LAST:event_btnGuardarClic
 
 

@@ -90,8 +90,8 @@ public class VentanaATipo extends JDialog {
         String nombre = this.txtNombre.getText().trim();
         Tipo tipo = new Tipo(nombre);
         this.tipos.add(tipo);
-        for(Tipo l : this.tipos)
-            System.out.println(l);
+        for(Tipo t : this.tipos)
+            System.out.println(t);
     }//GEN-LAST:event_btnGuardarClic
 
 
