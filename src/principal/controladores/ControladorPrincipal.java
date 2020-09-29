@@ -5,14 +5,22 @@
  */
 package principal.controladores;
 
-import java.util.ArrayList;
-import autores.modelos.Alumno;
-import autores.modelos.Profesor;
-import grupos.modelos.Grupo;
-import idiomas.modelos.Idioma;
-import lugares.modelos.Lugar;
-import palabrasclaves.modelos.PalabraClave;
-import tipos.modelos.Tipo;
+//import java.util.ArrayList;
+//import autores.modelos.Alumno;
+//import autores.modelos.Profesor;
+//import grupos.modelos.Grupo;
+//import idiomas.modelos.Idioma;
+//import lugares.modelos.Lugar;
+//import palabrasclaves.modelos.PalabraClave;
+//import tipos.modelos.Tipo;
+
+import autores.vistas.VentanaAMAlumno;
+import autores.vistas.VentanaAMProfesor;
+import grupos.vistas.VentanaAMGrupo;
+import idiomas.vistas.VentanaAIdioma;
+import lugares.vistas.VentanaALugar;
+import palabrasclaves.vistas.VentanaAPalabraClave;
+import tipos.vistas.VentanaATipo;
 
 /**
  *
@@ -20,6 +28,15 @@ import tipos.modelos.Tipo;
  */
 public class ControladorPrincipal {
     public static void main(String[] args) {
+        
+        VentanaAMProfesor ventProf = new VentanaAMProfesor(null);
+        VentanaAMAlumno ventAl = new VentanaAMAlumno(null);
+        VentanaAIdioma ventId = new VentanaAIdioma(null);
+        VentanaALugar ventLug = new VentanaALugar(null);
+        VentanaAPalabraClave ventPalCla = new VentanaAPalabraClave(null);
+        VentanaATipo ventTipo = new VentanaATipo(null);
+        VentanaAMGrupo ventGrupo = new VentanaAMGrupo(null);
+
 //        Alumno unAlumno;
 //        Profesor unProfesor;
 //        Grupo unGrupo;
