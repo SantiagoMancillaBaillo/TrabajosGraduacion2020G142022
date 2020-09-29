@@ -20,6 +20,7 @@ public class VentanaAMGrupo extends JDialog {
     public VentanaAMGrupo(Dialog ventanaPadre) {
         super(ventanaPadre, true);
         initComponents();
+        this.setVisible(true);
     }
         
            
