@@ -5,15 +5,20 @@
  */
 package autores.modelos;
 
+import cargos.modelos.Cargo;
+
 /**
  *
  * @author Windows 10
  */
 public class Profesor {
     private int dni;
-    private String apellidos, nombres, clave, cargo;
+    private String apellidos; 
+    private String nombres;
+    private String clave;
+    private Cargo cargo;
     
-    public Profesor (String nombres, String apellidos, String clave, int dni, String cargo){
+    public Profesor (String nombres, String apellidos, String clave, int dni, Cargo cargo){
             this.nombres = nombres;
             this.apellidos = apellidos;
             this.clave = clave;
@@ -44,10 +49,10 @@ public class Profesor {
     public void asignarDni(int dni){
         this.dni = dni;
     }
-    public String verCargo(){
+    public Cargo verCargo(){
         return cargo;
     }
-    public void asignarCargo(String cargo){
+    public void asignarCargo(Cargo cargo){
         this.cargo = cargo;
     }
     
