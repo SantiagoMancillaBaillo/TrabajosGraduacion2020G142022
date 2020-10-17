@@ -54,10 +54,6 @@ public class MiembroEnGrupo {
         System.out.println("Rol: " + rol);
     }
     
-    public void mostrar(String u){
-        grupos.mostrar();
-    }
-    
     public void mostrar(int x, int y){
         autores.mostrar();
         System.out.println("Rol: " + rol);
