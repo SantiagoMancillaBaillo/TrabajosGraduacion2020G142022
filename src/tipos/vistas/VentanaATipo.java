@@ -20,6 +20,7 @@ public class VentanaATipo extends JDialog {
     public VentanaATipo(Dialog ventanaPadre) {
         super(ventanaPadre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     

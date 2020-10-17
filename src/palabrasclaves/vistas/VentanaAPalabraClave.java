@@ -20,6 +20,7 @@ public class VentanaAPalabraClave extends JDialog {
     public VentanaAPalabraClave(Dialog ventanaPadre) {
         super(ventanaPadre, true);
         initComponents();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
  
