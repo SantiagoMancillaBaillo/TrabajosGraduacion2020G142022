@@ -5,124 +5,301 @@
  */
 package principal.controladores;
 
-//import java.util.ArrayList;
-//import autores.modelos.Alumno;
-//import autores.modelos.Profesor;
-//import grupos.modelos.Grupo;
-//import idiomas.modelos.Idioma;
-//import lugares.modelos.Lugar;
-//import palabrasclaves.modelos.PalabraClave;
-//import tipos.modelos.Tipo;
-
+import autores.modelos.Alumno;
+import cargos.modelos.Cargo;
+import autores.modelos.Profesor;
 import autores.vistas.VentanaAMAlumno;
 import autores.vistas.VentanaAMProfesor;
+import grupos.modelos.Grupo;
+import grupos.modelos.MiembroEnGrupo;
+import grupos.modelos.Rol;
 import grupos.vistas.VentanaAMGrupo;
+import idiomas.modelos.Idioma;
 import idiomas.vistas.VentanaAIdioma;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import lugares.modelos.Lugar;
 import lugares.vistas.VentanaALugar;
+import palabrasclaves.modelos.PalabraClave;
 import palabrasclaves.vistas.VentanaAPalabraClave;
+import publicaciones.modelos.Publicacion;
+import tipos.modelos.Tipo;
 import tipos.vistas.VentanaATipo;
+
 
 /**
  *
- * @author Windows 10
+ * @author prog2
  */
 public class ControladorPrincipal {
     public static void main(String[] args) {
-        
-        VentanaAMProfesor ventProf = new VentanaAMProfesor(null);
-        VentanaAMAlumno ventAl = new VentanaAMAlumno(null);
-        VentanaAIdioma ventId = new VentanaAIdioma(null);
-        VentanaALugar ventLug = new VentanaALugar(null);
-        VentanaAPalabraClave ventPalCla = new VentanaAPalabraClave(null);
-        VentanaATipo ventTipo = new VentanaATipo(null);
-        VentanaAMGrupo ventGrupo = new VentanaAMGrupo(null);
+    
+     //<editor-fold defaultstate="collapsed" desc="Sin intefaz gráfica"> 
+        ArrayList<Grupo> grupos = new ArrayList<>();
+        ArrayList<Alumno> alumnos = new ArrayList<>();
+        ArrayList<Profesor> profesores = new ArrayList<>();
+        ArrayList<Tipo> tipos = new ArrayList<>();
+        ArrayList<Lugar> lugares = new ArrayList<>();
+        ArrayList<Idioma> idiomas = new ArrayList<>();
+        ArrayList<PalabraClave> palabrasClaves = new ArrayList<>();
+        ArrayList<Publicacion> publicaciones = new ArrayList<>();
 
-//        Alumno unAlumno;
-//        Profesor unProfesor;
-//        Grupo unGrupo;
-//        Idioma unIdioma;
-//        Lugar unLugar;
-//        PalabraClave unaPalabraClave;
-//        Tipo unTipo;
-//        
-//        
-//        unAlumno = new Alumno("Agustin", "Ramos", "ecyce", 41041592, "1601159");
-//        Alumno unAlumno2 = new Alumno ("Pepi", "Ramirez", "cacatua", 13131322, "1601160");
-//        
-//        unProfesor = new Profesor ("Esteban", "Quito", "ecece", 44444444, "TP fisica 1");
-//        Profesor unProfesor2 = new Profesor ("Gustavo", "Savio", "clave", 23232323, "Teorias Química");
-//        
-//        unGrupo = new Grupo ("Los pi", "lo + mejore");
-//        Grupo unGrupo2 = new Grupo ("epitafio", "no se que significa");
-//        
-//        unIdioma = new Idioma ("Ingles");
-//        Idioma unIdioma2 = new Idioma ("Japones");
-//        
-//        unLugar = new Lugar ("el baño... que se yo");
-//        Lugar unLugar2 = new Lugar ("Decanato");
-//        
-//        unaPalabraClave = new PalabraClave ("sanguchito de miga");
-//        PalabraClave unaPalabraClave2 = new PalabraClave ("Mango");
-//        
-//        unTipo = new Tipo ("no se para que son los tipos pero acá estamos xd");
-//        Tipo unTipo2 = new Tipo ("ehh no se, tipo de helado.... palito de agua xd");
-//        
-//        ArrayList<Alumno> listaAlumnos = new ArrayList<>();
-//        ArrayList<Profesor> listaProfesores = new ArrayList<>();
-//        ArrayList<Grupo> listaGrupos = new ArrayList<>();
-//        ArrayList<Idioma> listaIdiomas = new ArrayList<>();
-//        ArrayList<Lugar> listalugares = new ArrayList<>();
-//        ArrayList<PalabraClave> listaPalabrasClave = new ArrayList<>();
-//        ArrayList<Tipo> listaTipos = new ArrayList<>();
-//        
-//        listaAlumnos.add(unAlumno);
-//        listaAlumnos.add(unAlumno2);
-//        
-//        listaProfesores.add(unProfesor);
-//        listaProfesores.add(unProfesor2);
-//        
-//        listaGrupos.add(unGrupo);
-//        listaGrupos.add(unGrupo2);
-//        
-//        listaIdiomas.add(unIdioma);
-//        listaIdiomas.add(unIdioma2);
-//        
-//        listalugares.add(unLugar);
-//        listalugares.add(unLugar2);
-//        
-//        listaPalabrasClave.add(unaPalabraClave);
-//        listaPalabrasClave.add(unaPalabraClave2);
-//        
-//        listaTipos.add(unTipo);
-//        listaTipos.add(unTipo2);
-//        
-//        System.out.println("\n---ALUMNOS--- ");
-//        for (Alumno e : listaAlumnos){
-//            e.mostrar();
-//        }
-//        System.out.println("\n---PROFESORES--- ");
-//        for (Profesor f : listaProfesores){
-//            f.mostrar();
-//        }
-//        System.out.println("\n---GRUPOS--- ");
-//        for (Grupo g : listaGrupos){
-//            g.mostrar();
-//        }
-//        System.out.println("\n---IDIOMAS--- ");
-//        for (Idioma i : listaIdiomas){
-//            System.out.println(i.toString());
-//        }
-//        System.out.println("\n---LUGARES--- ");
-//        for (Lugar l : listalugares){
-//            System.out.println(l.toString());
-//        }
-//        System.out.println("\n---PALABRAS CLAVE--- ");
-//        for (PalabraClave p : listaPalabrasClave){
-//            System.out.println(p.toString());
-//        }
-//        System.out.println("\n---TIPOS--- ");
-//        for (Tipo t : listaTipos){
-//            System.out.println(t.toString());
-//        }
+        //GRUPOS
+        Grupo grupo1 = new Grupo("Grupo 1", "Descripción 1");
+        Grupo grupo2 = new Grupo("Grupo 2", "Descripción 2");
+        Grupo grupo3 = new Grupo("Grupo 3", "Descripción 3");
+        Grupo grupo4 = new Grupo("Grupo 4", "Descripción 4");
+        Grupo grupo5 = new Grupo("Grupo 5", "Descripción 5");
+        Grupo grupo6 = new Grupo("Grupo 1", "Descripción 5");
+        
+        if (!grupos.contains(grupo1))
+            grupos.add(grupo1);
+        if (!grupos.contains(grupo2))
+            grupos.add(grupo2);
+        if (!grupos.contains(grupo3))
+            grupos.add(grupo3);
+        if (!grupos.contains(grupo4))
+            grupos.add(grupo4);
+        if (!grupos.contains(grupo5))
+            grupos.add(grupo5);
+        if (!grupos.contains(grupo6))
+            grupos.add(grupo6);
+      
+        
+        System.out.println("----Grupos----");
+        for(Grupo g : grupos)
+            g.mostrar();
+        //GRUPOS
+        //ALUMNOS
+        Alumno alumno1 = new Alumno("Nombre1","Apellido1","Clave1",1, "1");
+        Alumno alumno2 = new Alumno("Nombre2","Apellido2","Clave2",2, "2");
+        Alumno alumno3 = new Alumno("Nombre3","Apellido3","Clave3",3, "3");
+        Alumno alumno4 = new Alumno("Nombre4","Apellido4","Clave4",4, "4");
+        Alumno alumno5 = new Alumno("Nombre5","Apellido5","Clave5",5, "5");
+
+        alumnos.add(alumno1);
+        alumnos.add(alumno2);
+        alumnos.add(alumno3);
+        alumnos.add(alumno4);
+        alumnos.add(alumno5);
+        
+        System.out.println("\n----Alumnos----\n");
+        for(Alumno a : alumnos)
+            a.mostrar();
+        //ALUMNOS
+        //PROFESORES
+        Profesor profesor1 = new Profesor("Nombre10", "Apellido10", "Clave10", 10, Cargo.TITULAR);
+        Profesor profesor2 = new Profesor("Nombre20", "Apellido20", "Clave20", 20, Cargo.ASOCIADO);
+        Profesor profesor3 = new Profesor("Nombre30", "Apellido30", "Clave30", 30, Cargo.ADJUNTO);
+        Profesor profesor4 = new Profesor("Nombre40", "Apellido40", "Clave40", 40, Cargo.JTP);
+        Profesor profesor5 = new Profesor("Nombre50", "Apellido50", "Clave50", 50, Cargo.ADG);
+        
+        
+
+        profesores.add(profesor1);
+        profesores.add(profesor2);
+        profesores.add(profesor3);
+        profesores.add(profesor4);
+        profesores.add(profesor5);
+        
+        System.out.println("\n----Profesores----\n");
+        for(Profesor p : profesores)
+            p.mostrar();
+        //PROFESORES
+        
+        //TIPOS DE PUBLICACION
+        System.out.println("\n----Tipos de publicación----\n");
+        Tipo tipo1 = new Tipo("Tipo 1");
+        Tipo tipo2 = new Tipo("Tipo 2");
+        Tipo tipo3 = new Tipo("Tipo 3");
+        Tipo tipo4 = new Tipo("Tipo 4");
+        Tipo tipo5 = new Tipo("Tipo 5");
+        
+        if (!tipos.contains(tipo1))
+            tipos.add(tipo1);
+        if (!tipos.contains(tipo2))
+            tipos.add(tipo2);
+        if (!tipos.contains(tipo3))
+            tipos.add(tipo3);
+        if (!tipos.contains(tipo4))
+            tipos.add(tipo4);
+        if (!tipos.contains(tipo5))
+            tipos.add(tipo5);
+
+        for(Tipo t : tipos)
+            System.out.println(t);
+        //TIPOS DE PUBLICACION
+        //LUGAR
+        System.out.println("\n----Lugares----\n");
+        Lugar lugar1 = new Lugar("Lugar 1");
+        Lugar lugar2 = new Lugar("Lugar 1");
+        Lugar lugar3 = new Lugar("Lugar 3");
+        Lugar lugar4 = new Lugar("Lugar 4");
+        Lugar lugar5 = new Lugar("Lugar 5");
+        
+        if (!lugares.contains(lugar1))
+            lugares.add(lugar1);
+        if (!lugares.contains(lugar2))
+            lugares.add(lugar2);
+        if (!lugares.contains(lugar3))
+            lugares.add(lugar3);
+        if (!lugares.contains(lugar4))
+            lugares.add(lugar4);
+        if (!lugares.contains(lugar5))
+            lugares.add(lugar5);
+
+        for(Lugar l : lugares)
+            System.out.println(l);
+        //LUGAR
+        
+        //IDIOMAS
+        System.out.println("\n----Idiomas----\n");
+        Idioma idioma1 = new Idioma("Idioma 1");
+        Idioma idioma2 = new Idioma("Idioma 2");
+        Idioma idioma3 = new Idioma("Idioma 3");
+        Idioma idioma4 = new Idioma("Idioma 4");
+        Idioma idioma5 = new Idioma("Idioma 5");
+        
+        if (!idiomas.contains(idioma1))
+            idiomas.add(idioma1);
+        if (!idiomas.contains(idioma2))
+            idiomas.add(idioma2);
+        if (!idiomas.contains(idioma3))
+            idiomas.add(idioma3);
+        if (!idiomas.contains(idioma4))
+            idiomas.add(idioma4);
+        if (!idiomas.contains(idioma5))
+            idiomas.add(idioma5);
+
+        for(Idioma i : idiomas)
+            System.out.println(i);        
+        //IDIOMAS
+        //PALABRASCLAVE
+        System.out.println("\n----Palabras clave----\n");
+        PalabraClave palabraClave1 = new PalabraClave("PalabraClave1");
+        PalabraClave palabraClave2 = new PalabraClave("PalabraClave2");
+        PalabraClave palabraClave3 = new PalabraClave("PalabraClave3");
+        PalabraClave palabraClave4 = new PalabraClave("PalabraClave4");
+        PalabraClave palabraClave5 = new PalabraClave("PalabraClave5");
+
+        if (!palabrasClaves.contains(palabraClave1))
+            palabrasClaves.add(palabraClave1);
+        if (!palabrasClaves.contains(palabraClave2))
+            palabrasClaves.add(palabraClave2);
+        if (!palabrasClaves.contains(palabraClave3))
+            palabrasClaves.add(palabraClave3);
+        if (!palabrasClaves.contains(palabraClave4))
+            palabrasClaves.add(palabraClave4);
+        if (!palabrasClaves.contains(palabraClave5))
+            palabrasClaves.add(palabraClave5);
+        
+
+        for(PalabraClave pc : palabrasClaves)
+            System.out.println(pc); 
+        //PALABRASCLAVE
+        
+        /*
+        Para un objeto de la clase publicación:
+        Titulo
+        Miembro en grupo
+        Fecha
+        Tipo
+        Idioma
+        Lugar
+        Lista de palabras clave
+        Enlace
+        Resumen
+        */
+        //PUBLICACION 1
+        MiembroEnGrupo mg1=new MiembroEnGrupo(profesores.get(0), grupos.get(0), Rol.ADMINISTRADOR);
+        LocalDate fecha1= LocalDate.of(2020, 06, 24);
+        ArrayList<PalabraClave> palabras1 = new ArrayList<>();
+        palabras1.add(palabraClave1);
+        palabras1.add(palabraClave2);
+        palabras1.add(palabraClave3);
+        Publicacion publicacion1 = new Publicacion("Título 1",mg1, fecha1, tipos.get(0), idiomas.get(0), lugares.get(0), palabras1, "Enlace 1", "Resumen 1");
+        //PUBLICACION 1
+        
+        //PUBLICACION 2
+        ArrayList<PalabraClave> palabras2 = new ArrayList<>();
+        palabras2.add(palabraClave4);
+        palabras2.add(palabraClave5);
+        Publicacion publicacion2 = new Publicacion("Título 2", new MiembroEnGrupo(profesor2, grupo1, Rol.ADMINISTRADOR), LocalDate.of(2020, 06, 24), tipo2, idioma2, lugar2, palabras2, "Enlace 2", "Resumen 2");
+        //PUBLICACION 2
+        //PUBLICACION 3
+        MiembroEnGrupo mg3 = new MiembroEnGrupo(profesor2, grupo2, Rol.COLABORADOR);
+        LocalDate fecha3= LocalDate.of(2020, 06, 24);
+        ArrayList<PalabraClave> palabras3 = new ArrayList<>();
+        palabras3.add(palabraClave1);
+        palabras3.add(palabraClave3);
+        palabras3.add(palabraClave4);
+        Publicacion publicacion3 = new Publicacion("Título 3",mg3, fecha3 , tipos.get(0), idiomas.get(1), lugares.get(1), palabras3, "Enlace 3", "Resumen 3");
+        //PUBLICACION 3
+        //PUBLICACION 4
+        ArrayList<PalabraClave> palabras4 = new ArrayList<>();
+        palabras4.add(palabraClave1);
+        Publicacion publicacion4 = new Publicacion("Título 4", new MiembroEnGrupo(profesor4, grupo3, Rol.ADMINISTRADOR), LocalDate.of(2020, 06, 24), tipo4, idioma2, lugar5, palabras4, "Enlace 4", "Resumen 4");
+        //PUBLICACION 4
+        //PUBLICACION 5
+        ArrayList<PalabraClave> palabras5 = new ArrayList<>();
+        palabras5.add(palabraClave2);
+        palabras5.add(palabraClave3);
+        palabras5.add(palabraClave4);
+        Publicacion publicacion5 = new Publicacion("Título 5", new MiembroEnGrupo(profesor4, grupo5, Rol.COLABORADOR), LocalDate.of(2020, 06, 24), tipo5, idioma3, lugar5, palabras5, "Enlace 5", "Resumen 5");
+        //PUBLICACION 5
+        publicaciones.add(publicacion1);
+        publicaciones.add(publicacion2);
+        publicaciones.add(publicacion3);
+        publicaciones.add(publicacion4);
+        publicaciones.add(publicacion5);
+      
+        for(Publicacion p : publicaciones) {
+            p.mostrar();
+            System.out.println();
+        }
+
+      //</editor-fold>   
+     //<editor-fold defaultstate="collapsed" desc="Intefaz gráfica"> 
+         VentanaAMGrupo ventanaGrupo = new VentanaAMGrupo(null); //se instancia la ventana
+/*
+//        ventanaGrupo.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaGrupo.setVisible(true); //se hace visible la ventana
+        
+        VentanaAMAlumno ventanaAlumno = new VentanaAMAlumno(null); //se instancia la ventana
+//        ventanaAlumno.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaAlumno.setVisible(true); //se hace visible la ventana
+*/        
+        VentanaAMAlumno ventanaAlumno = new VentanaAMAlumno(null); //se instancia la ventana
+        VentanaAMProfesor ventanaProfesor = new VentanaAMProfesor(null); //se instancia la ventana
+//        ventanaProfesor.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaProfesor.setVisible(true); //se hace visible la ventana 
+        VentanaAIdioma ventanaIdioma = new VentanaAIdioma(null); //se instancia la ventana
+        
+        VentanaALugar ventanaLugar = new VentanaALugar(null); //se instancia la ventana
+        
+        VentanaAPalabraClave ventanaPalabraClave = new VentanaAPalabraClave(null); //se instancia la ventana
+        
+        VentanaATipo ventanaTipo = new VentanaATipo(null); //se instancia la ventana
+        
+        
+/*        
+        VentanaAIdioma ventanaIdioma = new VentanaAIdioma(null); //se instancia la ventana
+//        ventanaIdioma.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaIdioma.setVisible(true); //se hace visible la ventana                
+        
+//        VentanaALugar ventanaLugar = new VentanaALugar(null); //se instancia la ventana
+//        ventanaLugar.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaLugar.setVisible(true); //se hace visible la ventana                        
+        
+//        VentanaAPalabraClave ventanaPalabraClave = new VentanaAPalabraClave(null); //se instancia la ventana
+//        ventanaPalabraClave.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaPalabraClave.setVisible(true); //se hace visible la ventana                                
+        
+//        VentanaATipo ventanaTipo = new VentanaATipo(null); //se instancia la ventana
+//        ventanaTipo.setLocationRelativeTo(null); //se centra la ventana
+//        ventanaTipo.setVisible(true); //se hace visible la ventana   
+*/
+
+     //</editor-fold>
     }
 }
