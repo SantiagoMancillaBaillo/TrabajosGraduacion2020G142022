@@ -159,9 +159,7 @@ public class ControladorPrincipal {
         
         for(Autor a : autores)
             a.mostrar();
-        
-//        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR);
-        
+              
         //TIPOS DE PUBLICACION
         System.out.println("\n----Tipos de publicación----\n");
         Tipo tipo1 = new Tipo("Tipo 1");
@@ -266,7 +264,7 @@ public class ControladorPrincipal {
         Resumen
         */
         //PUBLICACION 1
-        MiembroEnGrupo mg1=new MiembroEnGrupo(profesores.get(0), grupos.get(0), Rol.ADMINISTRADOR);
+        MiembroEnGrupo mg1=new MiembroEnGrupo(autores.get(0), grupos.get(0), Rol.ADMINISTRADOR);
         LocalDate fecha1= LocalDate.of(2020, 06, 24);
         ArrayList<PalabraClave> palabras1 = new ArrayList<>();
         palabras1.add(palabraClave1);
