@@ -73,41 +73,94 @@ public class ControladorPrincipal {
             g.mostrar();
         //GRUPOS
         //ALUMNOS
+//        
+//
+//        alumnos.add(alumno1);
+//        alumnos.add(alumno2);
+//        alumnos.add(alumno3);
+//        alumnos.add(alumno4);
+//        alumnos.add(alumno5);
+        
+//        System.out.println("\n----Alumnos----\n");
+//        for(Alumno a : alumnos)
+//            a.mostrar();
+        //ALUMNOS
+        //PROFESORES
+//        
+        
+//
+//        profesores.add(profesor1);
+//        profesores.add(profesor2);
+//        profesores.add(profesor3);
+//        profesores.add(profesor4);
+//        profesores.add(profesor5);
+//        
+//        System.out.println("\n----Profesores----\n");
+//        for(Profesor p : profesores)
+//            p.mostrar();
+        //PROFESORES
+        
+        System.out.println("------------------AUTORES------------------");
         Alumno alumno1 = new Alumno("Nombre1","Apellido1",1,"Clave1","1");
         Alumno alumno2 = new Alumno("Nombre2","Apellido2",2,"Clave2","2");
         Alumno alumno3 = new Alumno("Nombre3","Apellido3",3,"Clave3","3");
         Alumno alumno4 = new Alumno("Nombre4","Apellido4",4,"Clave4","4");
         Alumno alumno5 = new Alumno("Nombre5","Apellido5",5,"Clave5","5");
-
-        alumnos.add(alumno1);
-        alumnos.add(alumno2);
-        alumnos.add(alumno3);
-        alumnos.add(alumno4);
-        alumnos.add(alumno5);
+        Autor alumno6 = new Alumno( "Nombre6", "Apellido6", 1, "Clave6", "6");
+        //dni repetido con un alumno
         
-        System.out.println("\n----Alumnos----\n");
-        for(Alumno a : alumnos)
-            a.mostrar();
-        //ALUMNOS
-        //PROFESORES
+        if (!autores.contains(alumno1))
+            autores.add(alumno1);
+        if (!autores.contains(alumno2))
+            autores.add(alumno2);
+        if (!autores.contains(alumno3))
+            autores.add(alumno3);
+        if (!autores.contains(alumno4))
+            autores.add(alumno4);
+        if (!autores.contains(alumno5))
+            autores.add(alumno5);
+        if (!autores.contains(alumno6))
+            autores.add(alumno6);
+        
         Profesor profesor1 = new Profesor("Nombre10", "Apellido10", 10, "Clave10", Cargo.TITULAR);
         Profesor profesor2 = new Profesor("Nombre20", "Apellido20", 20, "Clave20", Cargo.ASOCIADO);
         Profesor profesor3 = new Profesor("Nombre30", "Apellido30", 30, "Clave30", Cargo.ADJUNTO);
         Profesor profesor4 = new Profesor("Nombre40", "Apellido40", 40, "Clave40", Cargo.JTP);
         Profesor profesor5 = new Profesor("Nombre50", "Apellido50", 50, "Clave50", Cargo.ADG);
+        Autor profesor6 = new Profesor("Nombre60", "Apellido60", 10, "Clave60", Cargo.ADG); 
+        //dni repetido con otro profesor
+        Autor profesor7 = new Profesor("Nombre70", "Apellido70", 1, "Clave70", Cargo.ADG); 
+        //dni repetido con otro alumno
+        Autor alumno7 = new Alumno("Nombre7", "Apellido7", 50, "Clave7", "7");
+        //dni repetido con un profesor
+        Autor alumno8 = new Alumno("Nombre8", "Apellido8", 8, "Clave8", "6");
+        //cx repetido con un alumno
+        
+        if (!autores.contains(profesor1))
+            autores.add(profesor1);
+        if (!autores.contains(profesor2))
+            autores.add(profesor2);
+        if (!autores.contains(profesor3))
+            autores.add(profesor3);
+        if (!autores.contains(profesor4))
+            autores.add(profesor4);
+        if (!autores.contains(profesor5))
+            autores.add(profesor5);
+        if (!autores.contains(profesor6))
+            autores.add(profesor6);
+        
+        if (!autores.contains(profesor7))
+            autores.add(profesor7);
+        if (!autores.contains(alumno7))
+            autores.add(alumno7);
+        if (!autores.contains(alumno8))
+            autores.add(alumno8);
         
         
-
-        profesores.add(profesor1);
-        profesores.add(profesor2);
-        profesores.add(profesor3);
-        profesores.add(profesor4);
-        profesores.add(profesor5);
+        for(Autor a : autores)
+            a.mostrar();
         
-        System.out.println("\n----Profesores----\n");
-        for(Profesor p : profesores)
-            p.mostrar();
-        //PROFESORES
+//        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR);
         
         //TIPOS DE PUBLICACION
         System.out.println("\n----Tipos de publicación----\n");
