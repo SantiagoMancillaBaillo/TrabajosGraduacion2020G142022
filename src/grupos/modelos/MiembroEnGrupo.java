@@ -5,6 +5,7 @@
  */
 package grupos.modelos;
 
+import autores.modelos.Autor;
 import autores.modelos.Profesor;
 
 /**
@@ -12,18 +13,20 @@ import autores.modelos.Profesor;
  * @author Windows 10
  */
 public class MiembroEnGrupo {
-    private Profesor profesores;
+    private Autor autores;
     private Grupo grupos;
     private Rol rol;
-    
-    public MiembroEnGrupo (Profesor profesores, Grupo grupos, Rol rol){
-        this.profesores = profesores;
+       
+    public MiembroEnGrupo (Autor autores, Grupo grupos, Rol rol){
+        this.autores = autores;
         this.grupos = grupos;
         this.rol = rol;
     }
+    
+    
 
-    public Profesor getProfesores() {
-        return profesores;
+    public Autor getAutores() {
+        return autores;
     }
 
 //    public void setProfesores(Profesor profesores) {
@@ -46,13 +49,17 @@ public class MiembroEnGrupo {
 //        this.rol = rol;
 //    }
     public void mostrar(){
-        profesores.mostrar(1);
+        autores.mostrar();
         grupos.mostrar();
         System.out.println("Rol: " + rol);
     }
     
+    public void mostrar(String u){
+        grupos.mostrar();
+    }
+    
     public void mostrar(int x, int y){
-        profesores.mostrar(1);
+        autores.mostrar();
         System.out.println("Rol: " + rol);
     }
 }
