@@ -6,6 +6,8 @@
 package autores.modelos;
 
 import cargos.modelos.Cargo;
+import grupos.modelos.MiembroEnGrupo;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +19,7 @@ public class Profesor {
     private String nombres;
     private String clave;
     private Cargo cargo;
+    private ArrayList<MiembroEnGrupo> gruposMiembro;
     
     public Profesor (String nombres, String apellidos, String clave, int dni, Cargo cargo){
             this.nombres = nombres;
@@ -55,10 +58,22 @@ public class Profesor {
     public void asignarCargo(Cargo cargo){
         this.cargo = cargo;
     }
+
+    public ArrayList<MiembroEnGrupo> getGruposMiembro() {
+        return gruposMiembro;
+    }
+
+    public void setGruposMiembro(ArrayList<MiembroEnGrupo> gruposMiembro) {
+        this.gruposMiembro = gruposMiembro;
+    }
+    
     
     public void mostrar(){
-        System.out.println("\nProfesor: " + apellidos.toUpperCase() + ", " + nombres);
+        System.out.println("Nombre: " + apellidos.toUpperCase() + ", " + nombres);
         System.out.println("DNI: " + dni);
         System.out.println("Cargo: " + cargo);
+    }
+    public void mostrar(int x){
+        System.out.println("Autor: " + apellidos.toUpperCase() + ", " + nombres);
     }
 }
