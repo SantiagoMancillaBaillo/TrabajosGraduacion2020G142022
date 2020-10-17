@@ -5,6 +5,8 @@
  */
 package idiomas.modelos;
 
+import java.util.Objects;
+
 /**
  *
  * @author Windows 10
@@ -27,5 +29,31 @@ public class Idioma {
     public String toString() {
         return "\nIdioma: " + nombre ;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Idioma other = (Idioma) obj;
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        return true;
+    }
+    
     
 }
