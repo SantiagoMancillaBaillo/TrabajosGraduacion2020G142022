@@ -13,45 +13,42 @@ import java.util.ArrayList;
  *
  * @author Windows 10
  */
-public class Profesor {
-    private int dni;
-    private String apellidos; 
-    private String nombres;
-    private String clave;
+public class Profesor extends Autor {
+//    private int dni;
+//    private String apellidos; 
+//    private String nombres;
+//    private String clave
     private Cargo cargo;
     private ArrayList<MiembroEnGrupo> gruposMiembro;
     
-    public Profesor (String nombres, String apellidos, String clave, int dni, Cargo cargo){
-            this.nombres = nombres;
-            this.apellidos = apellidos;
-            this.clave = clave;
-            this.dni = dni;
+    public Profesor (String nombres, String apellidos, int dni, String clave, Cargo cargo){
+            super(nombres, apellidos, clave, dni);
             this.cargo = cargo;
     }
-    public String verNombres(){
-        return nombres;
-    }
-    public void asignarNombres(String nombres){
-        this.nombres = nombres;
-    }
-    public String verApellidos(){
-        return apellidos;
-    }
-    public void asignarApellidos(String apellidos){
-        this.apellidos = apellidos;
-    }
-    public String verClave(){
-        return clave;
-    }
-    public void asignarClave(String clave){
-        this.clave = clave;
-    }
-    public int verDni(){
-        return dni;
-    }
-    public void asignarDni(int dni){
-        this.dni = dni;
-    }
+//    public String verNombres(){
+//        return nombres;
+//    }
+//    public void asignarNombres(String nombres){
+//        this.nombres = nombres;
+//    }
+//    public String verApellidos(){
+//        return apellidos;
+//    }
+//    public void asignarApellidos(String apellidos){
+//        this.apellidos = apellidos;
+//    }
+//    public String verClave(){
+//        return clave;
+//    }
+//    public void asignarClave(String clave){
+//        this.clave = clave;
+//    }
+//    public int verDni(){
+//        return dni;
+//    }
+//    public void asignarDni(int dni){
+//        this.dni = dni;
+//    }
     public Cargo verCargo(){
         return cargo;
     }
@@ -67,13 +64,12 @@ public class Profesor {
         this.gruposMiembro = gruposMiembro;
     }
     
-    
+    @Override
     public void mostrar(){
-        System.out.println("Nombre: " + apellidos.toUpperCase() + ", " + nombres);
-        System.out.println("DNI: " + dni);
+        super.mostrar();
         System.out.println("Cargo: " + cargo);
     }
     public void mostrar(int x){
-        System.out.println("Autor: " + apellidos.toUpperCase() + ", " + nombres);
+        super.mostrar();
     }
 }
