@@ -6,6 +6,7 @@
 package principal.controladores;
 
 import autores.modelos.Alumno;
+import autores.modelos.Autor;
 import cargos.modelos.Cargo;
 import autores.modelos.Profesor;
 import autores.vistas.VentanaAMAlumno;
@@ -43,6 +44,7 @@ public class ControladorPrincipal {
         ArrayList<Idioma> idiomas = new ArrayList<>();
         ArrayList<PalabraClave> palabrasClaves = new ArrayList<>();
         ArrayList<Publicacion> publicaciones = new ArrayList<>();
+        ArrayList<Autor> autores = new ArrayList<>();
 
         //GRUPOS
         Grupo grupo1 = new Grupo("Grupo 1", "Descripción 1");
@@ -71,11 +73,11 @@ public class ControladorPrincipal {
             g.mostrar();
         //GRUPOS
         //ALUMNOS
-        Alumno alumno1 = new Alumno("Nombre1","Apellido1","Clave1",1, "1");
-        Alumno alumno2 = new Alumno("Nombre2","Apellido2","Clave2",2, "2");
-        Alumno alumno3 = new Alumno("Nombre3","Apellido3","Clave3",3, "3");
-        Alumno alumno4 = new Alumno("Nombre4","Apellido4","Clave4",4, "4");
-        Alumno alumno5 = new Alumno("Nombre5","Apellido5","Clave5",5, "5");
+        Alumno alumno1 = new Alumno("Nombre1","Apellido1",1,"Clave1","1");
+        Alumno alumno2 = new Alumno("Nombre2","Apellido2",2,"Clave2","2");
+        Alumno alumno3 = new Alumno("Nombre3","Apellido3",3,"Clave3","3");
+        Alumno alumno4 = new Alumno("Nombre4","Apellido4",4,"Clave4","4");
+        Alumno alumno5 = new Alumno("Nombre5","Apellido5",5,"Clave5","5");
 
         alumnos.add(alumno1);
         alumnos.add(alumno2);
@@ -88,11 +90,11 @@ public class ControladorPrincipal {
             a.mostrar();
         //ALUMNOS
         //PROFESORES
-        Profesor profesor1 = new Profesor("Nombre10", "Apellido10", "Clave10", 10, Cargo.TITULAR);
-        Profesor profesor2 = new Profesor("Nombre20", "Apellido20", "Clave20", 20, Cargo.ASOCIADO);
-        Profesor profesor3 = new Profesor("Nombre30", "Apellido30", "Clave30", 30, Cargo.ADJUNTO);
-        Profesor profesor4 = new Profesor("Nombre40", "Apellido40", "Clave40", 40, Cargo.JTP);
-        Profesor profesor5 = new Profesor("Nombre50", "Apellido50", "Clave50", 50, Cargo.ADG);
+        Profesor profesor1 = new Profesor("Nombre10", "Apellido10", 10, "Clave10", Cargo.TITULAR);
+        Profesor profesor2 = new Profesor("Nombre20", "Apellido20", 20, "Clave20", Cargo.ASOCIADO);
+        Profesor profesor3 = new Profesor("Nombre30", "Apellido30", 30, "Clave30", Cargo.ADJUNTO);
+        Profesor profesor4 = new Profesor("Nombre40", "Apellido40", 40, "Clave40", Cargo.JTP);
+        Profesor profesor5 = new Profesor("Nombre50", "Apellido50", 50, "Clave50", Cargo.ADG);
         
         
 
