@@ -18,7 +18,7 @@ public abstract class Autor {
     private String apellidos;
     private String clave;
     private int dni;
-    private ArrayList<MiembroEnGrupo> grupoMiembro;
+    private ArrayList<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
 
     public Autor(String nombres, String apellidos, String clave, int dni) {
         this.nombres = nombres;
@@ -73,12 +73,12 @@ public abstract class Autor {
         grupoMiembro.add(m);
     }
     
-    public void mostrarGrupo(){
-        for(MiembroEnGrupo i : grupoMiembro){
-            i.mostrar("t");
-        }
-            
-    }
+//    public void mostrarGrupo(){
+//        for(MiembroEnGrupo i : grupoMiembro){
+//            i.mostrar("t");
+//        }
+//            
+//    }
     
     public void mostrar(){
         System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
