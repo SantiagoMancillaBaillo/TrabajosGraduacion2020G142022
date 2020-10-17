@@ -5,9 +5,12 @@
  */
 package publicaciones.modelos;
 
+import grupos.modelos.MiembroEnGrupo;
 import idiomas.modelos.Idioma;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import lugares.modelos.Lugar;
 import palabrasclaves.modelos.PalabraClave;
 import tipos.modelos.Tipo;
@@ -18,13 +21,46 @@ import tipos.modelos.Tipo;
  */
 public class Publicacion {
     private String titulo;
+    private MiembroEnGrupo miembro;
     private LocalDate fechaPublicacion;
-    private String enlace;
-    private String resumen;
     private Tipo unTipo;
     private Idioma unIdioma;
     private Lugar unLugar;
-    ArrayList<PalabraClave> palClave = new ArrayList<>();
+    private ArrayList<PalabraClave> palClave; //= new ArrayList<>();
+    private String enlace;
+    private String resumen;
+    String patron = "dd/MM/yyyy";
+    
+
+    public Publicacion(String titulo, MiembroEnGrupo miembro, LocalDate fechaPublicacion, Tipo unTipo, Idioma unIdioma, Lugar unLugar, ArrayList<PalabraClave> palClave, String enlace, String resumen) {
+        this.titulo = titulo;
+        this.miembro = miembro;
+        this.fechaPublicacion = fechaPublicacion;
+        this.unTipo = unTipo;
+        this.unIdioma = unIdioma;
+        this.unLugar = unLugar;
+        this.palClave = palClave;
+        this.enlace = enlace;
+        this.resumen = resumen;
+    }
+
+
+        public void mostrar(){
+            System.out.println("-----------Publicación-----------");
+            System.out.println("Título: " + titulo);
+            miembro.mostrar();
+            System.out.println("Fecha de publicación: " + fechaPublicacion.format(DateTimeFormatter.ofPattern(patron)));
+            System.out.println("Tipo: " + unTipo.verTipo());
+            System.out.println("Idioma: " + unIdioma.verIdioma());
+            System.out.println("Lugar: " + unLugar.verLugar());
+            System.out.println(palClave);
+            System.out.println("Enlace: " + enlace);
+            System.out.println("Resumen: " + resumen);
+            System.out.println("---------------------------------");
+        }
+    
+
+    
     
     
 }
