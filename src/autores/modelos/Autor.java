@@ -5,8 +5,9 @@
  */
 package autores.modelos;
 
-//import grupos.modelos.Grupo;
+import grupos.modelos.Grupo;
 import grupos.modelos.MiembroEnGrupo;
+import grupos.modelos.Rol;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public abstract class Autor {
     private String apellidos;
     private String clave;
     private int dni;
+    
     private ArrayList<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
 
     public Autor(String nombres, String apellidos, String clave, int dni) {
@@ -26,6 +28,8 @@ public abstract class Autor {
         this.clave = clave;
         this.dni = dni;
     }
+    
+    
 
 //    public Autor(String nombres, String apellidos, String clave, int dni, ArrayList<MiembroEnGrupo> grupoMiembro) {
 //        this.nombres = nombres;
@@ -69,21 +73,34 @@ public abstract class Autor {
         this.dni = dni;
     }
     
-    public void agregarGrupo(MiembroEnGrupo m){
-        grupoMiembro.add(m);
+    public void agregarGrupo(Grupo g, Rol r){
+        MiembroEnGrupo m = new MiembroEnGrupo(this, g, r);
+        if(!grupoMiembro.contains(m)){
+        this.grupoMiembro.add(m);
+        Grupo gr = new Grupo(g.verNombre(),r.toString());
+        gr.agregarMiembro(this, r);
+        }
     }
     
-//    public void mostrarGrupo(){
-//        for(MiembroEnGrupo i : grupoMiembro){
-//            i.mostrar("t");
-//        }
-//            
-//    }
+    public void verGrupos(){
+        System.out.println("--------AUTOR--------");
+        System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
+        System.out.println("Grupos a los que pertenece: \n" );
+        for(MiembroEnGrupo i : grupoMiembro){
+            i.mostrar(1,1);
+        }
+        System.out.println("---------------------");
+    }
     
     public void mostrar(){
         System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
         System.out.println("DNI: " + this.dni);
         System.out.println("Miembro del grupo: " + this.grupoMiembro);
+    }
+    
+    public void mostrar(int x, int y, int z){
+        System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
+        System.out.println("DNI: " + this.dni);
     }
 
     @Override
@@ -101,7 +118,7 @@ public abstract class Autor {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass().getSuperclass() != obj.getClass().getSuperclass()) {
             return false;
         }
         final Autor other = (Autor) obj;
