@@ -45,6 +45,7 @@ public class ControladorPrincipal {
         ArrayList<PalabraClave> palabrasClaves = new ArrayList<>();
         ArrayList<Publicacion> publicaciones = new ArrayList<>();
         ArrayList<Autor> autores = new ArrayList<>();
+        ArrayList<MiembroEnGrupo> miembros = new ArrayList<>();
 
         //GRUPOS
         Grupo grupo1 = new Grupo("Grupo 1", "Descripción 1");
@@ -101,12 +102,12 @@ public class ControladorPrincipal {
         //PROFESORES
         
         System.out.println("------------------AUTORES------------------");
-        Alumno alumno1 = new Alumno("Nombre1","Apellido1",1,"Clave1","1");
-        Alumno alumno2 = new Alumno("Nombre2","Apellido2",2,"Clave2","2");
-        Alumno alumno3 = new Alumno("Nombre3","Apellido3",3,"Clave3","3");
-        Alumno alumno4 = new Alumno("Nombre4","Apellido4",4,"Clave4","4");
-        Alumno alumno5 = new Alumno("Nombre5","Apellido5",5,"Clave5","5");
-        Autor alumno6 = new Alumno( "Nombre6", "Apellido6", 1, "Clave6", "6");
+        Autor alumno1 = new Alumno("Nombre1","Apellido1","Clave1",1,"1");
+        Autor alumno2 = new Alumno("Nombre2","Apellido2","Clave2",2,"2");
+        Autor alumno3 = new Alumno("Nombre3","Apellido3","Clave3",3,"3");
+        Autor alumno4 = new Alumno("Nombre4","Apellido4","Clave4",4,"4");
+        Autor alumno5 = new Alumno("Nombre5","Apellido5","Clave5",5,"6");
+        Autor alumno6 = new Alumno( "Nombre6", "Apellido6", "Clave6", 1, "6");
         //dni repetido con un alumno
         
         if (!autores.contains(alumno1))
@@ -122,18 +123,18 @@ public class ControladorPrincipal {
         if (!autores.contains(alumno6))
             autores.add(alumno6);
         
-        Profesor profesor1 = new Profesor("Nombre10", "Apellido10", 10, "Clave10", Cargo.TITULAR);
-        Profesor profesor2 = new Profesor("Nombre20", "Apellido20", 20, "Clave20", Cargo.ASOCIADO);
-        Profesor profesor3 = new Profesor("Nombre30", "Apellido30", 30, "Clave30", Cargo.ADJUNTO);
-        Profesor profesor4 = new Profesor("Nombre40", "Apellido40", 40, "Clave40", Cargo.JTP);
-        Profesor profesor5 = new Profesor("Nombre50", "Apellido50", 50, "Clave50", Cargo.ADG);
+        Autor profesor1 = new Profesor("Nombre10", "Apellido10", 10, "Clave10", Cargo.TITULAR);
+        Autor profesor2 = new Profesor("Nombre20", "Apellido20", 20, "Clave20", Cargo.ASOCIADO);
+        Autor profesor3 = new Profesor("Nombre30", "Apellido30", 30, "Clave30", Cargo.ADJUNTO);
+        Autor profesor4 = new Profesor("Nombre40", "Apellido40", 40, "Clave40", Cargo.JTP);
+        Autor profesor5 = new Profesor("Nombre50", "Apellido50", 50, "Clave50", Cargo.ADG);
         Autor profesor6 = new Profesor("Nombre60", "Apellido60", 10, "Clave60", Cargo.ADG); 
         //dni repetido con otro profesor
         Autor profesor7 = new Profesor("Nombre70", "Apellido70", 1, "Clave70", Cargo.ADG); 
         //dni repetido con otro alumno
-        Autor alumno7 = new Alumno("Nombre7", "Apellido7", 50, "Clave7", "7");
+        Autor alumno7 = new Alumno("Nombre7", "Apellido7", "Clave7", 50, "7");
         //dni repetido con un profesor
-        Autor alumno8 = new Alumno("Nombre8", "Apellido8", 8, "Clave8", "6");
+        Autor alumno8 = new Alumno("Nombre8", "Apellido8", "Clave8", 8, "6");
         //cx repetido con un alumno
         
         if (!autores.contains(profesor1))
@@ -159,6 +160,34 @@ public class ControladorPrincipal {
         
         for(Autor a : autores)
             a.mostrar();
+        
+//        MiembroEnGrupo m1 = new MiembroEnGrupo (grupo2, Rol.COLABORADOR);
+//        MiembroEnGrupo m2 = new MiembroEnGrupo (grupo3, Rol.ADMINISTRADOR);
+//        MiembroEnGrupo m3 = new MiembroEnGrupo (profesor1 ,Rol.ADMINISTRADOR);
+//        MiembroEnGrupo m4 = new MiembroEnGrupo (profesor1 ,Rol.COLABORADOR);
+//        MiembroEnGrupo m5 = new MiembroEnGrupo (alumno1 ,Rol.COLABORADOR);
+        
+        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR);
+        profesor1.agregarGrupo(grupo3, Rol.ADMINISTRADOR);
+        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR); //Grupo y rol repetido, (no debería mostrarse al llamar al método "verGrupos()"
+        profesor2.agregarGrupo(grupo6, Rol.COLABORADOR);
+        profesor3.agregarGrupo(grupo4, Rol.ADMINISTRADOR);
+        
+        
+        grupo1.agregarMiembro(profesor1 ,Rol.ADMINISTRADOR);
+        grupo1.agregarMiembro(profesor1 ,Rol.COLABORADOR); //autor repetido
+        grupo1.agregarMiembro(alumno1 ,Rol.COLABORADOR);
+        grupo2.agregarMiembro(profesor3, Rol.COLABORADOR);
+        grupo2.agregarMiembro(profesor1, Rol.COLABORADOR);
+        
+        
+        grupo1.verMiembros();
+        grupo2.verMiembros();
+        profesor1.verGrupos();
+        profesor2.verGrupos();
+        profesor3.verGrupos();
+//        System.out.println("\n----MOSTRAR GRUPOS----\n");
+        
               
         //TIPOS DE PUBLICACION
         System.out.println("\n----Tipos de publicación----\n");
@@ -313,7 +342,13 @@ public class ControladorPrincipal {
 
       //</editor-fold>   
      //<editor-fold defaultstate="collapsed" desc="Intefaz gráfica"> 
-         VentanaAMGrupo ventanaGrupo = new VentanaAMGrupo(null); //se instancia la ventana
+//         VentanaAMGrupo ventanaGrupo = new VentanaAMGrupo(null); //se instancia la ventana
+//         VentanaAMAlumno ventanaAlumno = new VentanaAMAlumno(null); //se instancia la ventana
+//         VentanaAMProfesor ventanaProfesor = new VentanaAMProfesor(null); //se instancia la ventana
+//         VentanaAIdioma ventanaIdioma = new VentanaAIdioma(null); //se instancia la ventana
+//         VentanaALugar ventanaLugar = new VentanaALugar(null); //se instancia la ventana
+//         VentanaAPalabraClave ventanaPalabraClave = new VentanaAPalabraClave(null); //se instancia la ventana
+//         VentanaATipo ventanaTipo = new VentanaATipo(null); //se instancia la ventana
 /*
 //        ventanaGrupo.setLocationRelativeTo(null); //se centra la ventana
 //        ventanaGrupo.setVisible(true); //se hace visible la ventana
@@ -322,17 +357,10 @@ public class ControladorPrincipal {
 //        ventanaAlumno.setLocationRelativeTo(null); //se centra la ventana
 //        ventanaAlumno.setVisible(true); //se hace visible la ventana
 */        
-        VentanaAMAlumno ventanaAlumno = new VentanaAMAlumno(null); //se instancia la ventana
-        VentanaAMProfesor ventanaProfesor = new VentanaAMProfesor(null); //se instancia la ventana
+        
 //        ventanaProfesor.setLocationRelativeTo(null); //se centra la ventana
 //        ventanaProfesor.setVisible(true); //se hace visible la ventana 
-        VentanaAIdioma ventanaIdioma = new VentanaAIdioma(null); //se instancia la ventana
         
-        VentanaALugar ventanaLugar = new VentanaALugar(null); //se instancia la ventana
-        
-        VentanaAPalabraClave ventanaPalabraClave = new VentanaAPalabraClave(null); //se instancia la ventana
-        
-        VentanaATipo ventanaTipo = new VentanaATipo(null); //se instancia la ventana
         
         
 /*        
