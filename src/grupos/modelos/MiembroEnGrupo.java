@@ -6,7 +6,8 @@
 package grupos.modelos;
 
 import autores.modelos.Autor;
-import autores.modelos.Profesor;
+//import autores.modelos.Profesor;
+import java.util.Objects;
 
 /**
  *
@@ -23,40 +24,91 @@ public class MiembroEnGrupo {
         this.rol = rol;
     }
     
+    public MiembroEnGrupo (Grupo grupos, Rol rol){
+        this.grupos = grupos;
+        this.rol = rol;
+    }
+    
+    public MiembroEnGrupo (Autor autores, Rol rol){
+        this.autores = autores;
+        this.rol = rol;
+    }
+     
+    
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.grupos);
+        return hash;
+    }
     
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MiembroEnGrupo other = (MiembroEnGrupo) obj;
+        if (!Objects.equals(this.grupos, other.grupos)) {
+            return false;
+        }
+            
+        if (!Objects.equals(this.autores, other.autores)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     public Autor getAutores() {
         return autores;
     }
 
-//    public void setProfesores(Profesor profesores) {
-//        this.profesores = profesores;
-//    }
+    public void setAutores(Autor autores) {
+        this.autores = autores;
+    }
 
     public Grupo getGrupos() {
         return grupos;
     }
 
-//    public void setGrupos(Grupo grupos) {
-//        this.grupos = grupos;
-//    }
+    public void setGrupos(Grupo grupos) {
+        this.grupos = grupos;
+    }
 
     public Rol getRol() {
         return rol;
     }
 
-//    public void setRol(Rol rol) {
-//        this.rol = rol;
-//    }
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+    
+    
+    
     public void mostrar(){
         autores.mostrar();
         grupos.mostrar();
         System.out.println("Rol: " + rol);
     }
     
+    public void mostrar(int x){
+        autores.mostrar(1, 1, 1);
+        System.out.println("Rol: " + rol.toString());
+    }
+    
     public void mostrar(int x, int y){
-        autores.mostrar();
-        System.out.println("Rol: " + rol);
+        grupos.mostrar();
+        System.out.println("Rol: " + rol.toString() + "\n");
     }
 }
 
