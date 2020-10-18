@@ -5,6 +5,8 @@
  */
 package grupos.modelos;
 
+import autores.modelos.Autor;
+//import grupos.modelos.Rol;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -34,24 +36,39 @@ public class Grupo {
         this.descripcion = descrip;
     }
 
-    public ArrayList<MiembroEnGrupo> verMiembros() {
-        return miembros;
-    }
-
-//    public void setMiembros(ArrayList<MiembroEnGrupo> miembros) {
-//        this.miembros = miembros;
-//    }
     
+    
+    public void agregarMiembro(Autor a, Rol r){
+        MiembroEnGrupo m = new MiembroEnGrupo(a,r);
+        if(!miembros.contains(m)){
+        this.miembros.add(m);
+//        Autor au = new Autor(a.getNombres());
+        }
+    }
+    
+    public void verMiembros(){
+        System.out.println("-------GRUPO-------");
+        System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
+        System.out.println("Miembros: ");
+        for(MiembroEnGrupo i : miembros){
+            i.mostrar(1);
+        }
+        System.out.println("-------------------");
+    }
     
     
     public void mostrar(){
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
     }
+    
+    public void mostrar(int x){
+        System.out.println("Grupo: "+ nombre);
+    }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.nombre);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.nombre);
         return hash;
     }
 
@@ -72,6 +89,8 @@ public class Grupo {
         }
         return true;
     }
+
+    
     
     
 }
