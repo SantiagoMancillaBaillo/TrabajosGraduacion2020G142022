@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Alumno extends Autor {
     private String cx; 
     
-    public Alumno(String nombres, String apellidos, int dni, String clave, String cx){
+    public Alumno(String nombres, String apellidos, String clave, int dni, String cx){
             super(nombres, apellidos, clave, dni);
 //            this.nombres = nombres;
 //            this.apellidos = apellidos;
@@ -55,23 +55,28 @@ public class Alumno extends Autor {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.cx);
-        return hash;
+        return super.hashCode() + Objects.hashCode(this.cx);
+//        int hash = 3;
+//        hash = 53 * hash + Objects.hashCode(this.cx);
+//        hash = 53* hash + this.getDni();
+//        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if(super.equals(obj))
             return true;
-        }
-        if (obj == null) {
-            return false;
-        }
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final Alumno other = (Alumno) obj;
+        
         if (!Objects.equals(this.cx, other.cx)) {
             return false;
         }
@@ -80,10 +85,11 @@ public class Alumno extends Autor {
     
     
     
+    
     @Override
     public void mostrar(){
         System.out.println("....Alumno....");
-        super.mostrar();
+        super.mostrar(1,1,1);
         System.out.println("CX: " + this.cx);
         System.out.println("..............");
     }
