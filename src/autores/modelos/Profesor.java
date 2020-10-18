@@ -66,7 +66,7 @@ public class Profesor extends Autor {
     @Override
     public void mostrar(){
         System.out.println("....Profesor....");
-        super.mostrar();
+        super.mostrar(1,1,1);
         System.out.println("Cargo: " + cargo);
         System.out.println("................");
     }
