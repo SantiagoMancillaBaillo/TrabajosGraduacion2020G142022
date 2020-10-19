@@ -27,7 +27,7 @@ public class Idioma {
     
     @Override
     public String toString() {
-        return "\nIdioma: " + nombre ;
+        return "Idioma: " + nombre ;
     }
 
     @Override
