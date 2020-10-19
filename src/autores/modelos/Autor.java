@@ -27,19 +27,7 @@ public abstract class Autor {
         this.apellidos = apellidos;
         this.clave = clave;
         this.dni = dni;
-    }
-    
-    
-
-//    public Autor(String nombres, String apellidos, String clave, int dni, ArrayList<MiembroEnGrupo> grupoMiembro) {
-//        this.nombres = nombres;
-//        this.apellidos = apellidos;
-//        this.clave = clave;
-//        this.dni = dni;
-//        this.grupoMiembro = grupoMiembro;
-//    }
-    
-    
+    }   
 
     public String getNombres() {
         return this.nombres;
@@ -77,31 +65,39 @@ public abstract class Autor {
         MiembroEnGrupo m = new MiembroEnGrupo(this, g, r);
         if(!grupoMiembro.contains(m)){
         this.grupoMiembro.add(m);
-        Grupo gr = new Grupo(g.verNombre(),r.toString());
-        gr.agregarMiembro(this, r);
+        g.agregarMiembro(this, r);
         }
     }
-    
-    public void verGrupos(){
+     
+    public void quitarGrupo (Grupo grupo){
+        MiembroEnGrupo m = new MiembroEnGrupo(this, grupo , null);
+        if(grupoMiembro.contains(m)){
+            int pos = grupoMiembro.indexOf(m);
+        grupoMiembro.remove(pos);
+        grupo.quitarMiembro(this);
+        }
+    }
+    public void mostrar(){
         System.out.println("--------AUTOR--------");
         System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
-        System.out.println("Grupos a los que pertenece: \n" );
-        for(MiembroEnGrupo i : grupoMiembro){
-            i.mostrar(1,1);
-        }
-        System.out.println("---------------------");
     }
-    
-    public void mostrar(){
+    public void mostrar(String u){
         System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
         System.out.println("DNI: " + this.dni);
-        System.out.println("Miembro del grupo: " + this.grupoMiembro);
     }
+    
+    
+//    [nro_documento] Apellido, Nombres por ejemplo: [30759167] Gimenez, María José
     
     public void mostrar(int x, int y, int z){
-        System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
-        System.out.println("DNI: " + this.dni);
+//        System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
+//        System.out.println("DNI: " + this.dni);
+        System.out.println("Grupos a los que pertenece: \n" );
+        for(MiembroEnGrupo i : grupoMiembro){
+            i.mostrar2();
+        }
     }
+    
 
     @Override
     public int hashCode() {
