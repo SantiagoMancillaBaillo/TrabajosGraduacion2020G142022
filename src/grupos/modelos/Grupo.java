@@ -6,7 +6,6 @@
 package grupos.modelos;
 
 import autores.modelos.Autor;
-//import grupos.modelos.Rol;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -39,25 +38,53 @@ public class Grupo {
     
     
     public void agregarMiembro(Autor a, Rol r){
-        MiembroEnGrupo m = new MiembroEnGrupo(a,r);
+        MiembroEnGrupo m = new MiembroEnGrupo(a,this,r);
         if(!miembros.contains(m)){
         this.miembros.add(m);
-//        Autor au = new Autor(a.getNombres());
+        a.agregarGrupo(this, r);
         }
     }
     
-    public void verMiembros(){
+    public void mostrar(){
         System.out.println("-------GRUPO-------");
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
-        System.out.println("Miembros: ");
+        System.out.println("Miembros: \n");
         for(MiembroEnGrupo i : miembros){
-            i.mostrar(1);
+            i.mostrarg();
+            System.out.println(" ");
         }
         System.out.println("-------------------");
     }
     
+    public boolean tieneMiembros(){
+        boolean tieneMiembros = false;
+        if (miembros.isEmpty()){
+            tieneMiembros = false;
+            System.out.println("NO TIENE MIEMBROS");
+        }
+        else{
+            tieneMiembros = true;
+            System.out.println("TIENE MIEMBROS");
+        }
+        return tieneMiembros;
+    }
     
-    public void mostrar(){
+    public void quitarMiembro (Autor miembro){
+        
+        MiembroEnGrupo m = new MiembroEnGrupo(miembro, this, null);
+        if(miembros.contains(m)){
+            int pos = miembros.indexOf(m);
+        miembros.remove(pos);
+        miembro.quitarGrupo(this);
+        }
+    }
+    
+//    public boolean esSuperAdministrador(){
+//        boolean superAdministrador = false;
+//        
+//    }
+    
+    public void mostrar(String u){
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
     }
     
