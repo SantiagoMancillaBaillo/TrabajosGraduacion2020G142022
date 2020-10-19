@@ -27,7 +27,7 @@ public class Tipo {
     
     @Override
     public String toString() {
-        return "\nTipo: " + nombre ;
+        return "Tipo: " + nombre ;
     }
 
     @Override
