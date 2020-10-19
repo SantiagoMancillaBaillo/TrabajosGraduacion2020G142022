@@ -10,7 +10,6 @@ import idiomas.modelos.Idioma;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import lugares.modelos.Lugar;
 import palabrasclaves.modelos.PalabraClave;
 import tipos.modelos.Tipo;
@@ -48,7 +47,7 @@ public class Publicacion {
         public void mostrar(){
             System.out.println("-----------Publicación-----------");
             System.out.println("Título: " + titulo);
-            miembro.mostrar();
+            miembro.mostrar("t",1);
             System.out.println("Fecha de publicación: " + fechaPublicacion.format(DateTimeFormatter.ofPattern(patron)));
             System.out.println("Tipo: " + unTipo.verTipo());
             System.out.println("Idioma: " + unIdioma.verIdioma());
