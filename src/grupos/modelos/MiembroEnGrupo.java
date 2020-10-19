@@ -23,19 +23,8 @@ public class MiembroEnGrupo {
         this.grupos = grupos;
         this.rol = rol;
     }
-    
-    public MiembroEnGrupo (Grupo grupos, Rol rol){
-        this.grupos = grupos;
-        this.rol = rol;
-    }
-    
-    public MiembroEnGrupo (Autor autores, Rol rol){
-        this.autores = autores;
-        this.rol = rol;
-    }
      
-    
-    
+       
     
     @Override
     public int hashCode() {
@@ -95,19 +84,33 @@ public class MiembroEnGrupo {
     
     
     
-    public void mostrar(){
-        autores.mostrar();
-        grupos.mostrar();
-        System.out.println("Rol: " + rol);
+    public void mostrarg(){
+        autores.mostrar("t");
+//        grupos.mostrar("t");
+        System.out.println("Rol: " + rol.toString());
+    }
+    
+    public void mostrar(String u, int x){
+        System.out.println("____________________");
+        autores.mostrar("t");
+        grupos.mostrar(1);
+        System.out.println("Rol: " + rol.toString());
+        System.out.println("____________________");
     }
     
     public void mostrar(int x){
         autores.mostrar(1, 1, 1);
-        System.out.println("Rol: " + rol.toString());
+        grupos.mostrar("t");
+//        System.out.println("Rol: " + rol.toString());
     }
     
     public void mostrar(int x, int y){
-        grupos.mostrar();
+        grupos.mostrar("t");
+//        System.out.println("Rol: " + rol.toString() + "\n");
+    }
+    
+    public void mostrar2 (){
+        grupos.mostrar(1);
         System.out.println("Rol: " + rol.toString() + "\n");
     }
 }
