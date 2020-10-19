@@ -27,7 +27,7 @@ public class PalabraClave {
     
     @Override
     public String toString() {
-        return "\nPalabraClave: " + nombre ;
+        return "PalabraClave: " + nombre ;
     }
 
     @Override
