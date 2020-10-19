@@ -9,23 +9,16 @@ import autores.modelos.Alumno;
 import autores.modelos.Autor;
 import cargos.modelos.Cargo;
 import autores.modelos.Profesor;
-import autores.vistas.VentanaAMAlumno;
-import autores.vistas.VentanaAMProfesor;
 import grupos.modelos.Grupo;
 import grupos.modelos.MiembroEnGrupo;
 import grupos.modelos.Rol;
-import grupos.vistas.VentanaAMGrupo;
 import idiomas.modelos.Idioma;
-import idiomas.vistas.VentanaAIdioma;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import lugares.modelos.Lugar;
-import lugares.vistas.VentanaALugar;
 import palabrasclaves.modelos.PalabraClave;
-import palabrasclaves.vistas.VentanaAPalabraClave;
 import publicaciones.modelos.Publicacion;
 import tipos.modelos.Tipo;
-import tipos.vistas.VentanaATipo;
 
 
 /**
@@ -54,6 +47,7 @@ public class ControladorPrincipal {
         Grupo grupo4 = new Grupo("Grupo 4", "Descripción 4");
         Grupo grupo5 = new Grupo("Grupo 5", "Descripción 5");
         Grupo grupo6 = new Grupo("Grupo 1", "Descripción 5");
+        Grupo grupo7 = new Grupo("Super Administradores", "Grupo para los super administradores");
         
         if (!grupos.contains(grupo1))
             grupos.add(grupo1);
@@ -67,39 +61,14 @@ public class ControladorPrincipal {
             grupos.add(grupo5);
         if (!grupos.contains(grupo6))
             grupos.add(grupo6);
+        if (!grupos.contains(grupo7))
+            grupos.add(grupo7);
       
         
         System.out.println("----Grupos----");
         for(Grupo g : grupos)
             g.mostrar();
         //GRUPOS
-        //ALUMNOS
-//        
-//
-//        alumnos.add(alumno1);
-//        alumnos.add(alumno2);
-//        alumnos.add(alumno3);
-//        alumnos.add(alumno4);
-//        alumnos.add(alumno5);
-        
-//        System.out.println("\n----Alumnos----\n");
-//        for(Alumno a : alumnos)
-//            a.mostrar();
-        //ALUMNOS
-        //PROFESORES
-//        
-        
-//
-//        profesores.add(profesor1);
-//        profesores.add(profesor2);
-//        profesores.add(profesor3);
-//        profesores.add(profesor4);
-//        profesores.add(profesor5);
-//        
-//        System.out.println("\n----Profesores----\n");
-//        for(Profesor p : profesores)
-//            p.mostrar();
-        //PROFESORES
         
         System.out.println("------------------AUTORES------------------");
         Autor alumno1 = new Alumno("Nombre1","Apellido1","Clave1",1,"1");
@@ -160,34 +129,49 @@ public class ControladorPrincipal {
         
         for(Autor a : autores)
             a.mostrar();
+        System.out.println("");
         
-//        MiembroEnGrupo m1 = new MiembroEnGrupo (grupo2, Rol.COLABORADOR);
-//        MiembroEnGrupo m2 = new MiembroEnGrupo (grupo3, Rol.ADMINISTRADOR);
-//        MiembroEnGrupo m3 = new MiembroEnGrupo (profesor1 ,Rol.ADMINISTRADOR);
-//        MiembroEnGrupo m4 = new MiembroEnGrupo (profesor1 ,Rol.COLABORADOR);
-//        MiembroEnGrupo m5 = new MiembroEnGrupo (alumno1 ,Rol.COLABORADOR);
+
+        System.out.println("----------Prueba boolean------------");
+        grupo1.tieneMiembros();
         
         profesor1.agregarGrupo(grupo2, Rol.COLABORADOR);
         profesor1.agregarGrupo(grupo3, Rol.ADMINISTRADOR);
         profesor1.agregarGrupo(grupo2, Rol.COLABORADOR); //Grupo y rol repetido, (no debería mostrarse al llamar al método "verGrupos()"
-        profesor2.agregarGrupo(grupo6, Rol.COLABORADOR);
+        profesor1.agregarGrupo(grupo2, Rol.ADMINISTRADOR);//Grupo repetido (no debería mostrarse al llamar al método "verGrupos()"
+        profesor2.agregarGrupo(grupo5, Rol.COLABORADOR);
         profesor3.agregarGrupo(grupo4, Rol.ADMINISTRADOR);
         
-        
+         
         grupo1.agregarMiembro(profesor1 ,Rol.ADMINISTRADOR);
         grupo1.agregarMiembro(profesor1 ,Rol.COLABORADOR); //autor repetido
         grupo1.agregarMiembro(alumno1 ,Rol.COLABORADOR);
+        grupo1.agregarMiembro(alumno1, Rol.ADMINISTRADOR);//autor repetido
         grupo2.agregarMiembro(profesor3, Rol.COLABORADOR);
         grupo2.agregarMiembro(profesor1, Rol.COLABORADOR);
         
         
-        grupo1.verMiembros();
-        grupo2.verMiembros();
-        profesor1.verGrupos();
-        profesor2.verGrupos();
-        profesor3.verGrupos();
-//        System.out.println("\n----MOSTRAR GRUPOS----\n");
+        System.out.println("----------Prueba boolean------------");
+        grupo1.tieneMiembros();
         
+        
+        profesor1.quitarGrupo(grupo2);
+        grupo1.quitarMiembro(profesor1);
+
+          System.out.println("----------GRUPOS Y MIEMBROS------------");
+          
+        grupo1.mostrar();
+        grupo2.mostrar();
+        grupo3.mostrar();
+        grupo4.mostrar();
+        grupo5.mostrar();
+        
+        profesor1.mostrar();
+        profesor2.mostrar();
+        profesor3.mostrar();
+        alumno1.mostrar();
+//        System.out.println("\n----MOSTRAR GRUPOS----\n");
+
               
         //TIPOS DE PUBLICACION
         System.out.println("\n----Tipos de publicación----\n");
@@ -317,11 +301,13 @@ public class ControladorPrincipal {
         palabras3.add(palabraClave4);
         Publicacion publicacion3 = new Publicacion("Título 3",mg3, fecha3 , tipos.get(0), idiomas.get(1), lugares.get(1), palabras3, "Enlace 3", "Resumen 3");
         //PUBLICACION 3
+        
         //PUBLICACION 4
         ArrayList<PalabraClave> palabras4 = new ArrayList<>();
         palabras4.add(palabraClave1);
         Publicacion publicacion4 = new Publicacion("Título 4", new MiembroEnGrupo(profesor4, grupo3, Rol.ADMINISTRADOR), LocalDate.of(2020, 06, 24), tipo4, idioma2, lugar5, palabras4, "Enlace 4", "Resumen 4");
         //PUBLICACION 4
+        
         //PUBLICACION 5
         ArrayList<PalabraClave> palabras5 = new ArrayList<>();
         palabras5.add(palabraClave2);
