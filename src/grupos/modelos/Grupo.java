@@ -56,7 +56,7 @@ public class Grupo {
         System.out.println("-------GRUPO-------");
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
         if(!miembros.isEmpty()){
-        System.out.println("Miembros: \n");
+        System.out.println("\nMiembros: \n");
         verMiembros();
         }
         System.out.println("-------------------");
