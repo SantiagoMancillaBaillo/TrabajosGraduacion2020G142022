@@ -21,13 +21,13 @@ public class Profesor extends Autor {
     private Cargo cargo;
     private ArrayList<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
     
-    public Profesor (String nombres, String apellidos, int dni, String clave, Cargo cargo){
-            super(nombres, apellidos, clave, dni);
+    public Profesor (int dni, String apellidos, String nombres, String clave, Cargo cargo){
+            super(dni, apellidos, nombres, clave);
             this.cargo = cargo;
     }
 
-    public Profesor(String nombres, String apellidos, String clave, int dni) {
-        super(nombres, apellidos, clave, dni);
+    public Profesor(int dni, String apellidos, String nombres, String clave) {
+        super(dni, apellidos, nombres, clave);
     }
 
     public Cargo verCargo(){
