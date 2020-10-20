@@ -18,12 +18,12 @@ public class Alumno extends Autor {
     
     private ArrayList<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
     
-    public Alumno(String nombres, String apellidos, String clave, int dni, String cx){
-            super(nombres, apellidos, clave, dni);
+    public Alumno(int dni, String apellidos, String nombres, String clave, String cx){
+            super(dni, apellidos, nombres, clave);
             this.cx = cx;
     }
     public Alumno (String nombres, String apellidos, String clave, int dni){
-        super(nombres, apellidos, clave, dni);
+        super(dni, apellidos, nombres, clave);
     }
     
     public String verCx(){
