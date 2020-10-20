@@ -40,8 +40,15 @@ public class Grupo {
     public void agregarMiembro(Autor a, Rol r){
         MiembroEnGrupo m = new MiembroEnGrupo(a,this,r);
         if(!miembros.contains(m)){
-        this.miembros.add(m);
+            if(this.esSuperAdministradores() == true){
+                MiembroEnGrupo m1 = new MiembroEnGrupo(a,this,Rol.ADMINISTRADOR);
+                this.miembros.add(m1);
+            }
+            else{
+                this.miembros.add(m);
+            }
         a.agregarGrupo(this, r);
+        
         }
     }
     
@@ -79,10 +86,18 @@ public class Grupo {
         }
     }
     
-//    public boolean esSuperAdministrador(){
-//        boolean superAdministrador = false;
-//        
-//    }
+    public boolean esSuperAdministradores(){
+        boolean superAdministrador = false;
+        if (nombre == "Super Administradores"){
+            superAdministrador = true;
+//            System.out.println("GRUPO '"+ nombre +"' ES GRUPO DE SUPER ADMINISTRADORES");
+        }
+        else{
+            superAdministrador = false;
+//            System.out.println("GRUPO '"+ nombre +"' NO ES GRUPO DE SUPER ADMINISTRADORES");
+        }
+        return superAdministrador;
+    }
     
     public void mostrar(String u){
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
