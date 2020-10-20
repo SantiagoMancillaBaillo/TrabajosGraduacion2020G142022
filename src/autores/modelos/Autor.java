@@ -22,11 +22,11 @@ public abstract class Autor {
     
     private ArrayList<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
 
-    public Autor(String nombres, String apellidos, String clave, int dni) {
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.clave = clave;
+    public Autor(int dni, String apellidos, String nombres, String clave) {
         this.dni = dni;
+        this.apellidos = apellidos;
+        this.nombres = nombres;
+        this.clave = clave;
     }   
 
     public String getNombres() {
@@ -95,7 +95,7 @@ public abstract class Autor {
     
     public void mostrar(int x, int y, int z){
         if(!grupoMiembro.isEmpty()){
-        System.out.println("Grupos a los que pertenece: \n" );
+        System.out.println("\nGrupos a los que pertenece: \n" );
         verGrupos();
         }
     }
