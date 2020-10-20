@@ -55,12 +55,18 @@ public class Grupo {
     public void mostrar(){
         System.out.println("-------GRUPO-------");
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
+        if(!miembros.isEmpty()){
         System.out.println("Miembros: \n");
+        verMiembros();
+        }
+        System.out.println("-------------------");
+    }
+    
+    public void verMiembros(){
         for(MiembroEnGrupo i : miembros){
             i.mostrarg();
             System.out.println(" ");
         }
-        System.out.println("-------------------");
     }
     
     public boolean tieneMiembros(){
