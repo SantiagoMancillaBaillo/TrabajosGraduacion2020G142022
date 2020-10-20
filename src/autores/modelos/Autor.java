@@ -64,7 +64,13 @@ public abstract class Autor {
     public void agregarGrupo(Grupo g, Rol r){
         MiembroEnGrupo m = new MiembroEnGrupo(this, g, r);
         if(!grupoMiembro.contains(m)){
-        this.grupoMiembro.add(m);
+            if(g.esSuperAdministradores() == true){
+            MiembroEnGrupo m1 = new MiembroEnGrupo(this, g, Rol.ADMINISTRADOR);
+            this.grupoMiembro.add(m1);
+        }
+            else{
+                this.grupoMiembro.add(m);
+            }
         g.agregarMiembro(this, r);
         }
     }
@@ -87,15 +93,33 @@ public abstract class Autor {
     }
     
     
-//    [nro_documento] Apellido, Nombres por ejemplo: [30759167] Gimenez, María José
-    
     public void mostrar(int x, int y, int z){
-//        System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
-//        System.out.println("DNI: " + this.dni);
+        if(!grupoMiembro.isEmpty()){
         System.out.println("Grupos a los que pertenece: \n" );
+        verGrupos();
+        }
+    }
+    
+    public void verGrupos(){
         for(MiembroEnGrupo i : grupoMiembro){
             i.mostrar2();
         }
+    }
+    
+    public boolean esSuperAdministrador(){
+        boolean superAdmin = false;
+        Grupo g = new Grupo("Super Administradores", "Grupo para los super administradores");
+        for(MiembroEnGrupo i : grupoMiembro){
+            if(i.getGrupos().equals(g)){
+                superAdmin = true;
+//                System.out.println(this.apellidos + this.nombres +" ES SUPER ADMINISTRADOR");
+            }
+            else{
+                superAdmin = false;
+//                System.out.println(this.apellidos + this.nombres +" NO ES SUPER ADMINISTRADOR");
+            }
+        }
+        return superAdmin;
     }
     
 
