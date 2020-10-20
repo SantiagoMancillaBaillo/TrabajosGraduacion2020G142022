@@ -30,6 +30,7 @@ public class MiembroEnGrupo {
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.grupos);
+        hash = 23 * hash + Objects.hashCode(this.autores);
         return hash;
     }
     
