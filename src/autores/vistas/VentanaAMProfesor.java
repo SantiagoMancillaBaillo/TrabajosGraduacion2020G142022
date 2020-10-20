@@ -153,7 +153,7 @@ public class VentanaAMProfesor extends JDialog {
         String nombres = this.txtNombres.getText().trim();
         Cargo cargo = ((ModeloComboCargos)this.comboCargo.getModel()).obtenerCargo();
         String clave = new String(this.passClave.getPassword());
-        Profesor profesor = new Profesor(nombres, apellidos, dni, clave, cargo);
+        Profesor profesor = new Profesor(dni, apellidos, nombres, clave, cargo);
         profesores.add(profesor);
         for(Profesor p : this.profesores)
             p.mostrar();
