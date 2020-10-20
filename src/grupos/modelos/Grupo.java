@@ -55,7 +55,7 @@ public class Grupo {
     public void mostrar(){
         System.out.println("-------GRUPO-------");
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
-        if(!miembros.isEmpty()){
+        if(tieneMiembros() == true){
         System.out.println("\nMiembros: \n");
         verMiembros();
         }
@@ -73,11 +73,9 @@ public class Grupo {
         boolean tieneMiembros = false;
         if (miembros.isEmpty()){
             tieneMiembros = false;
-            System.out.println("NO TIENE MIEMBROS");
         }
         else{
             tieneMiembros = true;
-            System.out.println("TIENE MIEMBROS");
         }
         return tieneMiembros;
     }
