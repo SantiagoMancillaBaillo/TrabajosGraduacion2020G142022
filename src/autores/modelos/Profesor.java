@@ -41,7 +41,7 @@ public class Profesor extends Autor {
     @Override
     public void mostrar(/*String u*/){
         System.out.println("....Profesor....");
-        System.out.println("Autor: ["+ super.getDni()+"] " + super.getApellidos().toUpperCase() + ", " + super.getNombres());
+        System.out.println("Autor: ["+ super.verDni()+"] " + super.verApellidos().toUpperCase() + ", " + super.verNombres());
 //        System.out.println("DNI: " + super.getDni());
         System.out.println("Cargo: " + this.verCargo());
         super.mostrar(1,1,1);

@@ -29,35 +29,35 @@ public abstract class Autor {
         this.clave = clave;
     }   
 
-    public String getNombres() {
+    public String verNombres() {
         return this.nombres;
     }
 
-    public void setNombres(String nombres) {
+    public void asignarNombres(String nombres) {
         this.nombres = nombres;
     }
 
-    public String getApellidos() {
+    public String verApellidos() {
         return this.apellidos;
     }
 
-    public void setApellidos(String apellidos) {
+    public void asignarApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
-    public String getClave() {
+    public String verClave() {
         return this.clave;
     }
 
-    public void setClave(String clave) {
+    public void asignarClave(String clave) {
         this.clave = clave;
     }
 
-    public int getDni() {
+    public int verDni() {
         return this.dni;
     }
 
-    public void setDni(int dni) {
+    public void asignarDni(int dni) {
         this.dni = dni;
     }
     
@@ -110,7 +110,7 @@ public abstract class Autor {
         boolean superAdmin = false;
         Grupo g = new Grupo("Super Administradores", "Grupo para los super administradores");
         for(MiembroEnGrupo i : grupoMiembro){
-            if(i.getGrupos().equals(g)){
+            if(i.verGrupos().equals(g)){
                 superAdmin = true;
 //                System.out.println(this.apellidos + this.nombres +" ES SUPER ADMINISTRADOR");
             }

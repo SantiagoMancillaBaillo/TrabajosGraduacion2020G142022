@@ -59,27 +59,27 @@ public class MiembroEnGrupo {
     
     
     
-    public Autor getAutores() {
+    public Autor verAutores() {
         return autores;
     }
 
-    public void setAutores(Autor autores) {
+    public void asignarAutores(Autor autores) {
         this.autores = autores;
     }
 
-    public Grupo getGrupos() {
+    public Grupo verGrupos() {
         return grupos;
     }
 
-    public void setGrupos(Grupo grupos) {
+    public void asignarGrupos(Grupo grupos) {
         this.grupos = grupos;
     }
 
-    public Rol getRol() {
+    public Rol verRol() {
         return rol;
     }
 
-    public void setRol(Rol rol) {
+    public void asignarRol(Rol rol) {
         this.rol = rol;
     }
     
