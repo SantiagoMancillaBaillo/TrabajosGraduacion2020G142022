@@ -47,7 +47,7 @@ public class ControladorPrincipal {
         Grupo grupo4 = new Grupo("Grupo 4", "Descripción 4");
         Grupo grupo5 = new Grupo("Grupo 5", "Descripción 5");
         Grupo grupo6 = new Grupo("Grupo 1", "Descripción 5");
-        Grupo grupo7 = new Grupo("Super Administradores", "Grupo para los super administradores");
+//        Grupo grupo7 = new Grupo("Super Administradores", "Grupo para los super administradores");
         
         if (!grupos.contains(grupo1))
             grupos.add(grupo1);
@@ -61,8 +61,8 @@ public class ControladorPrincipal {
             grupos.add(grupo5);
         if (!grupos.contains(grupo6))
             grupos.add(grupo6);
-        if (!grupos.contains(grupo7))
-            grupos.add(grupo7);
+//        if (!grupos.contains(grupo7))
+//            grupos.add(grupo7);
       
         
         System.out.println("----Grupos----");
@@ -105,7 +105,7 @@ public class ControladorPrincipal {
         //dni repetido con un profesor
         Autor alumno8 = new Alumno("Nombre8", "Apellido8", "Clave8", 8, "6");
         //cx repetido con un alumno
-        
+              
         if (!autores.contains(profesor1))
             autores.add(profesor1);
         if (!autores.contains(profesor2))
@@ -125,7 +125,7 @@ public class ControladorPrincipal {
             autores.add(alumno7);
         if (!autores.contains(alumno8))
             autores.add(alumno8);
-        
+
         
         for(Autor a : autores)
             a.mostrar();
@@ -135,14 +135,6 @@ public class ControladorPrincipal {
         System.out.println("----------Prueba boolean------------");
         grupo1.tieneMiembros();
         
-        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR);
-        profesor1.agregarGrupo(grupo3, Rol.ADMINISTRADOR);
-        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR); //Grupo y rol repetido, (no debería mostrarse al llamar al método "verGrupos()"
-        profesor1.agregarGrupo(grupo2, Rol.ADMINISTRADOR);//Grupo repetido (no debería mostrarse al llamar al método "verGrupos()"
-        profesor2.agregarGrupo(grupo5, Rol.COLABORADOR);
-        profesor3.agregarGrupo(grupo4, Rol.ADMINISTRADOR);
-        
-         
         grupo1.agregarMiembro(profesor1 ,Rol.ADMINISTRADOR);
         grupo1.agregarMiembro(profesor1 ,Rol.COLABORADOR); //autor repetido
         grupo1.agregarMiembro(alumno1 ,Rol.COLABORADOR);
@@ -151,7 +143,18 @@ public class ControladorPrincipal {
         grupo2.agregarMiembro(profesor1, Rol.COLABORADOR);
         
         
-        System.out.println("----------Prueba boolean------------");
+        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR);
+        profesor1.agregarGrupo(grupo3, Rol.ADMINISTRADOR);
+        profesor1.agregarGrupo(grupo2, Rol.COLABORADOR); //Grupo y rol repetido, (no debería mostrarse al llamar al método "verGrupos()"
+        profesor1.agregarGrupo(grupo2, Rol.ADMINISTRADOR);//Grupo repetido (no debería mostrarse al llamar al método "verGrupos()"
+        profesor2.agregarGrupo(grupo5, Rol.COLABORADOR);
+        profesor3.agregarGrupo(grupo4, Rol.ADMINISTRADOR);
+        
+        
+        
+         
+        System.out.println("----------Prueba booleans------------");
+        System.out.println("----------grupo1 tieneMiembros?------------");
         grupo1.tieneMiembros();
         
         
@@ -170,9 +173,42 @@ public class ControladorPrincipal {
         profesor2.mostrar();
         profesor3.mostrar();
         alumno1.mostrar();
+        
+        
 //        System.out.println("\n----MOSTRAR GRUPOS----\n");
 
               
+        Grupo grupo7 = new Grupo("Super Administradores", "Grupo para los super administradores"); //grupo para los super administradores
+        if (!grupos.contains(grupo7))
+            grupos.add(grupo7);
+        grupo7.agregarMiembro(profesor1, Rol.COLABORADOR);
+        
+        profesor3.agregarGrupo(grupo7, Rol.COLABORADOR);
+        profesor1.agregarGrupo(grupo7, Rol.COLABORADOR);
+        
+        
+        grupo7.mostrar();
+        profesor1.mostrar();
+        profesor3.mostrar();
+        
+        
+        System.out.println("----------profesor1 es super admin?------------");
+        System.out.println(profesor1.esSuperAdministrador());
+        System.out.println("----------profesor3 es super admin?------------");
+        System.out.println(profesor3.esSuperAdministrador());
+        System.out.println("----------alumno1 es super admin?------------");
+        System.out.println(alumno1.esSuperAdministrador());
+        System.out.println("----------alumno2 es super admin?------------");
+        System.out.println(alumno2.esSuperAdministrador());
+        
+        
+        System.out.println("----------grupo 7 es de super admins?------------");
+        System.out.println(grupo7.esSuperAdministradores());
+        System.out.println("----------grupo1 es de super admins?------------");
+        System.out.println(grupo1.esSuperAdministradores());
+        System.out.println("----------grupo2 es de super admins?------------");
+        System.out.println(grupo2.esSuperAdministradores());
+
         //TIPOS DE PUBLICACION
         System.out.println("\n----Tipos de publicación----\n");
         Tipo tipo1 = new Tipo("Tipo 1");
