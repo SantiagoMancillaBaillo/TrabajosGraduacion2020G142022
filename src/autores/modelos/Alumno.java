@@ -64,7 +64,7 @@ public class Alumno extends Autor {
     }
      
     @Override
-    public void mostrar(/*String u*/){
+    public void mostrar(){
         System.out.println("....Alumno....");
         System.out.println("Autor: ["+ super.verDni()+"] " + super.verApellidos().toUpperCase() + ", " + super.verNombres());
 //        System.out.println("DNI: " + super.getDni());

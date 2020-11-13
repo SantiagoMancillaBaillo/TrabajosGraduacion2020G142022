@@ -5,7 +5,6 @@
  */
 package autores.modelos;
 
-import cargos.modelos.Cargo;
 import grupos.modelos.MiembroEnGrupo;
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public class Profesor extends Autor {
 
 //[nro_documento] Apellido, Nombres por ejemplo: [30759167] Gimenez, María José
     @Override
-    public void mostrar(/*String u*/){
+    public void mostrar(){
         System.out.println("....Profesor....");
         System.out.println("Autor: ["+ super.verDni()+"] " + super.verApellidos().toUpperCase() + ", " + super.verNombres());
 //        System.out.println("DNI: " + super.getDni());
