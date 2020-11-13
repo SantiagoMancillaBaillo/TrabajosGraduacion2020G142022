@@ -6,7 +6,7 @@
 package autores.vistas;
 
 import autores.modelos.Profesor;
-import cargos.modelos.Cargo;
+import autores.modelos.Cargo;
 import java.awt.Dialog;
 import java.util.ArrayList;
 import javax.swing.JDialog;
