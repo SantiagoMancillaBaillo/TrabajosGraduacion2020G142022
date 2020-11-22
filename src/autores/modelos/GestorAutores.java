@@ -65,22 +65,34 @@ public class GestorAutores implements IGestorAutores {
 
     @Override
     public String modificarAutor(Autor autor, String apellidos, String nombres, Cargo cargo, String clave, String claveRepetida) {
-        Autor p = new Profesor(autor.verDni(), apellidos, nombres, clave, cargo);
-        for(Autor a : autores){
-            if(autores.contains(autor) && (apellidos != null && !apellidos.isBlank()) && (nombres != null && !nombres.isBlank()) && (cargo != null)){
-                
-                p.asignarApellidos(apellidos);
-                p.asignarNombres(nombres);
-                p.asignarClave(clave);
-//                p.asignarCargo(cargo);
-                
+        if(apellidos!=null&&!apellidos.isBlank()&&nombres!=null&&!nombres.isBlank()&&cargo!=null&&clave.equals(claveRepetida)) {
+            if(existeEsteAutor(autor)){
+                Profesor p = new Profesor(autor.verDni(), apellidos, nombres, clave, cargo);
+                autores.set(autores.indexOf(autor), p);
+                profesores.set(autores.indexOf(autor), p);
+                return AmodMENSAJE_EXITO;
             }
+            else
+                return AmodMENSAJE_NO_EXISTE;
         }
+        else
+            return AodMENSAJE_ERROR;
     }
 
     @Override
     public String modificarAutor(Autor autor, String apellidos, String nombres, String cx, String clave, String claveRepetida) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if ((apellidos != null && !apellidos.isBlank()) && (nombres != null && !nombres.isBlank()) && (cx != null && !cx.isBlank()) && (clave != null && !clave.isBlank() && clave.equals(claveRepetida)) && (claveRepetida != null && !claveRepetida.isBlank())){
+            if(existeEsteAutor(autor)){
+                Alumno al = new Alumno(autor.verDni(), apellidos, nombres, clave, cx);
+                autores.set(autores.indexOf(autor), al);
+                alumnos.set(autores.indexOf(autor), al);
+                return AmodMENSAJE_EXITO;
+            }
+            else
+                return AmodMENSAJE_NO_EXISTE;
+        }
+        else
+            return AodMENSAJE_ERROR;
     }
 
     @Override
@@ -100,12 +112,18 @@ public class GestorAutores implements IGestorAutores {
     public Autor verAutor(int dni) {
         Alumno al = new Alumno (dni, null, null, null, null);
         Profesor p = new Profesor (dni, null, null, null, null);
-            for(Autor a : autores)
-                if(p.verDni() == a.verDni() || al.verDni() == a.verDni()){
+            for(Autor a : autores){
+                if(p.verDni() == a.verDni()){
                     System.out.println("DNI ENCONTRADO:" + a.verDni());
                     a.mostrar();
                     return a;
                 }
+                if(al.verDni() == a.verDni()){
+                    System.out.println("DNI ENCONTRADO:" + a.verDni());
+                    a.mostrar();
+                    return a;
+                }
+            }
             return null;
     }
 
@@ -139,5 +157,4 @@ public class GestorAutores implements IGestorAutores {
     }
 
 
-    
 }
