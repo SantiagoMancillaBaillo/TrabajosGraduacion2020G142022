@@ -86,6 +86,7 @@ public abstract class Autor {
     public void mostrar(){
         System.out.println("--------AUTOR--------");
         System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
+        this.mostrar(1, 1, 1);
     }
     public void mostrar(String u){
         System.out.println("Autor: " + this.apellidos.toUpperCase() + ", " + this.nombres);
@@ -95,14 +96,14 @@ public abstract class Autor {
     
     public void mostrar(int x, int y, int z){
         if(!grupoMiembro.isEmpty()){
-//        System.out.println("\nGrupos a los que pertenece: \n" );
-//        verGrupos();
+        System.out.println("\nGrupos a los que pertenece: \n" );
+        verGrupos();
         }
     }
     
     public void verGrupos(){
         for(MiembroEnGrupo i : grupoMiembro){
-//            i.mostrar2();
+            i.mostrar2();
         }
     }
     
