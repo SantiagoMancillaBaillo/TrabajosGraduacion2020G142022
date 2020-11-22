@@ -9,14 +9,21 @@ import autores.modelos.Autor;
 import autores.modelos.Cargo;
 import autores.modelos.GestorAutores;
 import grupos.modelos.Grupo;
-import grupos.modelos.MiembroEnGrupo;
 import grupos.modelos.Rol;
+import idiomas.modelos.GestorIdiomas;
 import idiomas.modelos.Idioma;
-import java.time.LocalDate;
+import interfaces.IGestorAutores;
+import interfaces.IGestorIdiomas;
+import interfaces.IGestorLugares;
+import interfaces.IGestorPalabrasClaves;
+import interfaces.IGestorTipos;
 import java.util.ArrayList;
+import lugares.modelos.GestorLugares;
 import lugares.modelos.Lugar;
+import palabrasclaves.modelos.GestorPalabrasClaves;
 import palabrasclaves.modelos.PalabraClave;
 import publicaciones.modelos.Publicacion;
+import tipos.modelos.GestorTipos;
 import tipos.modelos.Tipo;
 
 
@@ -63,26 +70,82 @@ public class ControladorPrincipal {
         for(Grupo g : grupos)
             g.mostrar();
         
+//        System.out.println("------------------AUTORES------------------");
+        IGestorAutores autor = GestorAutores.crear();
+        IGestorLugares lugar = GestorLugares.crear();
+        IGestorIdiomas idioma = GestorIdiomas.crear();
+        IGestorTipos tipo = GestorTipos.crear();
+        IGestorPalabrasClaves palabraClave = GestorPalabrasClaves.crear();
+        
+        System.out.println("------------------INGRESO DE AUTORES------------------");
+        System.out.println(autor.nuevoAutor(10, "Apellido10", "Nombre10", Cargo.TITULAR, "Clave10", "Clave10"));
+        System.out.println(autor.nuevoAutor(20, "Apellido20", "Nombre20", Cargo.ASOCIADO, "Clave20", "Clave20"));
+        System.out.println(autor.nuevoAutor(10, "Apellido10", "Nombre10", Cargo.TITULAR, "Clave10", "Clave10"));//PROF REPETIDO
+        System.out.println(autor.nuevoAutor(1, "Apellido1", "Nombre1", "cx1", "Clave1", "Clave1"));
+        System.out.println(autor.nuevoAutor(1, "Apellido1", "Nombre1", "cx1", "Clave1", "Clave1"));//ALUM REPETIDO
+        System.out.println(autor.nuevoAutor(10, "Apellido2", "Nombre2", "cx2", "Clave2", "Clave2"));//DNI REPETIDO CON PROF
+        System.out.println(autor.nuevoAutor(1, "Apellido1", "Nombre1", Cargo.ADG, "Clave1", "Clave1"));//DNI REPETIDO CON ALUM
+        System.out.println(autor.nuevoAutor(1, "", "Nombre1", "cx1", "Clave1", "Clave1"));//datos vacios
+        System.out.println(autor.nuevoAutor(20, "Apellido20", "Nombre20", Cargo.ASOCIADO, null, "Clave20"));//datos nulos
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("------------------INGRESO DE IDIOMAS------------------");
+        System.out.println(idioma.nuevoIdioma("Ingles"));
+        System.out.println(idioma.nuevoIdioma("Ingles"));//REPETIDO
+        System.out.println(idioma.nuevoIdioma("español"));
+        System.out.println(idioma.nuevoIdioma(""));//VACIO
+        System.out.println(idioma.nuevoIdioma(null));//NULO
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("------------------INGRESO DE TIPOS------------------");
+        System.out.println(tipo.nuevoTipo("tipo1"));
+        System.out.println(tipo.nuevoTipo("tipo1"));//REPETIDO
+        System.out.println(tipo.nuevoTipo("tipo2"));
+        System.out.println(tipo.nuevoTipo(""));//VACIO
+        System.out.println(tipo.nuevoTipo(null));//NULO
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("------------------INGRESO DE LUGARES------------------");
+        System.out.println(lugar.nuevoLugar("lugar1"));
+        System.out.println(lugar.nuevoLugar("lugar1"));//REPETIDO
+        System.out.println(lugar.nuevoLugar("lugar2"));
+        System.out.println(lugar.nuevoLugar(""));//VACIO
+        System.out.println(lugar.nuevoLugar(null));//NULO
+        System.out.println("------------------------------------------------------");
+        
+        System.out.println("------------------INGRESO DE PALABRAS CLAVE------------------");
+        System.out.println(palabraClave.nuevaPalabraClave("pc1"));
+        System.out.println(palabraClave.nuevaPalabraClave("pc1"));//REPETIDO
+        System.out.println(palabraClave.nuevaPalabraClave("pc2"));
+        System.out.println(palabraClave.nuevaPalabraClave(""));//VACIO
+        System.out.println(palabraClave.nuevaPalabraClave(null));//NULO
+        System.out.println("------------------------------------------------------");
+        
         System.out.println("------------------AUTORES------------------");
-        GestorAutores a = GestorAutores.crear();
+        autor.verAutores();
+        System.out.println("------------------ALUMNOS------------------");
+        autor.verAlumnos();
+        System.out.println("------------------PROFESORES------------------");
+        autor.verProfesores();
         
-        System.out.println(a.nuevoAutor(10, "Apellido10", "Nombre10", Cargo.TITULAR, "Clave10", "Clave10"));
-        System.out.println(a.nuevoAutor(20, "Apellido20", "Nombre20", Cargo.ASOCIADO, "Clave20", "Clave20"));
-        System.out.println(a.nuevoAutor(10, "Apellido10", "Nombre10", Cargo.TITULAR, "Clave10", "Clave10"));//PROF REPETIDO
-        System.out.println(a.nuevoAutor(1, "Apellido1", "Nombre1", "cx1", "Clave1", "Clave1"));
-        System.out.println(a.nuevoAutor(1, "Apellido1", "Nombre1", "cx1", "Clave1", "Clave1"));//ALUM REPETIDO
-        System.out.println(a.nuevoAutor(10, "Apellido2", "Nombre2", "cx2", "Clave2", "Clave2"));//DNI REPETIDO CON PROF
-        System.out.println(a.nuevoAutor(1, "Apellido1", "Nombre1", Cargo.ADG, "Clave1", "Clave1"));//DNI REPETIDO CON ALUM
-        System.out.println(a.nuevoAutor(1, "", "Nombre1", "cx1", "Clave1", "Clave1"));//datos vacios
-        System.out.println(a.nuevoAutor(20, "Apellido20", "Nombre20", Cargo.ASOCIADO, null, "Clave20"));//datos nulos
+        idioma.verIdiomas();
+        
+        lugar.verLugares();
+        
+        tipo.verTipos();
+        
+        palabraClave.verPalabrasClaves();
+        
+        idioma.verIdioma("español");
+        lugar.verLugar("lugar1");
+        tipo.verTipo("tipo1");
+        palabraClave.verPalabraClave("pc2");
         
         
-        a.verAutores();
-        a.verAlumnos();
-        a.verProfesores();
+        autor.verAutor(10);
+        autor.verAutor(1);
         
-        a.verAutor(10);
-        a.verAutor(1);
+        
         
         
         
@@ -184,6 +247,8 @@ public class ControladorPrincipal {
         if (!grupos.contains(grupo7))
             grupos.add(grupo7);
 //        grupo7.agregarMiembro(profesor1, Rol.COLABORADOR);
+        autor.verAutor(1).agregarGrupo(grupo7, Rol.COLABORADOR);
+        autor.verAutor(1);
         grupo7.mostrar();
 
         /*
@@ -202,101 +267,101 @@ public class ControladorPrincipal {
 //        System.out.println(alumno1.esSuperAdministrador());
 
         /*Main parte 3*/
-        System.out.println("------------------TIPOS------------------");
-        Tipo tipo1 = new Tipo("Tipo 1");
-        Tipo tipo2 = new Tipo("Tipo 2");
-        Tipo tipo3 = new Tipo("Tipo 3");
-        Tipo tipo4 = new Tipo("Tipo 4");
-        Tipo tipo5 = new Tipo("Tipo 5");
-        Tipo tipo6 = new Tipo("Tipo 1"); //nombre repetido
+//        System.out.println("------------------TIPOS------------------");
+//        Tipo tipo1 = new Tipo("Tipo 1");
+//        Tipo tipo2 = new Tipo("Tipo 2");
+//        Tipo tipo3 = new Tipo("Tipo 3");
+//        Tipo tipo4 = new Tipo("Tipo 4");
+//        Tipo tipo5 = new Tipo("Tipo 5");
+//        Tipo tipo6 = new Tipo("Tipo 1"); //nombre repetido
+//        
+//        if (!tipos.contains(tipo1))
+//            tipos.add(tipo1);
+//        if (!tipos.contains(tipo2))
+//            tipos.add(tipo2);
+//        if (!tipos.contains(tipo3))
+//            tipos.add(tipo3);
+//        if (!tipos.contains(tipo4))
+//            tipos.add(tipo4);
+//        if (!tipos.contains(tipo5))
+//            tipos.add(tipo5);
+//        if (!tipos.contains(tipo6))
+//            tipos.add(tipo6);
+//        
+//        for(Tipo t : tipos)
+//            System.out.println(t);
         
-        if (!tipos.contains(tipo1))
-            tipos.add(tipo1);
-        if (!tipos.contains(tipo2))
-            tipos.add(tipo2);
-        if (!tipos.contains(tipo3))
-            tipos.add(tipo3);
-        if (!tipos.contains(tipo4))
-            tipos.add(tipo4);
-        if (!tipos.contains(tipo5))
-            tipos.add(tipo5);
-        if (!tipos.contains(tipo6))
-            tipos.add(tipo6);
+//        System.out.println("------------------LUGARES------------------");
+//        Lugar lugar1 = new Lugar("Lugar 1");
+//        Lugar lugar2 = new Lugar("Lugar 2");
+//        Lugar lugar3 = new Lugar("Lugar 3");
+//        Lugar lugar4 = new Lugar("Lugar 4");
+//        Lugar lugar5 = new Lugar("Lugar 5");
+//        Lugar lugar6 = new Lugar("Lugar 1"); //nombre repetido
+//        
+//        if (!lugares.contains(lugar1))
+//            lugares.add(lugar1);
+//        if (!lugares.contains(lugar2))
+//            lugares.add(lugar2);
+//        if (!lugares.contains(lugar3))
+//            lugares.add(lugar3);
+//        if (!lugares.contains(lugar4))
+//            lugares.add(lugar4);
+//        if (!lugares.contains(lugar5))
+//            lugares.add(lugar5);
+//        if (!lugares.contains(lugar6))
+//            lugares.add(lugar6);
+//        
+//        for(Lugar l : lugares)
+//            System.out.println(l);
         
-        for(Tipo t : tipos)
-            System.out.println(t);
-        
-        System.out.println("------------------LUGARES------------------");
-        Lugar lugar1 = new Lugar("Lugar 1");
-        Lugar lugar2 = new Lugar("Lugar 2");
-        Lugar lugar3 = new Lugar("Lugar 3");
-        Lugar lugar4 = new Lugar("Lugar 4");
-        Lugar lugar5 = new Lugar("Lugar 5");
-        Lugar lugar6 = new Lugar("Lugar 1"); //nombre repetido
-        
-        if (!lugares.contains(lugar1))
-            lugares.add(lugar1);
-        if (!lugares.contains(lugar2))
-            lugares.add(lugar2);
-        if (!lugares.contains(lugar3))
-            lugares.add(lugar3);
-        if (!lugares.contains(lugar4))
-            lugares.add(lugar4);
-        if (!lugares.contains(lugar5))
-            lugares.add(lugar5);
-        if (!lugares.contains(lugar6))
-            lugares.add(lugar6);
-        
-        for(Lugar l : lugares)
-            System.out.println(l);
-        
-        System.out.println("------------------IDIOMAS------------------");
-        Idioma idioma1 = new Idioma("Idioma 1");
-        Idioma idioma2 = new Idioma("Idioma 2");
-        Idioma idioma3 = new Idioma("Idioma 3");
-        Idioma idioma4 = new Idioma("Idioma 4");
-        Idioma idioma5 = new Idioma("Idioma 5");
-        Idioma idioma6 = new Idioma("Idioma 1"); //nombre repetido
-        
-        if (!idiomas.contains(idioma1))
-            idiomas.add(idioma1);
-        if (!idiomas.contains(idioma2))
-            idiomas.add(idioma2);
-        if (!idiomas.contains(idioma3))
-            idiomas.add(idioma3);
-        if (!idiomas.contains(idioma4))
-            idiomas.add(idioma4);
-        if (!idiomas.contains(idioma5))
-            idiomas.add(idioma5);
-        if (!idiomas.contains(idioma6))
-            idiomas.add(idioma6);
-        
-        for(Idioma i : idiomas)
-            System.out.println(i);        
+//        System.out.println("------------------IDIOMAS------------------");
+//        Idioma idioma1 = new Idioma("Idioma 1");
+//        Idioma idioma2 = new Idioma("Idioma 2");
+//        Idioma idioma3 = new Idioma("Idioma 3");
+//        Idioma idioma4 = new Idioma("Idioma 4");
+//        Idioma idioma5 = new Idioma("Idioma 5");
+//        Idioma idioma6 = new Idioma("Idioma 1"); //nombre repetido
+//        
+//        if (!idiomas.contains(idioma1))
+//            idiomas.add(idioma1);
+//        if (!idiomas.contains(idioma2))
+//            idiomas.add(idioma2);
+//        if (!idiomas.contains(idioma3))
+//            idiomas.add(idioma3);
+//        if (!idiomas.contains(idioma4))
+//            idiomas.add(idioma4);
+//        if (!idiomas.contains(idioma5))
+//            idiomas.add(idioma5);
+//        if (!idiomas.contains(idioma6))
+//            idiomas.add(idioma6);
+//        
+//        for(Idioma i : idiomas)
+//            System.out.println(i);        
        
-        System.out.println("------------------PALABRAS CLAVE------------------");
-        PalabraClave palabraClave1 = new PalabraClave("PalabraClave1");
-        PalabraClave palabraClave2 = new PalabraClave("PalabraClave2");
-        PalabraClave palabraClave3 = new PalabraClave("PalabraClave3");
-        PalabraClave palabraClave4 = new PalabraClave("PalabraClave4");
-        PalabraClave palabraClave5 = new PalabraClave("PalabraClave5");
-        PalabraClave palabraClave6 = new PalabraClave("PalabraClave1"); //nombre repetido
-        
-        if (!palabrasClaves.contains(palabraClave1))
-            palabrasClaves.add(palabraClave1);
-        if (!palabrasClaves.contains(palabraClave2))
-            palabrasClaves.add(palabraClave2);
-        if (!palabrasClaves.contains(palabraClave3))
-            palabrasClaves.add(palabraClave3);
-        if (!palabrasClaves.contains(palabraClave4))
-            palabrasClaves.add(palabraClave4);
-        if (!palabrasClaves.contains(palabraClave5))
-            palabrasClaves.add(palabraClave5);
-        if (!palabrasClaves.contains(palabraClave6))
-            palabrasClaves.add(palabraClave6);
-        
-        for(PalabraClave pc : palabrasClaves)
-            System.out.println(pc);  
+//        System.out.println("------------------PALABRAS CLAVE------------------");
+//        PalabraClave palabraClave1 = new PalabraClave("PalabraClave1");
+//        PalabraClave palabraClave2 = new PalabraClave("PalabraClave2");
+//        PalabraClave palabraClave3 = new PalabraClave("PalabraClave3");
+//        PalabraClave palabraClave4 = new PalabraClave("PalabraClave4");
+//        PalabraClave palabraClave5 = new PalabraClave("PalabraClave5");
+//        PalabraClave palabraClave6 = new PalabraClave("PalabraClave1"); //nombre repetido
+//        
+//        if (!palabrasClaves.contains(palabraClave1))
+//            palabrasClaves.add(palabraClave1);
+//        if (!palabrasClaves.contains(palabraClave2))
+//            palabrasClaves.add(palabraClave2);
+//        if (!palabrasClaves.contains(palabraClave3))
+//            palabrasClaves.add(palabraClave3);
+//        if (!palabrasClaves.contains(palabraClave4))
+//            palabrasClaves.add(palabraClave4);
+//        if (!palabrasClaves.contains(palabraClave5))
+//            palabrasClaves.add(palabraClave5);
+//        if (!palabrasClaves.contains(palabraClave6))
+//            palabrasClaves.add(palabraClave6);
+//        
+//        for(PalabraClave pc : palabrasClaves)
+//            System.out.println(pc);  
         
 //        System.out.println("------------------PUBLICACIONES------------------");
 //          //PUBLICACION 1
