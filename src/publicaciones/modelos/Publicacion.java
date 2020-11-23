@@ -62,6 +62,33 @@ public class Publicacion {
             System.out.println("---------------------------------");
         }
 
+    public String verTitulo() {
+        return titulo;
+    }
+
+    public MiembroEnGrupo verMiembro() {
+        return miembro;
+    }
+
+    public Tipo verTipo() {
+        return unTipo;
+    }
+
+    public Idioma verIdioma() {
+        return unIdioma;
+    }
+
+    public Lugar verLugar() {
+        return unLugar;
+    }
+
+    public ArrayList<PalabraClave> verPalabrasClaves() {
+        return palClave;
+    }
+        
+    
+        
+
     @Override
     public int hashCode() {
         int hash = 7;
