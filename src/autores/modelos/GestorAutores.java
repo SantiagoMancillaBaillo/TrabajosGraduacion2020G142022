@@ -110,6 +110,7 @@ public class GestorAutores implements IGestorAutores {
 
     @Override
     public Autor verAutor(int dni) {
+        if(dni != 0){
         Alumno al = new Alumno (dni, null, null, null, null);
         Profesor p = new Profesor (dni, null, null, null, null);
             for(Autor a : autores){
@@ -124,7 +125,8 @@ public class GestorAutores implements IGestorAutores {
                     return a;
                 }
             }
-            return null;
+        }
+        return null;
     }
 
 
