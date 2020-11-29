@@ -5,8 +5,15 @@
  */
 package autores.modelos;
 
+import grupos.modelos.GestorGrupos;
+import grupos.modelos.Grupo;
 import interfaces.IGestorAutores;
+import interfaces.IGestorGrupos;
+import interfaces.IGestorPublicaciones;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import publicaciones.modelos.GestorPublicaciones;
 
 /**
  *
@@ -15,7 +22,9 @@ import java.util.ArrayList;
 public class GestorAutores implements IGestorAutores {
     private ArrayList<Autor> autores = new ArrayList<>();
     private ArrayList<Profesor> profesores = new ArrayList<>();
+    private ArrayList<Profesor> profesores2 = new ArrayList<>();
     private ArrayList<Alumno> alumnos = new ArrayList<>();
+    private ArrayList<Alumno> alumnos2 = new ArrayList<>();
     private static GestorAutores instanciaAutores;
     
     private GestorAutores(){
@@ -115,13 +124,13 @@ public class GestorAutores implements IGestorAutores {
         Profesor p = new Profesor (dni, null, null, null, null);
             for(Autor a : autores){
                 if(p.verDni() == a.verDni()){
-                    System.out.println("DNI ENCONTRADO:" + a.verDni());
-                    a.mostrar();
+//                    System.out.println("DNI ENCONTRADO:" + a.verDni());
+//                    a.mostrar();
                     return a;
                 }
                 if(al.verDni() == a.verDni()){
-                    System.out.println("DNI ENCONTRADO:" + a.verDni());
-                    a.mostrar();
+//                    System.out.println("DNI ENCONTRADO:" + a.verDni());
+//                    a.mostrar();
                     return a;
                 }
             }
@@ -134,6 +143,7 @@ public class GestorAutores implements IGestorAutores {
     @Override
     public ArrayList<Autor> verAutores() {
         System.out.println("--------------AUTORES--------------");
+        Collections.sort(autores);
         for(Autor a : autores){
             a.mostrar();
         }
@@ -143,6 +153,7 @@ public class GestorAutores implements IGestorAutores {
     @Override
     public ArrayList<Profesor> verProfesores() {
         System.out.println("--------------PROFESORES--------------");
+        Collections.sort(profesores);
         for(Profesor p : profesores){
             p.mostrar();
         }
@@ -152,11 +163,105 @@ public class GestorAutores implements IGestorAutores {
     @Override
     public ArrayList<Alumno> verAlumnos() {
         System.out.println("--------------ALUMNOS--------------");
+        Collections.sort(alumnos);
         for(Alumno al: alumnos){
             al.mostrar();
         }
         return alumnos;
     }
 
+    @Override
+    public String borrarAutor(Autor autor) {
+        IGestorPublicaciones gp = GestorPublicaciones.crear();
+        GestorGrupos gg = GestorGrupos.crear();
+        if(existeEsteAutor(autor) && gp.hayPublicacionesConEsteAutor(autor)){
+                return AborrarMENSAJE_ERROR;
+        }
+        if(existeEsteAutor(autor) && !gp.hayPublicacionesConEsteAutor(autor)){
+            this.autores.remove(autor);
+            this.alumnos.remove(autor);
+            this.profesores.remove(autor);
+            for(Grupo g : gg.verListaGrupos()){
+                g.quitarMiembro(autor);
+            }
+            return AborrarMENSAJE_EXITO;
+        }
+        else
+            return AborrarMENSAJE_NO_EXISTE;
+    }
 
+    @Override
+    public List<Profesor> buscarProfesores(String apellidos) {
+        this.profesores2.clear();
+        if(apellidos == null || apellidos.isBlank()){
+            System.out.println("No se puede buscar. No se proporcionó ningun nombre");
+        }
+        else{
+            for(Profesor p : profesores){
+                if(p.verApellidos().contains(apellidos)){
+                    profesores2.add(p);
+                }
+            }
+            Collections.sort(this.profesores2);
+            for(Profesor p : profesores2){
+                p.mostrar();
+            }
+            
+        }
+        return profesores2;
+    }
+
+    @Override
+    public List<Alumno> buscarAlumnos(String apellidos) {
+        this.alumnos2.clear();
+        if(apellidos == null || apellidos.isBlank()){
+            System.out.println("No se puede buscar. No se proporcionó ningun nombre");
+        }
+        else{
+            for(Alumno al : alumnos){
+                if(al.verApellidos().contains(apellidos)){
+                    alumnos2.add(al);
+                }
+            }
+            Collections.sort(this.alumnos2);
+            for(Alumno al : alumnos2){
+                al.mostrar();
+            }
+            
+        }
+        return alumnos2;
+    }
+
+    @Override
+    public boolean hayAutoresConEsteGrupo(Grupo grupo) {
+        boolean existe = false;
+        for(Autor a : autores){
+            if(a.verListaGrupos().contains(grupo)){
+                existe = true;
+                break;
+            }
+            else{
+                for(Alumno al : alumnos){
+                    if(al.verListaGrupos().contains(grupo)){
+                        existe = true;
+                        break;
+                    }
+                    else{
+                        for(Profesor p : profesores){
+                            if(p.verListaGrupos().contains(grupo)){
+                                existe = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return existe;
+    }
+
+
+    
+    
+    
 }
