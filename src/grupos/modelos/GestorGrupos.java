@@ -5,15 +5,21 @@
  */
 package grupos.modelos;
 
+import autores.modelos.Autor;
+import autores.modelos.GestorAutores;
+import interfaces.IGestorAutores;
 import interfaces.IGestorGrupos;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
  * @author Windows 10
  */
 public class GestorGrupos implements IGestorGrupos{
-    private ArrayList<Grupo> grupos = new ArrayList<>();
+    private List<Grupo> grupos = new ArrayList<>();
+    private List<Grupo> grupos2 = new ArrayList<>();
     private static GestorGrupos instanciaGrupos;
 
     public GestorGrupos() {
@@ -61,22 +67,27 @@ public class GestorGrupos implements IGestorGrupos{
     }
 
     @Override
-    public ArrayList<Grupo> verGrupos() {
+    public List<Grupo> verGrupos() {
         System.out.println("--------------GRUPOS--------------");
+        Collections.sort(grupos);
         for(Grupo g : grupos){
             g.mostrar();
         }
+        return grupos;
+    }
+    
+    public List<Grupo> verListaGrupos() {
+        Collections.sort(grupos);
         return grupos;
     }
 
     @Override
     public Grupo verGrupo(String nombre) {
         if(nombre != null && !nombre.isBlank()){
-        Grupo gr = new Grupo (nombre, null);
         for(Grupo g : grupos){
-                if(gr.verNombre().equals(g.verNombre())){
-                    System.out.println("GRUPO ENCONTRADO:" + g.verNombre());
-                    g.mostrar();
+                if(nombre.equals(g.verNombre())){
+//                    System.out.println("GRUPO ENCONTRADO:" + g.verNombre());
+//                    g.mostrar();
                     return g;
                 }
             }
@@ -95,5 +106,45 @@ public class GestorGrupos implements IGestorGrupos{
         }
         return existe;
     }
+
+    @Override
+    public String borrarGrupo(Grupo grupo) {
+        IGestorAutores ga = GestorAutores.crear();
+        if(existeEsteGrupo(grupo) && ga.hayAutoresConEsteGrupo(grupo)){
+            return GborrarMENSAJE_ERROR;
+        }
+        if(existeEsteGrupo(grupo) && !ga.hayAutoresConEsteGrupo(grupo)){
+            this.grupos.remove(grupo);
+            return GborrarMENSAJE_EXITO;
+        }
+        else
+            return GborrarMENSAJE_NO_EXISTE;
+    }
+
+    @Override
+    public List<Grupo> buscarGrupos(String nombre) {
+        this.grupos2.clear();
+        if(nombre == null || nombre.isBlank()){
+            System.out.println("No se puede buscar. No se proporcionó ningun nombre");
+        }
+        else{
+            for(Grupo g : grupos){
+                if(g.verNombre().contains(nombre)){
+                    grupos2.add(g);
+                }
+                else{
+                  System.out.println("No se encontró Tipo con ese nombre");  
+                }
+            }
+            Collections.sort(this.grupos2);
+            for(Grupo g : grupos2){
+                g.mostrar();
+            }
+            
+        }
+        return grupos2;
+    }
+    
+    
     
 }
