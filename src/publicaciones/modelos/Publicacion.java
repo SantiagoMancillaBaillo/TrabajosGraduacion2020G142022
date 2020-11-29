@@ -10,6 +10,7 @@ import idiomas.modelos.Idioma;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import lugares.modelos.Lugar;
 import palabrasclaves.modelos.PalabraClave;
@@ -19,20 +20,20 @@ import tipos.modelos.Tipo;
  *
  * @author Windows 10
  */
-public class Publicacion {
+public class Publicacion implements Comparable<Publicacion>{
     private String titulo;
     private MiembroEnGrupo miembro;
     private LocalDate fechaPublicacion;
     private Tipo unTipo;
     private Idioma unIdioma;
     private Lugar unLugar;
-    private ArrayList<PalabraClave> palClave; //= new ArrayList<>();
+    private List<PalabraClave> palClave = new ArrayList<>();
     private String enlace;
     private String resumen;
     String patron = "dd/MM/yyyy";
     
 
-    public Publicacion(String titulo, MiembroEnGrupo miembro, LocalDate fechaPublicacion, Tipo unTipo, Idioma unIdioma, Lugar unLugar, ArrayList<PalabraClave> palClave, String enlace, String resumen) {
+    public Publicacion(String titulo, MiembroEnGrupo miembro, LocalDate fechaPublicacion, Tipo unTipo, Idioma unIdioma, Lugar unLugar, List<PalabraClave> palClave, String enlace, String resumen) {
         this.titulo = titulo;
         this.miembro = miembro;
         this.fechaPublicacion = fechaPublicacion;
@@ -82,7 +83,7 @@ public class Publicacion {
         return unLugar;
     }
 
-    public ArrayList<PalabraClave> verPalabrasClaves() {
+    public List<PalabraClave> verPalabrasClaves() {
         return palClave;
     }
         
@@ -112,6 +113,11 @@ public class Publicacion {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Publicacion p) {
+        return this.titulo.compareTo(p.titulo);
     }
     
 
