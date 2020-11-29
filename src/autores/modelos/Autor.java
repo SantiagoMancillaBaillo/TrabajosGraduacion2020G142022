@@ -9,18 +9,21 @@ import grupos.modelos.Grupo;
 import grupos.modelos.MiembroEnGrupo;
 import grupos.modelos.Rol;
 import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
  * @author Windows 10
  */
-public abstract class Autor {
+public abstract class Autor implements Comparable<Autor>{
     private String nombres;
     private String apellidos;
     private String clave;
     private int dni;
     
-    private ArrayList<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
+    private List<MiembroEnGrupo> grupoMiembro = new ArrayList<>();
+    private List<Grupo> grupos = new ArrayList<>();
 
     public Autor(int dni, String apellidos, String nombres, String clave) {
         this.dni = dni;
@@ -60,16 +63,18 @@ public abstract class Autor {
     public void asignarDni(int dni) {
         this.dni = dni;
     }
-    
+       
     public void agregarGrupo(Grupo g, Rol r){
         MiembroEnGrupo m = new MiembroEnGrupo(this, g, r);
         if(!grupoMiembro.contains(m)){
             if(g.esSuperAdministradores() == true){
-            MiembroEnGrupo m1 = new MiembroEnGrupo(this, g, Rol.ADMINISTRADOR);
-            this.grupoMiembro.add(m1);
-        }
+                MiembroEnGrupo m1 = new MiembroEnGrupo(this, g, Rol.ADMINISTRADOR);
+                this.grupoMiembro.add(m1);
+                this.grupos.add(g);
+            }
             else{
                 this.grupoMiembro.add(m);
+                this.grupos.add(g);
             }
         g.agregarMiembro(this, r);
         }
@@ -80,6 +85,7 @@ public abstract class Autor {
         if(grupoMiembro.contains(m)){
             int pos = grupoMiembro.indexOf(m);
         grupoMiembro.remove(pos);
+        this.grupos.remove(grupo);
         grupo.quitarMiembro(this);
         }
     }
@@ -97,14 +103,24 @@ public abstract class Autor {
     public void mostrar(int x, int y, int z){
         if(!grupoMiembro.isEmpty()){
         System.out.println("\nGrupos a los que pertenece: \n" );
-        verGrupos();
-        }
-    }
-    
-    public void verGrupos(){
         for(MiembroEnGrupo i : grupoMiembro){
             i.mostrar2();
         }
+        }
+    }
+    
+    public List<MiembroEnGrupo> verGrupos(){
+//        for(MiembroEnGrupo i : grupoMiembro){
+//            i.mostrar2();
+//        }
+        return grupoMiembro;
+    }
+    
+    public List<Grupo> verListaGrupos(){
+//        for(MiembroEnGrupo i : grupoMiembro){
+//            i.mostrar2();
+//        }
+        return grupos;
     }
     
     public boolean esSuperAdministrador(){
@@ -123,7 +139,7 @@ public abstract class Autor {
         return superAdmin;
     }
     
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -147,6 +163,14 @@ public abstract class Autor {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Autor a) {
+        if(this.nombres.compareTo(a.nombres)==0)
+            return this.apellidos.compareTo(a.apellidos);
+        else 
+            return this.nombres.compareTo(a.nombres);
     }
 
     
