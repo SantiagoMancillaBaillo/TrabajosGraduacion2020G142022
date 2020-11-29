@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Windows 10
  */
-public class Idioma {
+public class Idioma implements Comparable<Idioma>{
     private String nombre;
     
     public Idioma (String nombre){
@@ -28,6 +28,10 @@ public class Idioma {
     @Override
     public String toString() {
         return "Idioma: " + nombre ;
+    }
+    
+    public void mostrar(){
+        System.out.println("Idioma: " + nombre);
     }
 
     @Override
@@ -54,6 +58,12 @@ public class Idioma {
         }
         return true;
     }
+
+    @Override
+    public int compareTo(Idioma i) {
+        return this.nombre.compareTo(i.nombre);
+    }
+    
     
     
 }
