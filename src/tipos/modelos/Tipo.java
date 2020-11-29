@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Windows 10
  */
-public class Tipo {
+public class Tipo implements Comparable<Tipo>{
     private String nombre;
     
     public Tipo (String nombre){
@@ -28,6 +28,10 @@ public class Tipo {
     @Override
     public String toString() {
         return "Tipo: " + nombre ;
+    }
+    
+    public void mostrar(){
+        System.out.println("Tipo: " + nombre);
     }
 
     @Override
@@ -54,6 +58,13 @@ public class Tipo {
         }
         return true;
     }
+
+    @Override
+    public int compareTo(Tipo t) {
+        return this.nombre.compareTo(t.nombre);
+    }
+    
+    
     
     
 }
