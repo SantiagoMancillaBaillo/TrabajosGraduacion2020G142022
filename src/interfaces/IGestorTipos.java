@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 import tipos.modelos.Tipo;
 /**
  *
@@ -15,7 +16,13 @@ public interface IGestorTipos {
     public static final String TMENSAJE_EXITO = "Se creó el tipo correctamente";
     public static final String TMENSAJE_REPETIDO = "No se creó el tipo. Motivo: ya existe uno con ese nombre";
     public static final String TMENSAJE_ERROR = "No se creó el tipo. Motivo: datos incorrectos (No se pueden agregar datos vacios o nulos)";
+    public static final String TborrarMENSAJE_EXITO = "Se eliminó el tipo correctamente";
+    public static final String TborrarMENSAJE_ERROR = "No se borró el Tipo pues hay una publicación que lo contiene.";
+    public static final String TborrarMENSAJE_NO_EXISTE = "No se borró el Tipo, no hay Tipo con ese nombre";
     public String nuevoTipo(String nombre);
-    public ArrayList<Tipo> verTipos();
+    public List<Tipo> verTipos();
     public Tipo verTipo(String nombre);
+    public String borrarTipo(Tipo tipo);
+    public List<Tipo> buscarTipos(String nombre);
+    public boolean existeEsteTipo(Tipo tipo);
 }
