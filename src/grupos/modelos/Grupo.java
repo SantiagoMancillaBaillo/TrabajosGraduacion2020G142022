@@ -7,15 +7,16 @@ package grupos.modelos;
 
 import autores.modelos.Autor;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author Windows 10
  */
-public class Grupo {
+public class Grupo implements Comparable<Grupo>{
     private String nombre, descripcion;
-    private ArrayList<MiembroEnGrupo> miembros = new ArrayList<>();
+    private List<MiembroEnGrupo> miembros = new ArrayList<>();
     
     public Grupo (String nombre, String descripcion){
         this.nombre = nombre;
@@ -57,16 +58,20 @@ public class Grupo {
         System.out.println("Grupo: " + nombre + "\nDescripcion: " + descripcion);
         if(tieneMiembros() == true){
         System.out.println("\nMiembros: \n");
-        verMiembros();
-        }
-        System.out.println("-------------------");
-    }
-    
-    public void verMiembros(){
         for(MiembroEnGrupo i : miembros){
             i.mostrarg();
             System.out.println(" ");
         }
+        }
+        System.out.println("-------------------");
+    }
+    
+    public List<MiembroEnGrupo> verMiembros(){
+//        for(MiembroEnGrupo i : miembros){
+//            i.mostrarg();
+//            System.out.println(" ");
+//        }
+        return miembros;
     }
     
     public boolean tieneMiembros(){
@@ -134,6 +139,11 @@ public class Grupo {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Grupo g) {
+        return this.nombre.compareTo(g.nombre);
     }
 
     
