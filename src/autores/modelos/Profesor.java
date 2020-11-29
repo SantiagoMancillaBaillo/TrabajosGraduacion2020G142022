@@ -36,14 +36,12 @@ public class Profesor extends Autor {
         this.cargo = cargo;
     }
 
-//[nro_documento] Apellido, Nombres por ejemplo: [30759167] Gimenez, María José
     @Override
     public void mostrar(){
         System.out.println("....Profesor....");
         System.out.println("Autor: ["+ super.verDni()+"] " + super.verApellidos().toUpperCase() + ", " + super.verNombres());
-//        System.out.println("DNI: " + super.getDni());
         System.out.println("Cargo: " + this.verCargo());
         super.mostrar(1,1,1);
         System.out.println("..............");
-    }
+    }  
 }
