@@ -5,15 +5,20 @@
  */
 package tipos.modelos;
 
+import interfaces.IGestorPublicaciones;
 import interfaces.IGestorTipos;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import publicaciones.modelos.GestorPublicaciones;
 
 /**
  *
  * @author Windows 10
  */
 public class GestorTipos implements IGestorTipos {
-    private ArrayList<Tipo> tipos = new ArrayList<>();
+    private List<Tipo> tipos = new ArrayList<>();
+    private List<Tipo> tipos2 = new ArrayList<>();
     private static GestorTipos instanciaTipos;
 
     public GestorTipos() {
@@ -43,8 +48,9 @@ public class GestorTipos implements IGestorTipos {
     }
     
     @Override
-    public ArrayList<Tipo> verTipos(){
+    public List<Tipo> verTipos(){
         System.out.println("--------------TIPOS--------------");
+        Collections.sort(this.tipos);
         for (Tipo t : tipos){
             System.out.println(t);
         }
@@ -53,14 +59,65 @@ public class GestorTipos implements IGestorTipos {
     
     @Override
     public Tipo verTipo(String nombre){
-        Tipo ti = new Tipo(nombre);
         for(Tipo t : tipos){
-            if(ti.verTipo().equals(t.verTipo())){
-                System.out.println("TIPO ENCONTRADO");
-                System.out.println(t);
+            if(nombre.equals(t.verTipo())){
+//                System.out.println("TIPO ENCONTRADO");
+//                System.out.println(t);
                 return t;
             }
         }
         return null;
     }
+
+    @Override
+    public String borrarTipo(Tipo tipo) {
+        IGestorPublicaciones gp = GestorPublicaciones.crear();
+        if(existeEsteTipo(tipo) == true && (gp.hayPublicacionesConEsteTipo(tipo) == true)){
+                return TborrarMENSAJE_ERROR;
+        }
+        if(existeEsteTipo(tipo) == true && (gp.hayPublicacionesConEsteTipo(tipo) == false)){
+            this.tipos.remove(tipo);
+            return TborrarMENSAJE_EXITO;
+        }
+        else
+            return TborrarMENSAJE_NO_EXISTE;
+    }
+
+    @Override
+    public List<Tipo> buscarTipos(String nombre){
+        this.tipos2.clear();
+        if(nombre == null || nombre.isBlank()){
+            System.out.println("No se puede buscar. No se proporcionó ningun nombre");
+        }
+        else{
+            for(Tipo t : tipos){
+                if(t.verTipo().contains(nombre)){
+                    tipos2.add(t);
+                }
+                else{
+                  System.out.println("No se encontró Tipo con ese nombre");  
+                }
+            }
+            Collections.sort(this.tipos2);
+            for(Tipo t : tipos2){
+                System.out.println(t);
+            }
+            
+        }
+        return tipos2;
+    }
+
+    @Override
+    public boolean existeEsteTipo(Tipo tipo) {
+        boolean existe = false;
+        if(tipos.contains(tipo)){
+            existe = true;
+        }
+        else{
+            existe = false;
+        }
+        return existe;
+    }
+    
+    
 }
