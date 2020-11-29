@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Windows 10
  */
-public class Lugar {
+public class Lugar implements Comparable<Lugar>{
     private String nombre;
     
     public Lugar(String nombre){
@@ -28,6 +28,10 @@ public class Lugar {
     @Override
     public String toString() {
         return "Lugar: " + nombre ;
+    }
+    
+    public void mostrar(){
+        System.out.println("Lugar: " + nombre);
     }
 
     @Override
@@ -54,6 +58,12 @@ public class Lugar {
         }
         return true;
     }
+
+    @Override
+    public int compareTo(Lugar l) {
+        return this.nombre.compareTo(l.nombre);
+    }
+    
     
     
 }
