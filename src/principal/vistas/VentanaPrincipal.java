@@ -20,7 +20,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      */
     
 
-    public VentanaPrincipal(IControladorPrincipal controlador, java.awt.Frame parent, boolean modal) {
+    public VentanaPrincipal(IControladorPrincipal controlador) {
         this.controlador = controlador;
         initComponents();
     }

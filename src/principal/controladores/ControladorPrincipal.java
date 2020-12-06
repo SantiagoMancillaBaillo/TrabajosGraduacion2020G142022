@@ -45,7 +45,7 @@ public class ControladorPrincipal  implements IControladorPrincipal{
     private VentanaPrincipal ventana;
 
     public ControladorPrincipal() {
-        this.ventana = new VentanaAutores(this, null, true);
+        this.ventana = new VentanaPrincipal(this);
         this.ventana.setLocationRelativeTo(null);
         this.ventana.setVisible(true);
     }
