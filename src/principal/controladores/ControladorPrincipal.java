@@ -8,12 +8,14 @@ package principal.controladores;
 import autores.modelos.Autor;
 import autores.modelos.Cargo;
 import autores.modelos.GestorAutores;
+import autores.vistas.VentanaAutores;
 import grupos.modelos.GestorGrupos;
 import grupos.modelos.Grupo;
 import grupos.modelos.MiembroEnGrupo;
 import grupos.modelos.Rol;
 import idiomas.modelos.GestorIdiomas;
 import idiomas.modelos.Idioma;
+import interfaces.IControladorPrincipal;
 import interfaces.IGestorAutores;
 import interfaces.IGestorGrupos;
 import interfaces.IGestorIdiomas;
@@ -21,12 +23,14 @@ import interfaces.IGestorLugares;
 import interfaces.IGestorPalabrasClaves;
 import interfaces.IGestorPublicaciones;
 import interfaces.IGestorTipos;
+import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import lugares.modelos.GestorLugares;
 import lugares.modelos.Lugar;
 import palabrasclaves.modelos.GestorPalabrasClaves;
 import palabrasclaves.modelos.PalabraClave;
+import principal.vistas.VentanaPrincipal;
 import publicaciones.modelos.GestorPublicaciones;
 import publicaciones.modelos.Publicacion;
 import tipos.modelos.GestorTipos;
@@ -37,7 +41,59 @@ import tipos.modelos.Tipo;
  *
  * @author prog2
  */
-public class ControladorPrincipal {
+public class ControladorPrincipal  implements IControladorPrincipal{
+    private VentanaPrincipal ventana;
+
+    public ControladorPrincipal() {
+        this.ventana = new VentanaAutores(this, null, true);
+        this.ventana.setLocationRelativeTo(null);
+        this.ventana.setVisible(true);
+    }
+    
+    
+
+    @Override
+    public void btnPalabrasClavesClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnLugaresClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnIdiomasClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnTiposClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnGruposClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnAutoresClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnPublicacionesClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void btnSalirClic(ActionEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
     public static void main(String[] args) {
           
 //        System.out.println("------------------Gestores------------------");
