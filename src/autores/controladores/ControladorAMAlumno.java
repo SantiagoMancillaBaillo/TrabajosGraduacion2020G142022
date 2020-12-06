@@ -5,54 +5,145 @@
  */
 package autores.controladores;
 
+import autores.modelos.GestorAutores;
+import autores.vistas.VentanaAMAlumno;
 import interfaces.IControladorAMAlumno;
+import interfaces.IGestorAutores;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Windows 10
  */
 public class ControladorAMAlumno implements IControladorAMAlumno {
-
+    private VentanaAMAlumno ventana;
+    
+    public ControladorAMAlumno(){    
+            this.ventana = new VentanaAMAlumno(this, null, true);
+            this.ventana.setTitle(TITULO_NUEVO);
+            this.ventana.setLocationRelativeTo(null);
+            this.ventana.setVisible(true);
+    }
+    
+    public ControladorAMAlumno(String dni){
+            this.ventana = new VentanaAMAlumno(this, null, true);
+            this.ventana.setTitle(TITULO_MODIFICAR);
+            this.ventana.getTxtDNI().setEditable(false);
+            this.ventana.getTxtDNI().setText(dni);
+            this.ventana.setLocationRelativeTo(null);
+            this.ventana.setVisible(true);
+            
+    }
+    
     @Override
     public void btnGuardarClic(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int dni = 0;
+        if (!this.ventana.getTxtDNI().getText().trim().isEmpty())
+            dni = Integer.parseInt(this.ventana.getTxtDNI().getText().trim());
+        String apellidos = this.ventana.getTxtApellidos().getText().trim();
+        String nombres = this.ventana.getTxtNombres().getText().trim();
+        String cx = this.ventana.getTxtCX().getText().trim();
+        String clave = new String(this.ventana.getPassClave().getPassword());
+        String claverep = new String(this.ventana.getPassRepetirClave().getPassword());
+        if(apellidos!=null&&!apellidos.isBlank()&&dni>0&&nombres!=null&&!nombres.isBlank()&&!clave.isBlank()&&cx!=null&&!cx.isBlank()) {
+        if(!clave.equals(claverep)){
+            JOptionPane.showMessageDialog(ventana, "Las claves no coinciden");
+            ventana.getPassClave().setText(null);
+            ventana.getPassRepetirClave().setText(null);
+        }
+        else{
+            IGestorAutores ga = GestorAutores.crear();
+            if(ventana.getTxtDNI().isEditable()){
+                ga.nuevoAutor(dni, apellidos, nombres, cx, clave, claverep);
+                this.setAllTextFieldsToNull();
+            }
+            else{
+                if(!ventana.getTxtDNI().isEditable()){
+                    ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cx, clave, claverep);
+                    JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
+                    this.ventana.dispose();
+                    }
+                }
+        
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Hay un campo inválido");
+            this.setAllTextFieldsToNull();
+        }
     }
 
+    private void setAllTextFieldsToNull(){
+        ventana.getTxtDNI().setText(null);
+        ventana.getTxtApellidos().setText(null);
+        ventana.getTxtNombres().setText(null);
+        ventana.getTxtCX().setText(null);
+        ventana.getPassClave().setText(null);
+        ventana.getPassRepetirClave().setText(null);
+        ventana.getTxtDNI().requestFocus();
+    }
+    
     @Override
     public void btnCancelarClic(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int opcion= JOptionPane.showOptionDialog(null, "¿Desea terminar?", "Alumno", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            this.ventana.dispose();
+        }
+        else
+            ventana.getTxtDNI().requestFocus();
     }
 
     @Override
     public void txtApellidosPresionarTecla(KeyEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char c = evt.getKeyChar();
+        if(!Character.isLetter(c) && !Character.isWhitespace(c)){
+            evt.consume();
+        }
     }
 
     @Override
     public void txtNombresPresionarTecla(KeyEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char c = evt.getKeyChar();
+        if(!Character.isLetter(c) && !Character.isWhitespace(c)){
+            evt.consume();
+        }
     }
 
     @Override
     public void txtDocumentoPresionarTecla(KeyEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
     }
 
     @Override
     public void txtCXPresionarTecla(KeyEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char c = evt.getKeyChar();
+        if(!Character.isLetterOrDigit(c)){
+            evt.consume();
+        }
     }
 
     @Override
     public void passClavePresionarTecla(KeyEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char c = evt.getKeyChar();
+        if(Character.isWhitespace(c)){
+            evt.consume();
+            JOptionPane.showMessageDialog(ventana, "No se permiten Espacios en Blanco");
+        }
     }
 
     @Override
     public void passRepetirClavePresionarTecla(KeyEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        char c = evt.getKeyChar();
+        if(Character.isWhitespace(c)){
+            evt.consume();
+            JOptionPane.showMessageDialog(ventana, "No se permiten Espacios en Blanco");
+        }
     }
     
 }

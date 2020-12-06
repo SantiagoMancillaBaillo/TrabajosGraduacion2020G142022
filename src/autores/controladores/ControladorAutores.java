@@ -5,14 +5,23 @@
  */
 package autores.controladores;
 
+import autores.modelos.Alumno;
+import autores.modelos.GestorAutores;
+import autores.modelos.Profesor;
+import autores.vistas.ModeloComboCargos;
 import autores.vistas.ModeloTablaAlumnos;
 import autores.vistas.ModeloTablaProfesores;
 import autores.vistas.VentanaAutores;
+import interfaces.IControladorAMAlumno;
+import interfaces.IControladorAMProfesor;
 import interfaces.IControladorAutores;
+import interfaces.IGestorAutores;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
-import javax.swing.JOptionPane;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
+import javax.swing.table.TableColumn;
 
 
 
@@ -22,126 +31,144 @@ import javax.swing.JOptionPane;
  */
 public class ControladorAutores implements IControladorAutores{
     private VentanaAutores ventana;
-    
-//    VentanaPrincipal vp = new VentanaPrincipal(controlador);
 
     public ControladorAutores() {
         this.ventana = new VentanaAutores(this, null, true);
+        this.ventana.setTitle(TITULO);
         this.ventana.setLocationRelativeTo(null);
         this.ventana.getTablaProfesores().setModel(new ModeloTablaProfesores());
         this.ventana.getTablaAlumnos().setModel(new ModeloTablaAlumnos());
-//        TableColumn colCargo = this.ventana.getTablaProfesores().getColumnModel().getColumn(3);
-//        colCargo.setCellEditor(new DefaultCellEditor(comboCargos));
+        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+        if(mta.getRowCount() == 0){
+            this.ventana.getBtnModificarAlumno().setEnabled(false);
+            this.ventana.getBtnBorrarAlumno().setEnabled(false);
+        }
+        if(mtp.getRowCount() == 0){
+            this.ventana.getBtnModificarProfesor().setEnabled(false);
+            this.ventana.getBtnBorrarProfesor().setEnabled(false);
+        }
+        JComboBox comboCargos = new JComboBox();
+        comboCargos.setModel(new ModeloComboCargos());
+        TableColumn colCargo = this.ventana.getTablaProfesores().getColumnModel().getColumn(3);
+        colCargo.setCellEditor(new DefaultCellEditor(comboCargos));
+        
         this.ventana.setVisible(true);
         
     }
 
+    public void tablavacia(){
+        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+        if(mta.getRowCount() == 0){
+            this.ventana.getBtnModificarAlumno().setEnabled(false);
+            this.ventana.getBtnBorrarAlumno().setEnabled(false);
+            }
+            else{
+                this.ventana.getBtnModificarAlumno().setEnabled(true);
+                this.ventana.getBtnBorrarAlumno().setEnabled(true);
+                }
+        if(mtp.getRowCount() == 0){
+                this.ventana.getBtnModificarProfesor().setEnabled(false);
+                this.ventana.getBtnBorrarProfesor().setEnabled(false);
+                }
+            else{
+                this.ventana.getBtnModificarProfesor().setEnabled(true);
+                this.ventana.getBtnBorrarProfesor().setEnabled(true);
+            }
+        }
 
     @Override
     public void btnNuevoProfesorClic(ActionEvent evt) {
-        int opcion = JOptionPane.showConfirmDialog(ventana, "so puto?", "puto", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION)
-            System.exit(0);
+        IControladorAMProfesor cpr = new ControladorAMProfesor();
+        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+        this.tablavacia();
     }
 
     @Override
     public void btnNuevoAlumnoClic(ActionEvent evt) {
-        System.out.println("Hola");
+        IControladorAMAlumno cal = new ControladorAMAlumno();
+        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+        this.tablavacia();
+        
     }
 
     @Override
     public void btnModificarProfesorClic(ActionEvent evt) {
-        System.out.println("Hola");
+        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+        Profesor p = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
+        IControladorAMProfesor cal = new ControladorAMProfesor(String.valueOf(p.verDni()));
+        mtp.actualizar();
+        this.tablavacia();
     }
 
     @Override
     public void btnModificarAlumnoClic(ActionEvent evt) {
-        System.out.println("Hola");
+        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+        Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
+        IControladorAMAlumno cal = new ControladorAMAlumno(String.valueOf(al.verDni()));
+        mta.actualizar();
+        this.tablavacia();
     }
 
     @Override
     public void btnBorrarProfesorClic(ActionEvent evt) {
-        System.out.println("Hola");
+        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+        Profesor pr = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
+        IGestorAutores ga = GestorAutores.crear();
+        ga.borrarProfesor(pr);
+        mtp.actualizar();
+        this.tablavacia();
     }
 
     @Override
     public void btnBorrarAlumnoClic(ActionEvent evt) {
-        System.out.println("Hola");
+        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+        Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
+        IGestorAutores ga = GestorAutores.crear();
+        ga.borrarAlumno(al);
+        mta.actualizar();
+        this.tablavacia();
     }
 
     @Override
     public void btnVolverClic(ActionEvent evt) {
-        System.out.println("Hola");
+        this.ventana.dispose();
     }
 
     @Override
     public void btnBuscarProfesorClic(ActionEvent evt) {
-        int opcion = JOptionPane.showConfirmDialog(ventana, "so puto?", "puto", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION)
-            System.exit(0);
+        String apellidos = this.ventana.getjTextField1().getText();
+            ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+            mtp.mostrarProfesores(apellidos);
+            this.ventana.getjTextField1().setText(null);
     }
 
     @Override
     public void btnBuscarAlumnoClic(ActionEvent evt) {
-        System.out.println("Hola");
-    }
+        String apellidos = this.ventana.getjTextField2().getText();
+            ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+            mta.mostrarAlumnos(apellidos);
+            this.ventana.getjTextField2().setText(null);
+        }
+        
 
     @Override
     public void ventanaObtenerFoco(WindowEvent evt) {
-        System.out.println("Hola");
+        this.ventana.requestFocus();
     }
 
     @Override
     public void txtApellidosProfesorPresionarTecla(KeyEvent evt) {
-        System.out.println("Hola");
+        char c = evt.getKeyChar();
+        if(!Character.isLetter(c) && !Character.isWhitespace(c))
+            evt.consume();
     }
 
     @Override
     public void txtApellidosAlumnoPresionarTecla(KeyEvent evt) {
-        System.out.println("Hola");
+        char c = evt.getKeyChar();
+        if(!Character.isLetter(c) && !Character.isWhitespace(c))
+            evt.consume();
     }
-    
-    
-    
-    
-    
-    
-    
-//    <editor-fold defaultstate="collapsed" desc="Sin intefaz gráfica"> 
-//        ArrayList<Autor> autores = new ArrayList<>();
-        
-//        IGestorAutores ga = GestorAutores.crear();
-        
-//        System.out.println(ga.nuevoAutor(10, "Apellido10", "Nombre10", Cargo.TITULAR, "Clave10", "Clave10"));
-//        System.out.println(ga.nuevoAutor(20, "Apellido20", "Nombre20", Cargo.ASOCIADO, "Clave20", "Clave20"));
-//        System.out.println(ga.nuevoAutor(10, "Apellido10", "Nombre10", Cargo.TITULAR, "Clave10", "Clave10"));//PROF REPETIDO
-//        System.out.println(ga.nuevoAutor(1, "Apellido1", "Nombre1", "cx1", "Clave1", "Clave1"));
-//        System.out.println(ga.nuevoAutor(1, "Apellido1", "Nombre1", "cx1", "Clave1", "Clave1"));//ALUM REPETIDO
-//        System.out.println(ga.nuevoAutor(10, "Apellido2", "Nombre2", "cx2", "Clave2", "Clave2"));//DNI REPETIDO CON PROF
-//        System.out.println(ga.nuevoAutor(1, "Apellido1", "Nombre1", Cargo.ADG, "Clave1", "Clave1"));//DNI REPETIDO CON ALUM
-//        System.out.println(ga.nuevoAutor(1, "", "Nombre1", "cx1", "Clave1", "Clave1"));//datos vacios
-//        System.out.println(ga.nuevoAutor(20, "Apellido20", "Nombre20", Cargo.ASOCIADO, null, "Clave20"));//datos nulos
-//        
-//        
-//        ga.verAutores();
-//        ga.verAlumnos();
-//        ga.verProfesores();
-//        
-//        ga.verAutor(10);
-//        ga.verAutor(1);
-        
-
-      //</editor-fold>   
-        
-    //     //<editor-fold defaultstate="collapsed" desc="Intefaz gráfica"> 
-//        
-////        VentanaAMAlumno ventanaAlumno = new VentanaAMAlumno(null); //se instancia la ventana
-////        ventanaAlumno.setLocationRelativeTo(null); //se centra la ventana
-////        ventanaAlumno.setVisible(true); //se hace visible la ventana
-//*/        
-//        VentanaAMProfesor ventanaProfesor = new VentanaAMProfesor(null); //se instancia la ventana
-//        ventanaProfesor.setLocationRelativeTo(null); //se centra la ventana
-//        ventanaProfesor.setVisible(true); //se hace visible la ventana        
-
-//     //</editor-fold>
 }
