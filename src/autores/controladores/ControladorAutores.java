@@ -116,7 +116,7 @@ public class ControladorAutores implements IControladorAutores{
         ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
         Profesor pr = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
         IGestorAutores ga = GestorAutores.crear();
-        ga.borrarProfesor(pr);
+        ga.borrarAutor(pr);
         mtp.actualizar();
         this.tablavacia();
     }
@@ -126,7 +126,7 @@ public class ControladorAutores implements IControladorAutores{
         ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
         Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
         IGestorAutores ga = GestorAutores.crear();
-        ga.borrarAlumno(al);
+        ga.borrarAutor(al);
         mta.actualizar();
         this.tablavacia();
     }
