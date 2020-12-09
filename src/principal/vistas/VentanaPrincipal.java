@@ -56,6 +56,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton4.setText("Tipos");
 
         jButton5.setText("Grupos");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGruposClic(evt);
+            }
+        });
 
         btnAutores.setText("Autores");
         btnAutores.setToolTipText("Sección Autores");
@@ -130,6 +135,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnAutoresClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoresClic
         this.controlador.btnAutoresClic(evt);
     }//GEN-LAST:event_btnAutoresClic
+
+    private void btnGruposClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGruposClic
+        this.controlador.btnGruposClic(evt);
+    }//GEN-LAST:event_btnGruposClic
 
     /**
      * @param args the command line arguments
