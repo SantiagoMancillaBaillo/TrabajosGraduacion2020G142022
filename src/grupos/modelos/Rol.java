@@ -19,6 +19,11 @@ public enum Rol {
         this.valor = valor;
     }
 
+    public String getRol() {
+        return valor;
+    }
+    
+
     @Override
     public String toString() {
         return this.valor; //To change body of generated methods, choose Tools | Templates.
