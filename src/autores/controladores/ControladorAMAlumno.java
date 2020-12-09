@@ -7,6 +7,7 @@ package autores.controladores;
 
 import autores.modelos.GestorAutores;
 import autores.vistas.VentanaAMAlumno;
+import autores.vistas.VentanaAutores;
 import interfaces.IControladorAMAlumno;
 import interfaces.IGestorAutores;
 import java.awt.event.ActionEvent;
@@ -19,16 +20,17 @@ import javax.swing.JOptionPane;
  */
 public class ControladorAMAlumno implements IControladorAMAlumno {
     private VentanaAMAlumno ventana;
+    private VentanaAutores ventanaAutores;
     
     public ControladorAMAlumno(){    
-            this.ventana = new VentanaAMAlumno(this, null, true);
+            this.ventana = new VentanaAMAlumno(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_NUEVO);
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true);
     }
     
     public ControladorAMAlumno(String dni){
-            this.ventana = new VentanaAMAlumno(this, null, true);
+            this.ventana = new VentanaAMAlumno(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_MODIFICAR);
             this.ventana.getTxtDNI().setEditable(false);
             this.ventana.getTxtDNI().setText(dni);
@@ -57,7 +59,7 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
             IGestorAutores ga = GestorAutores.crear();
             if(ventana.getTxtDNI().isEditable()){
                 ga.nuevoAutor(dni, apellidos, nombres, cx, clave, claverep);
-                this.setAllTextFieldsToNull();
+                this.ventana.dispose();
             }
             else{
                 if(!ventana.getTxtDNI().isEditable()){
@@ -70,8 +72,13 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
             }
         }
         else {
-            JOptionPane.showMessageDialog(null, "Hay un campo inválido");
-            this.setAllTextFieldsToNull();
+            JOptionPane.showMessageDialog(ventana, "Hay un campo inválido");
+            if(!ventana.getTxtDNI().isEditable()){
+                ventana.getTxtApellidos().requestFocus();
+            }
+            else{
+                ventana.getTxtDNI().requestFocus();
+            }
         }
     }
 
@@ -87,13 +94,7 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
     
     @Override
     public void btnCancelarClic(ActionEvent evt) {
-        int opcion= JOptionPane.showOptionDialog(null, "¿Desea terminar?", "Alumno", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
-        if(opcion == JOptionPane.YES_OPTION)
-        {
             this.ventana.dispose();
-        }
-        else
-            ventana.getTxtDNI().requestFocus();
     }
 
     @Override
