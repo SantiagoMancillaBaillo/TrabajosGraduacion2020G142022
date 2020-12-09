@@ -54,8 +54,7 @@ public class GestorGrupos implements IGestorGrupos{
     public String modificarGrupo(Grupo grupo, String descripcion) {
         if(descripcion != null && !descripcion.isBlank()){
             if(existeEsteGrupo(grupo) == true){
-                Grupo g = new Grupo (grupo.verNombre(), descripcion);
-                grupos.set(grupos.indexOf(grupo), g);
+                grupo.asignarDescripcion(descripcion);
                 return GmodMENSAJE_EXITO;
             }
             else{
@@ -68,7 +67,7 @@ public class GestorGrupos implements IGestorGrupos{
 
     @Override
     public List<Grupo> verGrupos() {
-        System.out.println("--------------GRUPOS--------------");
+//        System.out.println("--------------GRUPOS--------------");
         Collections.sort(grupos);
         for(Grupo g : grupos){
             g.mostrar();
@@ -137,9 +136,9 @@ public class GestorGrupos implements IGestorGrupos{
                 }
             }
             Collections.sort(this.grupos2);
-            for(Grupo g : grupos2){
-                g.mostrar();
-            }
+//            for(Grupo g : grupos2){
+//                g.mostrar();
+//            }
             
         }
         return grupos2;
