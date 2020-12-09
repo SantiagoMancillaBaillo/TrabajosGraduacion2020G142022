@@ -86,7 +86,7 @@ public class ModeloTablaProfesores extends AbstractTableModel {
         else{
             ArrayList<Profesor> profesor2 = new ArrayList<>();
             for(Profesor p : ga.verProfesores()){
-                if(p.verApellidos().startsWith(apellidos))
+                if(p.verApellidos().contains(apellidos))
                     profesor2.add(p);
             }
             this.actualizar(profesor2);
