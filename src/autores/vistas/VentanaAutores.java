@@ -8,11 +8,10 @@ package autores.vistas;
 //import autores.controladores.ControladorAutores;
 import autores.controladores.ControladorAutores;
 import interfaces.IControladorAutores;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import principal.controladores.ControladorPrincipal;
-import principal.vistas.VentanaPrincipal;
 
 /**
  *
@@ -26,8 +25,8 @@ public class VentanaAutores extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public VentanaAutores(IControladorAutores controlador, java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public VentanaAutores(IControladorAutores controlador, java.awt.Frame ventanaPrincipal, boolean modal) {
+        super(ventanaPrincipal, modal);
         this.controlador = controlador;
         initComponents();
     }
@@ -96,6 +95,7 @@ public class VentanaAutores extends javax.swing.JDialog {
         btnBorrarAlumno = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaAlumnos = new javax.swing.JTable();
+        btnVolver = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,6 +112,13 @@ public class VentanaAutores extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Autores");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                ventanaAGanaFoco(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Profesores"));
         jPanel1.setToolTipText("Área Profesores");
@@ -151,6 +158,11 @@ public class VentanaAutores extends javax.swing.JDialog {
         });
 
         jTextField1.setToolTipText("Ingrese el Apellido del Profesor a buscar");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarProfesorEnter(evt);
+            }
+        });
 
         tablaProfesores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,7 +196,7 @@ public class VentanaAutores extends javax.swing.JDialog {
                     .addComponent(btnBuscarProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificarProfesor)
                     .addComponent(btnBorrarProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,6 +226,11 @@ public class VentanaAutores extends javax.swing.JDialog {
         jLabel3.setText("Apellidos:");
 
         jTextField2.setToolTipText("Ingrese el Apellido del Alumno a buscar");
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarAlumnoEnter(evt);
+            }
+        });
 
         btnBuscarAlumno.setText("Buscar");
         btnBuscarAlumno.setToolTipText("Buscar Alumno por Apellido");
@@ -308,6 +325,13 @@ public class VentanaAutores extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverClic(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -318,6 +342,10 @@ public class VentanaAutores extends javax.swing.JDialog {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,8 +353,10 @@ public class VentanaAutores extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver)
+                .addContainerGap())
         );
 
         pack();
@@ -364,38 +394,58 @@ public class VentanaAutores extends javax.swing.JDialog {
         this.controlador.btnBuscarProfesorClic(evt);
     }//GEN-LAST:event_btnBuscarProfesorClic
 
+    private void ventanaAGanaFoco(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ventanaAGanaFoco
+        this.controlador.ventanaObtenerFoco(evt);
+    }//GEN-LAST:event_ventanaAGanaFoco
+
+    private void txtBuscarProfesorEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProfesorEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.controlador.btnBuscarProfesorClic(null);
+        }
+    }//GEN-LAST:event_txtBuscarProfesorEnter
+
+    private void txtBuscarAlumnoEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarAlumnoEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.controlador.btnBuscarAlumnoClic(null);
+        }
+    }//GEN-LAST:event_txtBuscarAlumnoEnter
+
+    private void btnVolverClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverClic
+        this.controlador.btnVolverClic(evt);
+    }//GEN-LAST:event_btnVolverClic
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        
-        
-        
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        IControladorAutores controlador = new ControladorAutores();
-    }
+//    public static void main(String args[]) {
+//        
+//        
+//        
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(VentanaAutores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        IControladorAutores controlador = new ControladorAutores();
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarAlumno;
@@ -406,6 +456,7 @@ public class VentanaAutores extends javax.swing.JDialog {
     private javax.swing.JButton btnModificarProfesor;
     private javax.swing.JButton btnNuevoAlumno;
     private javax.swing.JButton btnNuevoProfesor;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
