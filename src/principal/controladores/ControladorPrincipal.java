@@ -5,16 +5,20 @@
  */
 package principal.controladores;
 
+import autores.controladores.ControladorAutores;
 import autores.modelos.Autor;
 import autores.modelos.Cargo;
 import autores.modelos.GestorAutores;
 import autores.vistas.VentanaAutores;
+import grupos.controladores.ControladorGrupos;
 import grupos.modelos.GestorGrupos;
 import grupos.modelos.Grupo;
 import grupos.modelos.MiembroEnGrupo;
 import grupos.modelos.Rol;
 import idiomas.modelos.GestorIdiomas;
 import idiomas.modelos.Idioma;
+import interfaces.IControladorAutores;
+import interfaces.IControladorGrupos;
 import interfaces.IControladorPrincipal;
 import interfaces.IGestorAutores;
 import interfaces.IGestorGrupos;
@@ -26,6 +30,7 @@ import interfaces.IGestorTipos;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import lugares.modelos.GestorLugares;
 import lugares.modelos.Lugar;
 import palabrasclaves.modelos.GestorPalabrasClaves;
@@ -74,12 +79,12 @@ public class ControladorPrincipal  implements IControladorPrincipal{
 
     @Override
     public void btnGruposClic(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IControladorGrupos controlador = new ControladorGrupos();
     }
 
     @Override
     public void btnAutoresClic(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IControladorAutores controlador = new ControladorAutores();
     }
 
     @Override
@@ -89,7 +94,11 @@ public class ControladorPrincipal  implements IControladorPrincipal{
 
     @Override
     public void btnSalirClic(ActionEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int opcion= JOptionPane.showOptionDialog(null, "¿Desea terminar?", "Repositorios", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            System.exit(0);
+        }
     }
     
     
