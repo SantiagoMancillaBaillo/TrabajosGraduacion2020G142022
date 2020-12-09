@@ -5,6 +5,7 @@
  */
 package autores.modelos;
 
+import autores.vistas.VentanaAutores;
 import grupos.modelos.GestorGrupos;
 import grupos.modelos.Grupo;
 import interfaces.IGestorAutores;
@@ -13,6 +14,7 @@ import interfaces.IGestorPublicaciones;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 import publicaciones.modelos.GestorPublicaciones;
 
 /**
@@ -26,6 +28,7 @@ public class GestorAutores implements IGestorAutores {
     private ArrayList<Alumno> alumnos = new ArrayList<>();
     private ArrayList<Alumno> alumnos2 = new ArrayList<>();
     private static GestorAutores instanciaAutores;
+    private VentanaAutores ventanaAutores;
     
     private GestorAutores(){
         
@@ -45,10 +48,14 @@ public class GestorAutores implements IGestorAutores {
             if(!this.autores.contains(a)){
                 this.autores.add(a);
                 this.profesores.add(p);
+                Collections.sort(autores);
+                Collections.sort(profesores);
                 return AMENSAJE_EXITO;
             }
-            else
+            else{
+                JOptionPane.showMessageDialog(ventanaAutores, "NO se guardó el Autor, ya existe un Autor con ese DNI");
                 return AMENSAJE_REPETIDO;
+            }
         }
         else
             return AMENSAJE_ERROR;
@@ -62,11 +69,14 @@ public class GestorAutores implements IGestorAutores {
             if(!this.autores.contains(a)){
                 this.autores.add(a);
                 this.alumnos.add(al);
-                
+                Collections.sort(autores);
+                Collections.sort(alumnos);
                 return AMENSAJE_EXITO;
             }
-            else
+            else{
+                JOptionPane.showMessageDialog(ventanaAutores, "NO se guardó el Autor, ya existe un Autor con ese DNI y/o CX");
                 return AMENSAJE_REPETIDO;
+            }
         }
         else
             return AMENSAJE_ERROR;
@@ -76,9 +86,26 @@ public class GestorAutores implements IGestorAutores {
     public String modificarAutor(Autor autor, String apellidos, String nombres, Cargo cargo, String clave, String claveRepetida) {
         if(apellidos!=null&&!apellidos.isBlank()&&nombres!=null&&!nombres.isBlank()&&cargo!=null&&clave.equals(claveRepetida)) {
             if(existeEsteAutor(autor)){
-                Profesor p = new Profesor(autor.verDni(), apellidos, nombres, clave, cargo);
-                autores.set(autores.indexOf(autor), p);
-                profesores.set(autores.indexOf(autor), p);
+                for(Profesor p : profesores){
+                    if(profesores.contains(autor)){
+                        p.asignarApellidos(apellidos);
+                        p.asignarNombres(nombres);
+                        p.asignarCargo(cargo);
+                        p.asignarClave(clave);
+                        autores.set(autores.indexOf(autor), p);
+                        break;
+                    }
+                }
+                for(Autor a : autores){
+                    if(autores.contains(autor)){
+                        a.asignarApellidos(apellidos);
+                        a.asignarNombres(nombres);
+                        a.asignarClave(clave);
+                    }
+                }
+//                Profesor p = new Profesor(autor.verDni(), apellidos, nombres, clave, cargo);
+//                autores.set(autores.indexOf(autor), p);
+//                profesores.set(autores.indexOf(autor), p);
                 return AmodMENSAJE_EXITO;
             }
             else
@@ -92,9 +119,19 @@ public class GestorAutores implements IGestorAutores {
     public String modificarAutor(Autor autor, String apellidos, String nombres, String cx, String clave, String claveRepetida) {
         if ((apellidos != null && !apellidos.isBlank()) && (nombres != null && !nombres.isBlank()) && (cx != null && !cx.isBlank()) && (clave != null && !clave.isBlank() && clave.equals(claveRepetida)) && (claveRepetida != null && !claveRepetida.isBlank())){
             if(existeEsteAutor(autor)){
-                Alumno al = new Alumno(autor.verDni(), apellidos, nombres, clave, cx);
-                autores.set(autores.indexOf(autor), al);
-                alumnos.set(autores.indexOf(autor), al);
+                for(Alumno al : alumnos){
+                    if(alumnos.contains(autor)){
+                        al.asignarApellidos(apellidos);
+                        al.asignarNombres(nombres);
+                        al.asignarCx(cx);
+                        al.asignarClave(clave);
+                        autores.set(autores.indexOf(autor), al);
+                        break;
+                    }
+                }
+//                Alumno al = new Alumno(autor.verDni(), apellidos, nombres, clave, cx);
+//                autores.set(autores.indexOf(autor), al);
+//                alumnos.set(autores.indexOf(autor), al);
                 return AmodMENSAJE_EXITO;
             }
             else
@@ -142,17 +179,17 @@ public class GestorAutores implements IGestorAutores {
 
     @Override
     public ArrayList<Autor> verAutores() {
-        System.out.println("--------------AUTORES--------------");
+//        System.out.println("--------------AUTORES--------------");
         Collections.sort(autores);
-        for(Autor a : autores){
-            a.mostrar();
-        }
+//        for(Autor a : autores){
+//            a.mostrar();
+//        }
         return autores;
     }
 
     @Override
     public ArrayList<Profesor> verProfesores() {
-        System.out.println("--------------PROFESORES--------------");
+//        System.out.println("--------------PROFESORES--------------");
         Collections.sort(profesores);
         for(Profesor p : profesores){
             p.mostrar();
@@ -162,11 +199,11 @@ public class GestorAutores implements IGestorAutores {
 
     @Override
     public ArrayList<Alumno> verAlumnos() {
-        System.out.println("--------------ALUMNOS--------------");
+//        System.out.println("--------------ALUMNOS--------------");
         Collections.sort(alumnos);
-        for(Alumno al: alumnos){
-            al.mostrar();
-        }
+//        for(Alumno al: alumnos){
+//            al.mostrar();
+//        }
         return alumnos;
     }
 
@@ -203,9 +240,9 @@ public class GestorAutores implements IGestorAutores {
                 }
             }
             Collections.sort(this.profesores2);
-            for(Profesor p : profesores2){
-                p.mostrar();
-            }
+//            for(Profesor p : profesores2){
+//                p.mostrar();
+//            }
             
         }
         return profesores2;
@@ -224,9 +261,9 @@ public class GestorAutores implements IGestorAutores {
                 }
             }
             Collections.sort(this.alumnos2);
-            for(Alumno al : alumnos2){
-                al.mostrar();
-            }
+//            for(Alumno al : alumnos2){
+//                al.mostrar();
+//            }
             
         }
         return alumnos2;
