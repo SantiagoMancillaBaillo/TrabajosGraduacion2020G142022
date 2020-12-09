@@ -6,23 +6,51 @@
 package grupos.vistas;
 
 import grupos.modelos.Grupo;
+import interfaces.IControladorAMGrupo;
 import java.awt.Dialog;
-import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class VentanaAMGrupo extends JDialog {
-    ArrayList<Grupo> grupos = new ArrayList<>();
+    private IControladorAMGrupo controlador;
     
     /**
      * Constructor 
      * @param ventanaPadre ventana padre
      */        
-    public VentanaAMGrupo(Dialog ventanaPadre) {
-        super(ventanaPadre, true);
+    public VentanaAMGrupo(IControladorAMGrupo controlador, Dialog ventanaGrupos, boolean modal) {
+        super(ventanaGrupos, true);
         initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        this.controlador = controlador;
     }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public JTable getTablaMiembros() {
+        return tablaMiembros;
+    }
+
+    public JTextField getTxtDescripcion() {
+        return txtDescripcion;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+    
+    
         
            
     /**
@@ -39,6 +67,11 @@ public class VentanaAMGrupo extends JDialog {
         btnGuardar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaMiembros = new javax.swing.JTable();
+        btnModificar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Grupos");
@@ -47,6 +80,11 @@ public class VentanaAMGrupo extends JDialog {
         jLabel1.setText("Nombre:");
 
         txtNombre.setToolTipText("Nombre del nivel");
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombrePresionarTecla(evt);
+            }
+        });
 
         btnGuardar.setMnemonic('G');
         btnGuardar.setText("Guardar");
@@ -59,6 +97,41 @@ public class VentanaAMGrupo extends JDialog {
 
         jLabel2.setText("Descripción:");
 
+        txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescripcionPresionarTecla(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarClic(evt);
+            }
+        });
+
+        tablaMiembros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaMiembros);
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarClic(evt);
+            }
+        });
+
+        jLabel3.setText("Miembros:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,16 +140,28 @@ public class VentanaAMGrupo extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                            .addComponent(txtNombre)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                                    .addComponent(txtDescripcion)))
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnModificar)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 274, Short.MAX_VALUE)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -90,28 +175,52 @@ public class VentanaAMGrupo extends JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(39, 39, 39)
-                .addComponent(btnGuardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnModificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClic
-        String nombre = this.txtNombre.getText().trim();
-        String descripcion = this.txtDescripcion.getText().trim();
-        Grupo grupo = new Grupo(nombre, descripcion);        
-        grupos.add(grupo);
-        for(Grupo g : grupos)
-            g.mostrar();
+        this.controlador.btnGuardarClic(evt);
     }//GEN-LAST:event_btnGuardarClic
+
+    private void btnCancelarClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClic
+        this.controlador.btnCancelarClic(evt);
+    }//GEN-LAST:event_btnCancelarClic
+
+    private void btnModificarClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarClic
+        this.controlador.btnModificarMiembrosClic(evt);
+    }//GEN-LAST:event_btnModificarClic
+
+    private void txtNombrePresionarTecla(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombrePresionarTecla
+        this.controlador.txtNombrePresionarTecla(evt);
+    }//GEN-LAST:event_txtNombrePresionarTecla
+
+    private void txtDescripcionPresionarTecla(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPresionarTecla
+        this.controlador.txtDescripcionPresionarTecla(evt);
+    }//GEN-LAST:event_txtDescripcionPresionarTecla
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaMiembros;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
