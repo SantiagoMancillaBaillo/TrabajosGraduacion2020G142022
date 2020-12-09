@@ -102,10 +102,10 @@ public abstract class Autor implements Comparable<Autor>{
     
     public void mostrar(int x, int y, int z){
         if(!grupoMiembro.isEmpty()){
-        System.out.println("\nGrupos a los que pertenece: \n" );
-        for(MiembroEnGrupo i : grupoMiembro){
-            i.mostrar2();
-        }
+            System.out.println("\nGrupos a los que pertenece: \n" );
+            for(MiembroEnGrupo i : grupoMiembro){
+                i.mostrar2();
+            }
         }
     }
     
