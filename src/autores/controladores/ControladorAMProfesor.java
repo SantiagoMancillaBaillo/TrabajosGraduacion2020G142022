@@ -5,10 +5,14 @@
  */
 package autores.controladores;
 
+import autores.modelos.Autor;
 import autores.modelos.Cargo;
 import autores.modelos.GestorAutores;
+import autores.modelos.ModeloTablaGruposP;
+import autores.modelos.Profesor;
 import autores.vistas.ModeloComboCargos;
 import autores.vistas.VentanaAMProfesor;
+import autores.vistas.VentanaAutores;
 import interfaces.IControladorAMProfesor;
 import interfaces.IGestorAutores;
 import java.awt.event.ActionEvent;
@@ -21,25 +25,33 @@ import javax.swing.JOptionPane;
  */
 public class ControladorAMProfesor implements IControladorAMProfesor{
     private VentanaAMProfesor ventana;
+    private VentanaAutores ventanaAutores;
+    private Profesor prof;
     
     
     public ControladorAMProfesor(){    
-            this.ventana = new VentanaAMProfesor(this, null, true);
+            this.ventana = new VentanaAMProfesor(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_NUEVO);
             this.ventana.getComboCargo().setModel(new ModeloComboCargos());
+            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposP());
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true);
     }
     
-    public ControladorAMProfesor(String dni){
-            this.ventana = new VentanaAMProfesor(this, null, true);
+    public ControladorAMProfesor(Profesor p){
+            prof = p;
+            IGestorAutores ga = GestorAutores.crear();
+            this.ventana = new VentanaAMProfesor(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_MODIFICAR);
             this.ventana.getComboCargo().setModel(new ModeloComboCargos());
             this.ventana.getTxtDNI().setEditable(false);
-            this.ventana.getTxtDNI().setText(dni);
+            this.ventana.getTxtDNI().setText(String.valueOf(p.verDni()));
+            this.ventana.getTxtNombres().setText(p.verNombres());
+            this.ventana.getTxtApellidos().setText(p.verApellidos());
+            this.ventana.getComboCargo().setSelectedIndex(-1);
+            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposP(prof));
             this.ventana.setLocationRelativeTo(null);
-            this.ventana.setVisible(true);
-            
+            this.ventana.setVisible(true); 
     }
 
     @Override
@@ -61,11 +73,13 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
         else{
             IGestorAutores ga = GestorAutores.crear();
             if(ventana.getTxtDNI().isEditable()){
-            ga.nuevoAutor(dni, apellidos, nombres, cargo, clave, claverep);
-            this.setAllTextFieldsToNull();
+                ga.nuevoAutor(dni, apellidos, nombres, cargo, clave, claverep);
+                this.ventana.dispose();
             }
             else{
                 if(!ventana.getTxtDNI().isEditable()){
+                    ModeloTablaGruposP mtgp = (ModeloTablaGruposP)this.ventana.getTablaGruposMiembro().getModel();
+                    mtgp.actualizar(prof);
                     ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cargo, clave, claverep);
                     JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
                     this.ventana.dispose();
@@ -75,29 +89,19 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Hay un campo inválido");
-            this.setAllTextFieldsToNull();
+            JOptionPane.showMessageDialog(ventana, "Hay un campo inválido");
+            if(!ventana.getTxtDNI().isEditable()){
+                ventana.getTxtApellidos().requestFocus();
+            }
+            else{
+                ventana.getTxtDNI().requestFocus();
+            }
         }
     }
     
-    private void setAllTextFieldsToNull(){
-        ventana.getTxtDNI().setText(null);
-        ventana.getTxtApellidos().setText(null);
-        ventana.getTxtNombres().setText(null);
-        ventana.getPassClave().setText(null);
-        ventana.getPassClaveRepetida().setText(null);
-        ventana.getTxtDNI().requestFocus();
-    }
-
     @Override
     public void btnCancelarClic(ActionEvent evt) {
-        int opcion= JOptionPane.showOptionDialog(null, "¿Desea terminar?", "Profesor", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
-        if(opcion == JOptionPane.YES_OPTION)
-        {
             ventana.dispose();
-        }
-        else
-            ventana.getTxtDNI().requestFocus();
     }
 
     @Override
