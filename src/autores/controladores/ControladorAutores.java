@@ -6,6 +6,7 @@
 package autores.controladores;
 
 import autores.modelos.Alumno;
+import autores.modelos.Autor;
 import autores.modelos.GestorAutores;
 import autores.modelos.Profesor;
 import autores.vistas.ModeloComboCargos;
@@ -21,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
 
 
@@ -95,45 +97,80 @@ public class ControladorAutores implements IControladorAutores{
 
     @Override
     public void btnModificarProfesorClic(ActionEvent evt) {
-        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
-        Profesor p = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
-        IControladorAMProfesor cal = new ControladorAMProfesor(String.valueOf(p.verDni()));
-        mtp.actualizar();
-        this.tablavacia();
+        if(this.ventana.getTablaProfesores().getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(ventana, "No seleccionó ningun Profesor para ser modificado");
+        }
+        else{
+            ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+            Profesor p = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
+            IControladorAMProfesor cal = new ControladorAMProfesor(p);
+            mtp.actualizar();
+            this.tablavacia();
+        }
     }
 
     @Override
     public void btnModificarAlumnoClic(ActionEvent evt) {
-        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
-        Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
-        IControladorAMAlumno cal = new ControladorAMAlumno(String.valueOf(al.verDni()));
-        mta.actualizar();
-        this.tablavacia();
+        if(this.ventana.getTablaAlumnos().getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(ventana, "No seleccionó ningun Alumno para ser modificado");
+        }
+        else{
+            ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+            Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
+            IControladorAMAlumno cal = new ControladorAMAlumno(String.valueOf(al.verDni()));
+            mta.actualizar();
+            this.tablavacia();
+        }
     }
 
     @Override
     public void btnBorrarProfesorClic(ActionEvent evt) {
-        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
-        Profesor pr = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
-        IGestorAutores ga = GestorAutores.crear();
-        ga.borrarAutor(pr);
-        mtp.actualizar();
-        this.tablavacia();
+        if(this.ventana.getTablaAlumnos().getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(ventana, "No seleccionó ningun Profesor para ser borrado");
+        }
+        else{
+            int opcion= JOptionPane.showOptionDialog(null, "¿Desea BORRAR al profesor seleccionado?", "Profesor", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
+            if(opcion == JOptionPane.YES_OPTION){
+                ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+                Profesor pr = mtp.verProfesor(this.ventana.getTablaProfesores().getSelectedRow());
+                IGestorAutores ga = GestorAutores.crear();
+                ga.borrarAutor(pr);
+                mtp.actualizar();
+                this.tablavacia();   
+            }
+            else
+                ventana.getjTextField1().requestFocus();
+        }
+        
     }
 
     @Override
     public void btnBorrarAlumnoClic(ActionEvent evt) {
-        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
-        Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
-        IGestorAutores ga = GestorAutores.crear();
-        ga.borrarAutor(al);
-        mta.actualizar();
-        this.tablavacia();
+        if(this.ventana.getTablaAlumnos().getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(ventana, "No seleccionó ningun Alumno para ser borrado");
+        }
+        else{
+            int opcion= JOptionPane.showOptionDialog(null, "¿Desea BORRAR al Alumno seleccionado?", "Profesor", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
+            if(opcion == JOptionPane.YES_OPTION){
+                ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+                Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
+                IGestorAutores ga = GestorAutores.crear();
+                ga.borrarAutor(al);
+                mta.actualizar();
+                this.tablavacia();
+            }
+            else
+                ventana.getjTextField1().requestFocus();
+        }
     }
 
     @Override
     public void btnVolverClic(ActionEvent evt) {
-        this.ventana.dispose();
+        int opcion= JOptionPane.showOptionDialog(ventana, "¿Desea volver a la Ventana Principal?", "Autores", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí","No"}, this);
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            this.ventana.dispose();
+        }
     }
 
     @Override
@@ -142,6 +179,7 @@ public class ControladorAutores implements IControladorAutores{
             ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
             mtp.mostrarProfesores(apellidos);
             this.ventana.getjTextField1().setText(null);
+            this.ventana.getjTextField1().requestFocus();
     }
 
     @Override
@@ -150,12 +188,17 @@ public class ControladorAutores implements IControladorAutores{
             ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
             mta.mostrarAlumnos(apellidos);
             this.ventana.getjTextField2().setText(null);
+            this.ventana.getjTextField2().requestFocus();
         }
         
 
     @Override
     public void ventanaObtenerFoco(WindowEvent evt) {
         this.ventana.requestFocus();
+        ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
+        ModeloTablaProfesores mtp = (ModeloTablaProfesores)this.ventana.getTablaProfesores().getModel();
+        mta.actualizar();
+        mtp.actualizar();
     }
 
     @Override
