@@ -5,8 +5,16 @@
  */
 package principal.vistas;
 
+import idiomas.modelos.GestorIdiomas;
 import interfaces.IControladorPrincipal;
+import interfaces.IGestorIdiomas;
+import interfaces.IGestorLugares;
+import interfaces.IGestorPalabrasClaves;
+import interfaces.IGestorTipos;
+import lugares.modelos.GestorLugares;
+import palabrasclaves.modelos.GestorPalabrasClaves;
 import principal.controladores.ControladorPrincipal;
+import tipos.modelos.GestorTipos;
 
 /**
  *
@@ -71,6 +79,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jButton7.setText("Publicaciones");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPublicacionesClic(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.setToolTipText("Cerrar el Programa");
@@ -140,11 +153,61 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.controlador.btnGruposClic(evt);
     }//GEN-LAST:event_btnGruposClic
 
+    private void btnPublicacionesClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicacionesClic
+        this.controlador.btnPublicacionesClic(evt);
+    }//GEN-LAST:event_btnPublicacionesClic
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        IGestorLugares lugar = GestorLugares.crear();
+        IGestorIdiomas idioma = GestorIdiomas.crear();
+        IGestorTipos tipo = GestorTipos.crear();
+        IGestorPalabrasClaves palabraClave = GestorPalabrasClaves.crear();
+        
+//        System.out.println("------------------INGRESO DE IDIOMAS------------------");
+        idioma.nuevoIdioma("Inglés");
+        idioma.nuevoIdioma("Inglés");//REPETIDO
+        idioma.nuevoIdioma("Español");
+        idioma.nuevoIdioma("Japones");
+        idioma.nuevoIdioma("Aleman");
+        idioma.nuevoIdioma("");//VACIO
+        idioma.nuevoIdioma(null);//NULO
+//        System.out.println("------------------------------------------------------");
+        
+//        System.out.println("------------------INGRESO DE TIPOS------------------");
+        tipo.nuevoTipo("tipo2");
+        tipo.nuevoTipo("tipo1");
+        tipo.nuevoTipo("tipo3");
+        tipo.nuevoTipo("tipo4");
+        tipo.nuevoTipo("tipo1");//REPETIDO
+        tipo.nuevoTipo("");//VACIO
+        tipo.nuevoTipo(null);//NULO
+//        System.out.println("------------------------------------------------------");
+        
+//        System.out.println("------------------INGRESO DE LUGARES------------------");
+        lugar.nuevoLugar("lugar1");
+        lugar.nuevoLugar("lugar1");//REPETIDO
+        lugar.nuevoLugar("lugar2");
+        lugar.nuevoLugar("lugar3");
+        lugar.nuevoLugar("lugar4");
+        lugar.nuevoLugar("");//VACIO
+        lugar.nuevoLugar(null);//NULO
+//        System.out.println("------------------------------------------------------");
+        
+//        System.out.println("------------------INGRESO DE PALABRAS CLAVE------------------");
+        palabraClave.nuevaPalabraClave("pc1");
+        palabraClave.nuevaPalabraClave("pc1");//REPETIDO
+        palabraClave.nuevaPalabraClave("pc2");
+        palabraClave.nuevaPalabraClave("pc3");
+        palabraClave.nuevaPalabraClave("pc4");
+        palabraClave.nuevaPalabraClave("");//VACIO
+        palabraClave.nuevaPalabraClave(null);//NULO
+//        System.out.println("------------------------------------------------------");
+        
         IControladorPrincipal controlador = new ControladorPrincipal();
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
