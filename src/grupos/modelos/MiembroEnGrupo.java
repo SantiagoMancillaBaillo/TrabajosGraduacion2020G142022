@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author Windows 10
  */
-public class MiembroEnGrupo {
+public class MiembroEnGrupo implements Comparable<MiembroEnGrupo>{
     private Autor autores;
     private Grupo grupos;
     private Rol rol;
@@ -113,6 +113,28 @@ public class MiembroEnGrupo {
     public void mostrar2 (){
         grupos.mostrar(1);
         System.out.println("Rol: " + rol.toString() + "\n");
+    }
+    
+    @Override
+    public int compareTo(MiembroEnGrupo m) {
+        if(this.autores.compareTo(m.verAutores())==0){
+            if(this.grupos.verNombre().compareTo(m.verGrupos().verNombre())==0){
+                return this.grupos.verDescripcion().compareTo(m.verGrupos().verDescripcion());
+            }
+            else{
+                return this.grupos.verNombre().compareTo(m.verGrupos().verNombre());
+            }
+        }
+        else{
+            if(this.autores.verNombres().compareTo(m.verAutores().verNombres())==0){
+                return this.autores.verApellidos().compareTo(m.verAutores().verApellidos());
+            }
+            else{
+                return this.autores.verNombres().compareTo(m.verAutores().verNombres());
+            }
+        }
+            
+            
     }
 }
 
