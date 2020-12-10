@@ -7,6 +7,7 @@ package grupos.modelos;
 
 import interfaces.IGestorGrupos;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -24,6 +25,7 @@ public class ModeloTablaGrupos extends AbstractTableModel{
         
         IGestorGrupos gg = GestorGrupos.crear();
         this.grupos = gg.verGrupos();
+        Collections.sort(grupos);
     }
     
     @Override
@@ -63,11 +65,13 @@ public class ModeloTablaGrupos extends AbstractTableModel{
     public void actualizar(){
         IGestorGrupos gg = GestorGrupos.crear();
         this.grupos = gg.verGrupos();
+        Collections.sort(grupos);
         this.fireTableDataChanged();
     }
     
     public void actualizar(List<Grupo> grupo){
         this.grupos = grupo;
+        Collections.sort(grupos);
         this.fireTableDataChanged();
     }
     
