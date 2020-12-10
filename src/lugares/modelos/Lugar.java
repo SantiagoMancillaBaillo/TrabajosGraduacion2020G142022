@@ -27,11 +27,11 @@ public class Lugar implements Comparable<Lugar>{
     
     @Override
     public String toString() {
-        return "Lugar: " + nombre ;
+        return nombre ;
     }
     
     public void mostrar(){
-        System.out.println("Lugar: " + nombre);
+        System.out.println (nombre);
     }
 
     @Override
