@@ -63,27 +63,31 @@ public class ControladorModificarMiembros implements IControladorModificarMiembr
 
     @Override
     public void btnAceptarClic(ActionEvent evt) {
-        ModeloTablaAgregarMiembros mtam = (ModeloTablaAgregarMiembros)this.ventana.getTablaAgregarMiembros().getModel();
-        int[] miembros = this.ventana.getTablaAgregarMiembros().getSelectedRows();
-            for(int i : miembros){
-                MiembroEnGrupo m = mtam.verMiembros(i);
-                if(m.verRol() == null){
+        IGestorGrupos gg = GestorGrupos.crear();
+        ListSelectionModel modeloSeleccion = this.ventana.getTablaAgregarMiembros().getSelectionModel();
+        ModeloTablaAgregarMiembros mt = (ModeloTablaAgregarMiembros)this.ventana.getTablaAgregarMiembros().getModel();
+        for(int fila = 0; fila < mt.getRowCount(); fila++) {
+            if(modeloSeleccion.isSelectedIndex(fila)){
+                MiembroEnGrupo p = mt.verMiembros(fila);
+                if(p.verRol() == null){
                     JOptionPane.showMessageDialog(ventana, "ERROR Todos los miembros agregados deben tener un Rol asignado\n(Se agregaran solo los Autores a los que se le haya asignado un Rol)");
-                }  
-                else{
-                    IGestorGrupos gg = GestorGrupos.crear();
-                    if(gg.verGrupos().contains(g)){
-                        if(g.verNombre().equals(s)){
-                            gg.verGrupo(g.verNombre()).agregarMiembro(m.verAutores(), Rol.ADMINISTRADOR); //se realizó esto porque por algun motivo no me recibe el método para saber si es grupo es de superadministradores.
-                        }
-                        else{
-                            gg.verGrupo(g.verNombre()).agregarMiembro(m.verAutores(), m.verRol());
-                        }
-                    }
-                    this.ventana.dispose();
                 }
-                
+                if(gg.verGrupo(g.verNombre()).esSuperAdministradores() == true){
+                    gg.verGrupo(g.verNombre()).agregarMiembro(p.verAutores(), Rol.ADMINISTRADOR);
+                }
+                else{
+                    gg.verGrupo(g.verNombre()).agregarMiembro(p.verAutores(),p.verRol());
+                }
             }
+            if(!modeloSeleccion.isSelectedIndex(fila)){
+                MiembroEnGrupo p = mt.verMiembros(fila);
+                gg.verGrupo(g.verNombre()).quitarMiembro(p.verAutores());
+            }
+            if(modeloSeleccion.isSelectionEmpty()){
+                gg.verGrupo(g.verNombre()).verMiembros().clear();
+            }                 
+        }
+    this.ventana.dispose();
     }
 
     @Override
