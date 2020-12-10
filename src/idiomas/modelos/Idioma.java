@@ -27,11 +27,11 @@ public class Idioma implements Comparable<Idioma>{
     
     @Override
     public String toString() {
-        return "Idioma: " + nombre ;
+        return nombre ;
     }
     
     public void mostrar(){
-        System.out.println("Idioma: " + nombre);
+        System.out.println(nombre);
     }
 
     @Override
