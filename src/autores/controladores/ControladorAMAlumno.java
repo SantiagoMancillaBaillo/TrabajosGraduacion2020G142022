@@ -5,8 +5,12 @@
  */
 package autores.controladores;
 
+import autores.modelos.Alumno;
 import autores.modelos.GestorAutores;
+import autores.modelos.ModeloTablaGruposMiembro;
+import autores.vistas.ModeloComboCargos;
 import autores.vistas.VentanaAMAlumno;
+import autores.vistas.VentanaAMProfesor;
 import autores.vistas.VentanaAutores;
 import interfaces.IControladorAMAlumno;
 import interfaces.IGestorAutores;
@@ -21,22 +25,33 @@ import javax.swing.JOptionPane;
 public class ControladorAMAlumno implements IControladorAMAlumno {
     private VentanaAMAlumno ventana;
     private VentanaAutores ventanaAutores;
+    private Alumno alum;
     
     public ControladorAMAlumno(){    
             this.ventana = new VentanaAMAlumno(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_NUEVO);
+            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposMiembro());
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true);
     }
     
-    public ControladorAMAlumno(String dni){
+    public ControladorAMAlumno(Alumno a){
+            alum = a;
+            IGestorAutores ga = GestorAutores.crear();
             this.ventana = new VentanaAMAlumno(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_MODIFICAR);
             this.ventana.getTxtDNI().setEditable(false);
-            this.ventana.getTxtDNI().setText(dni);
+            this.ventana.getTxtDNI().setText(String.valueOf(a.verDni()));
+            this.ventana.getTxtNombres().setText(a.verNombres());
+            this.ventana.getTxtApellidos().setText(a.verApellidos());
+            this.ventana.getTxtCX().setText(a.verCx());
+            this.ventana.getPassClave().setText(a.verClave());
+            this.ventana.getPassRepetirClave().setText(a.verClave());
+            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposMiembro(alum));
+            ModeloTablaGruposMiembro mtgp = (ModeloTablaGruposMiembro)this.ventana.getTablaGruposMiembro().getModel();
+            mtgp.actualizar(a);
             this.ventana.setLocationRelativeTo(null);
-            this.ventana.setVisible(true);
-            
+            this.ventana.setVisible(true); 
     }
     
     @Override
