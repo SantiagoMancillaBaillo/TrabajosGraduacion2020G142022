@@ -49,11 +49,11 @@ public class GestorTipos implements IGestorTipos {
     
     @Override
     public List<Tipo> verTipos(){
-        System.out.println("--------------TIPOS--------------");
+//        System.out.println("--------------TIPOS--------------");
         Collections.sort(this.tipos);
-        for (Tipo t : tipos){
-            System.out.println(t);
-        }
+//        for (Tipo t : tipos){
+//            System.out.println(t);
+//        }
         return tipos;
     }
     
