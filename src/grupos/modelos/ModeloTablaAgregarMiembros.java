@@ -9,6 +9,7 @@ import autores.modelos.Autor;
 import autores.modelos.GestorAutores;
 import interfaces.IGestorAutores;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -31,6 +32,7 @@ public class ModeloTablaAgregarMiembros extends AbstractTableModel{
             MiembroEnGrupo m = new MiembroEnGrupo(a, null, null);
             miembros.add(m);
         }
+        Collections.sort(miembros);
         
     }
     
@@ -66,12 +68,16 @@ public class ModeloTablaAgregarMiembros extends AbstractTableModel{
         }
     }
     
-
+    @Override
+    public String getColumnName(int columna){
+        return this.nombreColumnas.get(columna);
+    }
+    
     @Override
     public Object getValueAt(int fila, int columna) {
         MiembroEnGrupo m = this.miembros.get(fila);
         switch(columna){
-            case 0: return m.verAutores().verNombres();
+            case 0: return m.verAutores().verApellidos()+ ", " + m.verAutores().verNombres()+ "(" + m.verAutores().verDni() + ")";
             default: return m.verRol();
         }
     }
