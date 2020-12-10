@@ -7,6 +7,7 @@ package grupos.modelos;
 
 import interfaces.IGestorGrupos;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -28,11 +29,10 @@ public class ModeloTablaMiembros extends AbstractTableModel{
         nombreColumnas.add("Nombre");
         nombreColumnas.add("Rol"); 
         IGestorGrupos gg = GestorGrupos.crear();
-//        Grupo gr = new Grupo(nombre, descripcion);
         grupos = gg.verGrupos();
         if(gg.verGrupos().contains(g)){
-//            miembros = gg.verGrupo(g.verNombre()).verMiembros();
             miembros = g.verMiembros();
+            Collections.sort(miembros);
         }
     }
     
@@ -51,7 +51,7 @@ public class ModeloTablaMiembros extends AbstractTableModel{
         MiembroEnGrupo m = this.miembros.get(fila);
         
         switch(columna){
-            case 0: return m.verAutores().verNombres();
+            case 0: return m.verAutores().verApellidos()+ ", " + m.verAutores().verNombres()+ "(" + m.verAutores().verDni() + ")";
             default: return m.verRol();
         }
     }
@@ -75,6 +75,7 @@ public class ModeloTablaMiembros extends AbstractTableModel{
             if(gg.verGrupos().contains(g)){
 //                miembros = gg.verGrupo(g.verNombre()).verMiembros();
                 miembros = g.verMiembros();
+                Collections.sort(miembros);
             }
         this.fireTableDataChanged();
     }
