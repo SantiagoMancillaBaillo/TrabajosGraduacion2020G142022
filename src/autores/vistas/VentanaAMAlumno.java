@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JPasswordField;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class VentanaAMAlumno extends JDialog {    
@@ -51,7 +52,7 @@ public class VentanaAMAlumno extends JDialog {
         passRepetirClave = new javax.swing.JPasswordField();
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaGruposMiembro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alumnos");
@@ -128,7 +129,7 @@ public class VentanaAMAlumno extends JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaGruposMiembro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -139,7 +140,7 @@ public class VentanaAMAlumno extends JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaGruposMiembro);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,6 +273,12 @@ public class VentanaAMAlumno extends JDialog {
         this.txtDNI = txtDNI;
     }
 
+    public JTable getTablaGruposMiembro() {
+        return tablaGruposMiembro;
+    }
+    
+    
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -284,9 +291,9 @@ public class VentanaAMAlumno extends JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPasswordField passClave;
     private javax.swing.JPasswordField passRepetirClave;
+    private javax.swing.JTable tablaGruposMiembro;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCX;
     private javax.swing.JTextField txtDNI;
