@@ -24,6 +24,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumn;
+import principal.vistas.VentanaPrincipal;
 
 
 
@@ -33,9 +34,10 @@ import javax.swing.table.TableColumn;
  */
 public class ControladorAutores implements IControladorAutores{
     private VentanaAutores ventana;
+    private VentanaPrincipal ventanaPrincipal;
 
     public ControladorAutores() {
-        this.ventana = new VentanaAutores(this, null, true);
+        this.ventana = new VentanaAutores(this, ventanaPrincipal, true);
         this.ventana.setTitle(TITULO);
         this.ventana.setLocationRelativeTo(null);
         this.ventana.getTablaProfesores().setModel(new ModeloTablaProfesores());
@@ -117,7 +119,7 @@ public class ControladorAutores implements IControladorAutores{
         else{
             ModeloTablaAlumnos mta = (ModeloTablaAlumnos)this.ventana.getTablaAlumnos().getModel();
             Alumno al = mta.verAlumnos(this.ventana.getTablaAlumnos().getSelectedRow());
-            IControladorAMAlumno cal = new ControladorAMAlumno(String.valueOf(al.verDni()));
+            IControladorAMAlumno cal = new ControladorAMAlumno(al);
             mta.actualizar();
             this.tablavacia();
         }
@@ -125,7 +127,7 @@ public class ControladorAutores implements IControladorAutores{
 
     @Override
     public void btnBorrarProfesorClic(ActionEvent evt) {
-        if(this.ventana.getTablaAlumnos().getSelectedRow() == -1){
+        if(this.ventana.getTablaProfesores().getSelectedRow() == -1){
             JOptionPane.showMessageDialog(ventana, "No seleccionó ningun Profesor para ser borrado");
         }
         else{
