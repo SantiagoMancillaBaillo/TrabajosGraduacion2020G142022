@@ -27,11 +27,11 @@ public class Tipo implements Comparable<Tipo>{
     
     @Override
     public String toString() {
-        return "Tipo: " + nombre ;
+        return nombre ;
     }
     
     public void mostrar(){
-        System.out.println("Tipo: " + nombre);
+        System.out.println(nombre);
     }
 
     @Override
