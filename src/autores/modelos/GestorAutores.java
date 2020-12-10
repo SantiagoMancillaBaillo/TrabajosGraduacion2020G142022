@@ -92,7 +92,7 @@ public class GestorAutores implements IGestorAutores {
                         p.asignarNombres(nombres);
                         p.asignarCargo(cargo);
                         p.asignarClave(clave);
-                        autores.set(autores.indexOf(autor), p);
+//                        autores.set(autores.indexOf(autor), p);
                         break;
                     }
                 }
@@ -125,8 +125,15 @@ public class GestorAutores implements IGestorAutores {
                         al.asignarNombres(nombres);
                         al.asignarCx(cx);
                         al.asignarClave(clave);
-                        autores.set(autores.indexOf(autor), al);
+//                        autores.set(autores.indexOf(autor), al);
                         break;
+                    }
+                }
+                for(Autor a : autores){
+                    if(autores.contains(autor)){
+                        a.asignarApellidos(apellidos);
+                        a.asignarNombres(nombres);
+                        a.asignarClave(clave);
                     }
                 }
 //                Alumno al = new Alumno(autor.verDni(), apellidos, nombres, clave, cx);
@@ -191,9 +198,9 @@ public class GestorAutores implements IGestorAutores {
     public ArrayList<Profesor> verProfesores() {
 //        System.out.println("--------------PROFESORES--------------");
         Collections.sort(profesores);
-        for(Profesor p : profesores){
-            p.mostrar();
-        }
+//        for(Profesor p : profesores){
+//            p.mostrar();
+//        }
         return profesores;
     }
 
@@ -212,6 +219,7 @@ public class GestorAutores implements IGestorAutores {
         IGestorPublicaciones gp = GestorPublicaciones.crear();
         GestorGrupos gg = GestorGrupos.crear();
         if(existeEsteAutor(autor) && gp.hayPublicacionesConEsteAutor(autor)){
+                JOptionPane.showMessageDialog(null, "No se puede eliminar, hay publicaciones con este autor");
                 return AborrarMENSAJE_ERROR;
         }
         if(existeEsteAutor(autor) && !gp.hayPublicacionesConEsteAutor(autor)){
