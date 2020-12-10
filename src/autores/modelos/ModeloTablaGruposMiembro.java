@@ -8,6 +8,7 @@ package autores.modelos;
 import grupos.modelos.MiembroEnGrupo;
 import interfaces.IGestorAutores;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -15,24 +16,25 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Windows 10
  */
-public class ModeloTablaGruposP extends AbstractTableModel{
+public class ModeloTablaGruposMiembro extends AbstractTableModel{
     private List<String> nombreColumnas = new ArrayList<>();
     private List<MiembroEnGrupo> grupos = new ArrayList<>();
-    private List<Profesor> profesores = new ArrayList<>();
+    private List<Autor> autores = new ArrayList<>();
     
-    public ModeloTablaGruposP() {
+    public ModeloTablaGruposMiembro() {
         nombreColumnas.add("Grupo");
         nombreColumnas.add("Rol"); 
     }
     
-    public ModeloTablaGruposP(Autor a){
+    public ModeloTablaGruposMiembro(Autor a){
         nombreColumnas.add("Grupo");
         nombreColumnas.add("Rol"); 
         IGestorAutores ga = GestorAutores.crear();
-        profesores = ga.verProfesores();
+        autores = ga.verAutores();
 //        if(ga.verProfesores().contains(p)){
 ////            miembros = gg.verGrupo(g.verNombre()).verMiembros();
             grupos = a.verGrupos();
+            Collections.sort(grupos);
 //        }
     }
 
@@ -70,11 +72,12 @@ public class ModeloTablaGruposP extends AbstractTableModel{
         return this.grupos.get(fila);
     }
     
-    public void actualizar(Autor p){
+    public void actualizar(Autor a){
         IGestorAutores ga = GestorAutores.crear();
 //            if(ga.verProfesores().contains(p)){
 ////                miembros = gg.verGrupo(g.verNombre()).verMiembros();
-                grupos = p.verGrupos();
+                grupos = ga.verAutor(a.verDni()).verGrupos();
+                Collections.sort(grupos);
 //            }
         this.fireTableDataChanged();
     }
