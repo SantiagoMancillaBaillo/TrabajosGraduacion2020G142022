@@ -12,6 +12,7 @@ import interfaces.IGestorGrupos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -69,9 +70,9 @@ public class GestorGrupos implements IGestorGrupos{
     public List<Grupo> verGrupos() {
 //        System.out.println("--------------GRUPOS--------------");
         Collections.sort(grupos);
-        for(Grupo g : grupos){
-            g.mostrar();
-        }
+//        for(Grupo g : grupos){
+//            g.mostrar();
+//        }
         return grupos;
     }
     
@@ -110,6 +111,7 @@ public class GestorGrupos implements IGestorGrupos{
     public String borrarGrupo(Grupo grupo) {
         IGestorAutores ga = GestorAutores.crear();
         if(existeEsteGrupo(grupo) && ga.hayAutoresConEsteGrupo(grupo)){
+            JOptionPane.showMessageDialog(null, "No se puede borrar, hay autores en este grupo, asegurese de eliminar los autores antes de eliminar el grupo");
             return GborrarMENSAJE_ERROR;
         }
         if(existeEsteGrupo(grupo) && !ga.hayAutoresConEsteGrupo(grupo)){
