@@ -50,11 +50,11 @@ public class GestorPalabrasClaves implements IGestorPalabrasClaves{
 
     @Override
     public List<PalabraClave> verPalabrasClaves() {
-        System.out.println("--------------PALABRAS CLAVE--------------");
+//        System.out.println("--------------PALABRAS CLAVE--------------");
         Collections.sort(palabrasClaves);
-        for (PalabraClave pc : palabrasClaves){
-            System.out.println(pc);
-        }
+//        for (PalabraClave pc : palabrasClaves){
+//            System.out.println(pc);
+//        }
         return palabrasClaves;
     }
 
