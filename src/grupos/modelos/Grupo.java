@@ -6,6 +6,8 @@
 package grupos.modelos;
 
 import autores.modelos.Autor;
+import autores.modelos.GestorAutores;
+import interfaces.IGestorAutores;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +41,8 @@ public class Grupo implements Comparable<Grupo>{
     
     
     public void agregarMiembro(Autor a, Rol r){
-        MiembroEnGrupo m = new MiembroEnGrupo(a,this,r);
+        IGestorAutores ga = GestorAutores.crear();
+        MiembroEnGrupo m = new MiembroEnGrupo(ga.verAutor(a.verDni()),this,r);
         if(!miembros.contains(m)){
             if(this.esSuperAdministradores() == true){
                 MiembroEnGrupo m1 = new MiembroEnGrupo(a,this,Rol.ADMINISTRADOR);
@@ -48,7 +51,7 @@ public class Grupo implements Comparable<Grupo>{
             else{
                 this.miembros.add(m);
             }
-        a.agregarGrupo(this, r);
+        ga.verAutor(a.verDni()).agregarGrupo(this, r);
         
         }
     }
@@ -97,13 +100,11 @@ public class Grupo implements Comparable<Grupo>{
     
     public boolean esSuperAdministradores(){
         boolean superAdministrador = false;
-        if (nombre == "Super Administradores"){
+        if (this.verNombre().equals("Super Administradores")){
             superAdministrador = true;
-//            System.out.println("GRUPO '"+ nombre +"' ES GRUPO DE SUPER ADMINISTRADORES");
         }
         else{
             superAdministrador = false;
-//            System.out.println("GRUPO '"+ nombre +"' NO ES GRUPO DE SUPER ADMINISTRADORES");
         }
         return superAdministrador;
     }
