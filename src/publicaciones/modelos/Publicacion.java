@@ -55,9 +55,9 @@ public class Publicacion implements Comparable<Publicacion>{
             System.out.println("Idioma: " + unIdioma.verIdioma());
             System.out.println("Lugar: " + unLugar.verLugar());
             System.out.println("Palabras Claves\n -----------");
-//            for(PalabraClave p : palClave){
-//            System.out.println(" " + p.verPalabraClave());
-//            }
+            for(PalabraClave p : palClave){
+                System.out.println(" " + p.verPalabraClave());
+            }
             System.out.println("\nEnlace: " + enlace);
             System.out.println("Resumen: " + resumen);
             System.out.println("---------------------------------");
