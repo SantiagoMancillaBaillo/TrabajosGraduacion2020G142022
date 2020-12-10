@@ -8,7 +8,7 @@ package autores.controladores;
 import autores.modelos.Autor;
 import autores.modelos.Cargo;
 import autores.modelos.GestorAutores;
-import autores.modelos.ModeloTablaGruposP;
+import autores.modelos.ModeloTablaGruposMiembro;
 import autores.modelos.Profesor;
 import autores.vistas.ModeloComboCargos;
 import autores.vistas.VentanaAMProfesor;
@@ -33,7 +33,7 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
             this.ventana = new VentanaAMProfesor(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_NUEVO);
             this.ventana.getComboCargo().setModel(new ModeloComboCargos());
-            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposP());
+            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposMiembro());
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true);
     }
@@ -48,8 +48,12 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
             this.ventana.getTxtDNI().setText(String.valueOf(p.verDni()));
             this.ventana.getTxtNombres().setText(p.verNombres());
             this.ventana.getTxtApellidos().setText(p.verApellidos());
-            this.ventana.getComboCargo().setSelectedIndex(-1);
-            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposP(prof));
+            this.ventana.getComboCargo().setSelectedItem(p.verCargo());
+            this.ventana.getPassClave().setText(p.verClave());
+            this.ventana.getPassClaveRepetida().setText(p.verClave());
+            this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposMiembro(prof));
+            ModeloTablaGruposMiembro mtgp = (ModeloTablaGruposMiembro)this.ventana.getTablaGruposMiembro().getModel();
+            mtgp.actualizar(p);
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true); 
     }
@@ -78,8 +82,6 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
             }
             else{
                 if(!ventana.getTxtDNI().isEditable()){
-                    ModeloTablaGruposP mtgp = (ModeloTablaGruposP)this.ventana.getTablaGruposMiembro().getModel();
-                    mtgp.actualizar(prof);
                     ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cargo, clave, claverep);
                     JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
                     this.ventana.dispose();
