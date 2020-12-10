@@ -81,7 +81,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-            System.out.println("Hay " + contador + " publicaciones con esa Palabra Clave");
+//            System.out.println("Hay " + contador + " publicaciones con esa Palabra Clave");
         }
         return hayPPalClave;
     }
@@ -97,7 +97,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-            System.out.println("Hay " + contador + " publicaciones con ese Lugar");
+//            System.out.println("Hay " + contador + " publicaciones con ese Lugar");
         }
         return hayPLugar;
     }
@@ -113,7 +113,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-            System.out.println("Hay " + contador + " publicaciones en ese Idioma");
+//            System.out.println("Hay " + contador + " publicaciones en ese Idioma");
         }
         return hayPIdioma;
     }
@@ -129,7 +129,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-            System.out.println("Hay " + contador + " publicaciones con ese Tipo");
+//            System.out.println("Hay " + contador + " publicaciones con ese Tipo");
         }
         return hayPTipo;
     }
@@ -139,7 +139,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
         boolean hayPAutor = false;
         if(autor != null){
             for(Publicacion p : publicaciones){
-                if(autor == p.verMiembro().verAutores()){
+                if(autor.verDni() == (p.verMiembro().verAutores().verDni())){
                     hayPAutor = true;
                     break;
                 }
@@ -162,11 +162,11 @@ public class GestorPublicaciones implements IGestorPublicaciones{
 
     @Override
     public List<Publicacion> verPublicaciones() {
-        System.out.println("--------------PUBLICACIONES--------------");
+//        System.out.println("--------------PUBLICACIONES--------------");
         Collections.sort(publicaciones);
-        for(Publicacion p : publicaciones){
-            p.mostrar();
-        }
+//        for(Publicacion p : publicaciones){
+//            p.mostrar();
+//        }
         return publicaciones;
     }
 
