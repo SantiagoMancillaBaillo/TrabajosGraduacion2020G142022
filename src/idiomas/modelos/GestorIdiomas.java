@@ -52,11 +52,11 @@ public class GestorIdiomas implements IGestorIdiomas{
 
     @Override
     public List<Idioma> verIdiomas() {
-        System.out.println("--------------IDIOMAS--------------");
+//        System.out.println("--------------IDIOMAS--------------");
         Collections.sort(idiomas);
-        for (Idioma i : idiomas){
-            System.out.println(i);
-        }
+//        for (Idioma i : idiomas){
+//            System.out.println(i);
+//        }
         return idiomas;
     }
 
