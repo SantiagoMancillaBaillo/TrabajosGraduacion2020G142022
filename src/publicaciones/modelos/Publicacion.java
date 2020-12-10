@@ -55,9 +55,9 @@ public class Publicacion implements Comparable<Publicacion>{
             System.out.println("Idioma: " + unIdioma.verIdioma());
             System.out.println("Lugar: " + unLugar.verLugar());
             System.out.println("Palabras Claves\n -----------");
-            for(PalabraClave p : palClave){
-            System.out.println(" " + p.verPalabraClave());
-            }
+//            for(PalabraClave p : palClave){
+//            System.out.println(" " + p.verPalabraClave());
+//            }
             System.out.println("\nEnlace: " + enlace);
             System.out.println("Resumen: " + resumen);
             System.out.println("---------------------------------");
@@ -86,10 +86,19 @@ public class Publicacion implements Comparable<Publicacion>{
     public List<PalabraClave> verPalabrasClaves() {
         return palClave;
     }
-        
-    
-        
 
+    public LocalDate verFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public String verResumen() {
+        return resumen;
+    }
+
+    public String verEnlace() {
+        return enlace;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
