@@ -35,18 +35,11 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
         this.ventana.setVisible(true);
     }
     
-//    public ControladorAMGrupo(Grupo g) {
     public ControladorAMGrupo(String nombre, String descripcion) {
         IGestorGrupos gg = GestorGrupos.crear();
-//        Grupo g = new Grupo(nombre, descripcion);
         this.ventana = new VentanaAMGrupo(this, ventanaGrupos, true);
         this.ventana.setTitle(TITULO_MODIFICAR);
         this.ventana.getTxtNombre().setEditable(false);
-//        this.ventana.getTxtNombre().setText(nombre);
-//        this.ventana.getTxtDescripcion().setText(descripcion);
-//        this.ventana.getTxtNombre().setText(g.verNombre());
-//        this.ventana.getTablaMiembros().setModel(new ModeloTablaMiembros(g));
-//        this.ventana.getTxtDescripcion().setText(g.verDescripcion());
         this.ventana.getTxtNombre().setText(gg.verGrupo(nombre).verNombre());
         this.ventana.getTablaMiembros().setModel(new ModeloTablaMiembros(gg.verGrupo(nombre)));
         this.ventana.getTxtDescripcion().setText(gg.verGrupo(nombre).verDescripcion());
@@ -89,11 +82,9 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
         ModeloTablaMiembros mta = (ModeloTablaMiembros)this.ventana.getTablaMiembros().getModel();
         String nombre = this.ventana.getTxtNombre().getText().trim();
         String descripcion = this.ventana.getTxtDescripcion().getText().trim();
-//        Grupo gr = new Grupo (nombre, descripcion);
         IGestorGrupos gg = GestorGrupos.crear();
         mta.actualizar(gg.verGrupo(nombre));
         IControladorModificarMiembros cmm = new ControladorModificarMiembros(gg.verGrupo(nombre));
-        
         mta.actualizar(gg.verGrupo(nombre));
     }
 
