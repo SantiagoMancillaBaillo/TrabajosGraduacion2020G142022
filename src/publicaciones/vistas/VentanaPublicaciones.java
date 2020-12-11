@@ -6,6 +6,7 @@
 package publicaciones.vistas;
 
 import interfaces.IControladorPublicaciones;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -102,6 +103,9 @@ public class VentanaPublicaciones extends javax.swing.JDialog {
         jLabel1.setText("Título:");
 
         txtTitulo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTituloEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTituloPresionarTecla(evt);
             }
@@ -157,11 +161,10 @@ public class VentanaPublicaciones extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNueva, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBorrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -234,6 +237,12 @@ public class VentanaPublicaciones extends javax.swing.JDialog {
     private void ventanaGanaFoco(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_ventanaGanaFoco
         this.controlador.ventanaObtenerFoco(evt);
     }//GEN-LAST:event_ventanaGanaFoco
+
+    private void txtTituloEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTituloEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.controlador.btnBuscarClic(null);
+        }
+    }//GEN-LAST:event_txtTituloEnter
 
     /**
      * @param args the command line arguments
