@@ -5,11 +5,11 @@
  */
 package autores.vistas;
 
-import autores.modelos.Alumno;
 import autores.modelos.GestorAutores;
 import autores.modelos.Profesor;
 import interfaces.IGestorAutores;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -29,6 +29,7 @@ public class ModeloTablaProfesores extends AbstractTableModel {
         
         IGestorAutores ga = GestorAutores.crear();
         this.profesor = ga.verProfesores();
+        Collections.sort(profesor);
     }
 
     @Override
@@ -70,11 +71,13 @@ public class ModeloTablaProfesores extends AbstractTableModel {
     public void actualizar(){
         IGestorAutores ga = GestorAutores.crear();
         this.profesor = ga.verProfesores();
+        Collections.sort(profesor);
         this.fireTableDataChanged();
     }
     
     public void actualizar(ArrayList<Profesor> profesores){
         this.profesor = profesores;
+        Collections.sort(profesor);
         this.fireTableDataChanged();
     }
     
