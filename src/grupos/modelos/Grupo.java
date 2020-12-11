@@ -89,13 +89,13 @@ public class Grupo implements Comparable<Grupo>{
     }
     
     public void quitarMiembro (Autor miembro){
-        
-        MiembroEnGrupo m = new MiembroEnGrupo(miembro, this, null);
-        if(miembros.contains(m)){
-            int pos = miembros.indexOf(m);
-        miembros.remove(pos);
-        miembro.quitarGrupo(this);
-        }
+        IGestorAutores ga = GestorAutores.crear();
+        MiembroEnGrupo m = new MiembroEnGrupo(ga.verAutor(miembro.verDni()), this, null);
+            if(miembros.contains(m)){
+                int pos = miembros.indexOf(m);
+                miembros.remove(pos);
+                miembro.quitarGrupo(this);
+            }
     }
     
     public boolean esSuperAdministradores(){
