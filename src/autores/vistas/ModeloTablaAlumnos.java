@@ -6,12 +6,11 @@
 package autores.vistas;
 
 import autores.modelos.Alumno;
-import autores.modelos.Autor;
 import autores.modelos.GestorAutores;
 import interfaces.IGestorAutores;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -30,6 +29,7 @@ public class ModeloTablaAlumnos extends AbstractTableModel {
         
         IGestorAutores ga = GestorAutores.crear();
         this.alumno = ga.verAlumnos();
+        Collections.sort(alumno);
     }
 
     @Override
@@ -71,11 +71,13 @@ public class ModeloTablaAlumnos extends AbstractTableModel {
     public void actualizar(){
         IGestorAutores ga = GestorAutores.crear();
         this.alumno = ga.verAlumnos();
+        Collections.sort(alumno);
         this.fireTableDataChanged();
     }
     
     public void actualizar(ArrayList<Alumno> alumnos){
         this.alumno = alumnos;
+        Collections.sort(alumno);
         this.fireTableDataChanged();
     }
     
