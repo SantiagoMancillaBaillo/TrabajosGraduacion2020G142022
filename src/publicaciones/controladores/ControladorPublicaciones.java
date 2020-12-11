@@ -115,6 +115,7 @@ public class ControladorPublicaciones implements IControladorPublicaciones{
     @Override
     public void ventanaObtenerFoco(WindowEvent evt) {
         this.ventana.requestFocus();
+        this.ventana.getTxtTitulo().requestFocus();
         ModeloTablaPublicaciones mtp = (ModeloTablaPublicaciones)this.ventana.getTablaPublicaciones().getModel();
         mtp.actualizar();
     }
