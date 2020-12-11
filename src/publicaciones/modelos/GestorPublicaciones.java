@@ -6,6 +6,7 @@
 package publicaciones.modelos;
 
 import autores.modelos.Autor;
+import grupos.modelos.Grupo;
 import grupos.modelos.MiembroEnGrupo;
 import grupos.modelos.Rol;
 import idiomas.modelos.Idioma;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 import lugares.modelos.Lugar;
 import palabrasclaves.modelos.PalabraClave;
 import tipos.modelos.Tipo;
@@ -50,6 +52,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                 return PMENSAJE_EXITO;
             }
             else
+                JOptionPane.showMessageDialog(null, "No se creó la publicación, esta publicación ya existe!");
                 return PMENSAJE_REPETIDO;
         }
         else
@@ -81,7 +84,6 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-//            System.out.println("Hay " + contador + " publicaciones con esa Palabra Clave");
         }
         return hayPPalClave;
     }
@@ -97,7 +99,6 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-//            System.out.println("Hay " + contador + " publicaciones con ese Lugar");
         }
         return hayPLugar;
     }
@@ -113,7 +114,6 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-//            System.out.println("Hay " + contador + " publicaciones en ese Idioma");
         }
         return hayPIdioma;
     }
@@ -129,7 +129,6 @@ public class GestorPublicaciones implements IGestorPublicaciones{
                     contador++;
                 }
             }
-//            System.out.println("Hay " + contador + " publicaciones con ese Tipo");
         }
         return hayPTipo;
     }
@@ -147,7 +146,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
         }
         return hayPAutor;
     }
-
+    
     @Override
     public boolean existeEstaPublicacion(Publicacion publicacion) {
         boolean existe = false;
@@ -162,11 +161,7 @@ public class GestorPublicaciones implements IGestorPublicaciones{
 
     @Override
     public List<Publicacion> verPublicaciones() {
-//        System.out.println("--------------PUBLICACIONES--------------");
         Collections.sort(publicaciones);
-//        for(Publicacion p : publicaciones){
-//            p.mostrar();
-//        }
         return publicaciones;
     }
 
@@ -176,8 +171,6 @@ public class GestorPublicaciones implements IGestorPublicaciones{
         Publicacion pu = new Publicacion (titulo, null, null, null, null, null, null, null, null);
         for(Publicacion p : publicaciones){
                 if(pu.verTitulo().equals(p.verTitulo())){
-//                    System.out.println("PUBLICACIÓN ENCONTRADA:" + p.verTitulo());
-//                    p.mostrar();
                     return p;
                 }
             }
