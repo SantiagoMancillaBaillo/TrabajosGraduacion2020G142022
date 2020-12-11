@@ -6,7 +6,6 @@
 package autores.controladores;
 
 import autores.modelos.Alumno;
-import autores.modelos.Autor;
 import autores.modelos.GestorAutores;
 import autores.modelos.Profesor;
 import autores.vistas.ModeloComboCargos;
