@@ -116,6 +116,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Apellidos del Alumno"/>
       </Properties>
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidosEnter"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidosPresionarTecla"/>
       </Events>
     </Component>
@@ -129,6 +130,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Nombres del Alumno"/>
       </Properties>
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombresEnter"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNombresPresionarTecla"/>
       </Events>
     </Component>
@@ -157,6 +159,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Documento del Alumno"/>
       </Properties>
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDocumentoEnter"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDocumentoPresionarTecla"/>
       </Events>
     </Component>
@@ -165,6 +168,7 @@
         <Property name="toolTipText" type="java.lang.String" value="CX del Alumno"/>
       </Properties>
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCxEnter"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCXPresionarTecla"/>
       </Events>
     </Component>
@@ -173,6 +177,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Clave del Alumno"/>
       </Properties>
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passClaveEnter"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passClavePresionarTecla"/>
       </Events>
     </Component>
@@ -191,6 +196,7 @@
         <Property name="toolTipText" type="java.lang.String" value="Clave del Alumno"/>
       </Properties>
       <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passRepetirClaveEnter"/>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passRepetirClavePresionarTecla"/>
       </Events>
     </Component>

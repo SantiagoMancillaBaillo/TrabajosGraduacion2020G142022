@@ -62,6 +62,9 @@ public class VentanaAMAlumno extends JDialog {
 
         txtApellidos.setToolTipText("Apellidos del Alumno");
         txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidosEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApellidosPresionarTecla(evt);
             }
@@ -71,6 +74,9 @@ public class VentanaAMAlumno extends JDialog {
 
         txtNombres.setToolTipText("Nombres del Alumno");
         txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombresEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombresPresionarTecla(evt);
             }
@@ -91,6 +97,9 @@ public class VentanaAMAlumno extends JDialog {
 
         txtDNI.setToolTipText("Documento del Alumno");
         txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDocumentoEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDocumentoPresionarTecla(evt);
             }
@@ -98,6 +107,9 @@ public class VentanaAMAlumno extends JDialog {
 
         txtCX.setToolTipText("CX del Alumno");
         txtCX.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCxEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCXPresionarTecla(evt);
             }
@@ -105,6 +117,9 @@ public class VentanaAMAlumno extends JDialog {
 
         passClave.setToolTipText("Clave del Alumno");
         passClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passClaveEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passClavePresionarTecla(evt);
             }
@@ -116,6 +131,9 @@ public class VentanaAMAlumno extends JDialog {
 
         passRepetirClave.setToolTipText("Clave del Alumno");
         passRepetirClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passRepetirClaveEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passRepetirClavePresionarTecla(evt);
             }
@@ -244,6 +262,42 @@ public class VentanaAMAlumno extends JDialog {
     private void passRepetirClavePresionarTecla(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passRepetirClavePresionarTecla
         this.controlador.passRepetirClavePresionarTecla(evt);
     }//GEN-LAST:event_passRepetirClavePresionarTecla
+
+    private void txtDocumentoEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getTxtApellidos().requestFocus();
+        }
+    }//GEN-LAST:event_txtDocumentoEnter
+
+    private void txtApellidosEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getTxtNombres().requestFocus();
+        }
+    }//GEN-LAST:event_txtApellidosEnter
+
+    private void txtCxEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCxEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getPassClave().requestFocus();
+        }
+    }//GEN-LAST:event_txtCxEnter
+
+    private void txtNombresEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getTxtCX().requestFocus();
+        }
+    }//GEN-LAST:event_txtNombresEnter
+
+    private void passClaveEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passClaveEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getPassRepetirClave().requestFocus();
+        }
+    }//GEN-LAST:event_passClaveEnter
+
+    private void passRepetirClaveEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passRepetirClaveEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.controlador.btnGuardarClic(null);
+        }
+    }//GEN-LAST:event_passRepetirClaveEnter
 
     public JPasswordField getPassClave() {
         return passClave;
