@@ -49,11 +49,7 @@ public class GestorLugares implements IGestorLugares{
 
     @Override
     public List<Lugar> verLugares() {
-//        System.out.println("--------------LUGARES--------------");
         Collections.sort(lugares);
-//        for (Lugar l : lugares){
-//            System.out.println(l);
-//        }
         return lugares;
     }
 
@@ -62,8 +58,6 @@ public class GestorLugares implements IGestorLugares{
         Lugar lu = new Lugar(nombre);
         for(Lugar l : lugares){
             if(lu.verLugar().equals(l.verLugar())){
-//                System.out.println("LUGAR ENCONTRADO");
-//                System.out.println(l);
                 return l;
             }
         }
