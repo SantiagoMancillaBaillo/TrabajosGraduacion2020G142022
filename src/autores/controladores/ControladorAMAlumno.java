@@ -31,6 +31,7 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
             this.ventana = new VentanaAMAlumno(this, ventanaAutores, true);
             this.ventana.setTitle(TITULO_NUEVO);
             this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposMiembro());
+            this.ventana.getTxtDNI().requestFocus();
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true);
     }
@@ -44,6 +45,7 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
             this.ventana.getTxtDNI().setText(String.valueOf(a.verDni()));
             this.ventana.getTxtNombres().setText(a.verNombres());
             this.ventana.getTxtApellidos().setText(a.verApellidos());
+            this.ventana.getTxtApellidos().requestFocus();
             this.ventana.getTxtCX().setText(a.verCx());
             this.ventana.getPassClave().setText(a.verClave());
             this.ventana.getPassRepetirClave().setText(a.verClave());
@@ -64,26 +66,31 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
         String cx = this.ventana.getTxtCX().getText().trim();
         String clave = new String(this.ventana.getPassClave().getPassword());
         String claverep = new String(this.ventana.getPassRepetirClave().getPassword());
+        IGestorAutores ga = GestorAutores.crear();
         if(apellidos!=null&&!apellidos.isBlank()&&dni>0&&nombres!=null&&!nombres.isBlank()&&!clave.isBlank()&&cx!=null&&!cx.isBlank()) {
-        if(!clave.equals(claverep)){
-            JOptionPane.showMessageDialog(ventana, "Las claves no coinciden");
-            ventana.getPassClave().setText(null);
-            ventana.getPassRepetirClave().setText(null);
-        }
-        else{
-            IGestorAutores ga = GestorAutores.crear();
-            if(ventana.getTxtDNI().isEditable()){
-                ga.nuevoAutor(dni, apellidos, nombres, cx, clave, claverep);
-                this.ventana.dispose();
+            if(!clave.equals(claverep)){
+                JOptionPane.showMessageDialog(ventana, "Las claves no coinciden");
+                ventana.getPassClave().setText(null);
+                ventana.getPassRepetirClave().setText(null);
+                ventana.getPassClave().requestFocus();
             }
             else{
-                if(!ventana.getTxtDNI().isEditable()){
-                    ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cx, clave, claverep);
-                    JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
+                if(ventana.getTxtDNI().isEditable()){
+                    ga.nuevoAutor(dni, apellidos, nombres, cx, clave, claverep);
                     this.ventana.dispose();
+                }
+                else{
+                    if(!ventana.getTxtDNI().isEditable()){
+                        if(ga.verAutor(dni).verGrupos().isEmpty()){
+                            ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cx, clave, claverep);
+                            JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
+                            this.ventana.dispose();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(ventana, "Advertencia!\nNo se puede modificar: Existen grupos con este autor y puede generar errores");
+                        }
                     }
                 }
-        
             }
         }
         else {
@@ -149,7 +156,6 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
         char c = evt.getKeyChar();
         if(Character.isWhitespace(c)){
             evt.consume();
-            JOptionPane.showMessageDialog(ventana, "No se permiten Espacios en Blanco");
         }
     }
 
@@ -158,7 +164,6 @@ public class ControladorAMAlumno implements IControladorAMAlumno {
         char c = evt.getKeyChar();
         if(Character.isWhitespace(c)){
             evt.consume();
-            JOptionPane.showMessageDialog(ventana, "No se permiten Espacios en Blanco");
         }
     }
     
