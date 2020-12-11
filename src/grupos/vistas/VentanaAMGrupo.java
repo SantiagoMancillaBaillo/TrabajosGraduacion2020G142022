@@ -8,6 +8,7 @@ package grupos.vistas;
 import grupos.modelos.Grupo;
 import interfaces.IControladorAMGrupo;
 import java.awt.Dialog;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTable;
@@ -81,6 +82,9 @@ public class VentanaAMGrupo extends JDialog {
 
         txtNombre.setToolTipText("Nombre del nivel");
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombrePresionarTecla(evt);
             }
@@ -98,6 +102,9 @@ public class VentanaAMGrupo extends JDialog {
         jLabel2.setText("Descripción:");
 
         txtDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescripcionEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescripcionPresionarTecla(evt);
             }
@@ -210,6 +217,18 @@ public class VentanaAMGrupo extends JDialog {
     private void txtDescripcionPresionarTecla(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionPresionarTecla
         this.controlador.txtDescripcionPresionarTecla(evt);
     }//GEN-LAST:event_txtDescripcionPresionarTecla
+
+    private void txtNombreEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getTxtDescripcion().requestFocus();
+        }
+    }//GEN-LAST:event_txtNombreEnter
+
+    private void txtDescripcionEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.controlador.btnGuardarClic(null);
+        }
+    }//GEN-LAST:event_txtDescripcionEnter
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
