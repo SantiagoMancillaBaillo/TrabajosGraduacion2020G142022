@@ -5,7 +5,6 @@
  */
 package grupos.modelos;
 
-import autores.modelos.Autor;
 import autores.modelos.GestorAutores;
 import interfaces.IGestorAutores;
 import interfaces.IGestorGrupos;
@@ -44,10 +43,12 @@ public class GestorGrupos implements IGestorGrupos{
                 return GMENSAJE_EXITO;
             }
             else{
+                JOptionPane.showMessageDialog(null, "No se creó el grupo, ya existe uno con el mismo nombre");
                 return GMENSAJE_REPETIDO;
             }
         }
         else
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al crear el grupo");
             return GMENSAJE_ERROR;
     }
 
@@ -68,11 +69,7 @@ public class GestorGrupos implements IGestorGrupos{
 
     @Override
     public List<Grupo> verGrupos() {
-//        System.out.println("--------------GRUPOS--------------");
         Collections.sort(grupos);
-//        for(Grupo g : grupos){
-//            g.mostrar();
-//        }
         return grupos;
     }
     
@@ -86,8 +83,6 @@ public class GestorGrupos implements IGestorGrupos{
         if(nombre != null && !nombre.isBlank()){
         for(Grupo g : grupos){
                 if(nombre.equals(g.verNombre())){
-//                    System.out.println("GRUPO ENCONTRADO:" + g.verNombre());
-//                    g.mostrar();
                     return g;
                 }
             }
@@ -138,9 +133,6 @@ public class GestorGrupos implements IGestorGrupos{
                 }
             }
             Collections.sort(this.grupos2);
-//            for(Grupo g : grupos2){
-//                g.mostrar();
-//            }
             
         }
         return grupos2;
