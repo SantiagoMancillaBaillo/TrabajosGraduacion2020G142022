@@ -34,6 +34,7 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
             this.ventana.setTitle(TITULO_NUEVO);
             this.ventana.getComboCargo().setModel(new ModeloComboCargos());
             this.ventana.getTablaGruposMiembro().setModel(new ModeloTablaGruposMiembro());
+            this.ventana.getTxtDNI().requestFocus();
             this.ventana.setLocationRelativeTo(null);
             this.ventana.setVisible(true);
     }
@@ -48,6 +49,7 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
             this.ventana.getTxtDNI().setText(String.valueOf(p.verDni()));
             this.ventana.getTxtNombres().setText(p.verNombres());
             this.ventana.getTxtApellidos().setText(p.verApellidos());
+            this.ventana.getTxtApellidos().requestFocus();
             this.ventana.getComboCargo().setSelectedItem(p.verCargo());
             this.ventana.getPassClave().setText(p.verClave());
             this.ventana.getPassClaveRepetida().setText(p.verClave());
@@ -68,23 +70,29 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
         Cargo cargo = ((ModeloComboCargos)this.ventana.getComboCargo().getModel()).obtenerCargo();
         String clave = new String(this.ventana.getPassClave().getPassword());
         String claverep = new String(this.ventana.getPassClaveRepetida().getPassword());
+        IGestorAutores ga = GestorAutores.crear();
         if(apellidos!=null&&!apellidos.isBlank()&&dni>0&&nombres!=null&&!nombres.isBlank()&&!clave.isBlank()) {
         if(!clave.equals(claverep)){
             JOptionPane.showMessageDialog(ventana, "Las claves no coinciden");
             ventana.getPassClave().setText(null);
             ventana.getPassClaveRepetida().setText(null);
+            ventana.getPassClave().requestFocus();
         }
         else{
-            IGestorAutores ga = GestorAutores.crear();
             if(ventana.getTxtDNI().isEditable()){
                 ga.nuevoAutor(dni, apellidos, nombres, cargo, clave, claverep);
                 this.ventana.dispose();
             }
             else{
                 if(!ventana.getTxtDNI().isEditable()){
-                    ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cargo, clave, claverep);
-                    JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
-                    this.ventana.dispose();
+                        if(ga.verAutor(dni).verGrupos().isEmpty()){
+                            ga.modificarAutor(ga.verAutor(dni), apellidos, nombres, cargo, clave, claverep);
+                            JOptionPane.showMessageDialog(ventana, "Autor Modificado con Éxito!");
+                            this.ventana.dispose();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(ventana, "Advertencia!\nNo se puede modificar: Existen grupos con este autor y puede generar errores");
+                        }
                     }
                 }
         
@@ -132,7 +140,6 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
         char c = evt.getKeyChar();
         if(Character.isWhitespace(c)){
             evt.consume();
-            JOptionPane.showMessageDialog(ventana, "No se permiten Espacios en Blanco");
         }
     }
 
@@ -141,7 +148,6 @@ public class ControladorAMProfesor implements IControladorAMProfesor{
         char c = evt.getKeyChar();
         if(Character.isWhitespace(c)){
             evt.consume();
-            JOptionPane.showMessageDialog(ventana, "No se permiten Espacios en Blanco");
         }
     }
     
