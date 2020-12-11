@@ -15,12 +15,14 @@ import grupos.vistas.VentanaAMGrupo;
 import grupos.vistas.VentanaModificarMiembros;
 import interfaces.IControladorModificarMiembros;
 import interfaces.IGestorGrupos;
+import interfaces.IGestorPublicaciones;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumn;
+import publicaciones.modelos.GestorPublicaciones;
 
 /**
  *
@@ -72,23 +74,27 @@ public class ControladorModificarMiembros implements IControladorModificarMiembr
                 if(p.verRol() == null){
                     JOptionPane.showMessageDialog(ventana, "ERROR Todos los miembros agregados deben tener un Rol asignado\n(Se agregaran solo los Autores a los que se le haya asignado un Rol)");
                 }
-                if(gg.verGrupo(g.verNombre()).esSuperAdministradores() == true){
-                    gg.verGrupo(g.verNombre()).agregarMiembro(p.verAutores(), Rol.ADMINISTRADOR);
-                }
                 else{
-                    gg.verGrupo(g.verNombre()).agregarMiembro(p.verAutores(),p.verRol());
+                    if(gg.verGrupo(g.verNombre()).esSuperAdministradores() == true){
+                        gg.verGrupo(g.verNombre()).agregarMiembro(p.verAutores(), Rol.ADMINISTRADOR);
+                    }
+                    else{
+                        gg.verGrupo(g.verNombre()).agregarMiembro(p.verAutores(),p.verRol());
+                    }    
                 }
+
             }
+            
             if(!modeloSeleccion.isSelectedIndex(fila)){
+                IGestorPublicaciones gp = GestorPublicaciones.crear();
+                GestorPublicaciones gpub = GestorPublicaciones.crear();
                 MiembroEnGrupo p = mt.verMiembros(fila);
                 gg.verGrupo(g.verNombre()).quitarMiembro(p.verAutores());
             }
-            if(modeloSeleccion.isSelectionEmpty()){
-                gg.verGrupo(g.verNombre()).verMiembros().clear();
-            }                 
-        }
-    this.ventana.dispose();
+            this.ventana.dispose();               
+            }
     }
+    
 
     @Override
     public void btnCancelarClic(ActionEvent evt) {
