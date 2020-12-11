@@ -58,12 +58,15 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
         this.ventana.getComboLugares().setModel(new ModeloComboLugares());
         this.ventana.getComboTipos().setModel(new ModeloComboTipos());
         this.ventana.getComboGrupos().setModel(new ModeloComboGrupos());
+        JOptionPane.showMessageDialog(ventana, "Advertencia!\nSolo se mostrarán los grupos que tengan miembros agregados!");
         this.ventana.setLocationRelativeTo(null);
         this.ventana.getTablaPalabrasClaves().setModel(new ModeloTablaPalabrasClaves());
         this.ventana.setVisible(true);
+        
     }
     
     public ControladorAMPublicacion(String titulo) {
+        
         IGestorPublicaciones gp = GestorPublicaciones.crear();
         pub = gp.verPublicacion(titulo);
         this.ventana = new VentanaAMPublicacion(this, ventanaPublicaciones, true);
@@ -78,6 +81,7 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
         this.ventana.getComboLugares().setSelectedItem(gp.verPublicacion(titulo).verLugar());
         this.ventana.getComboTipos().setSelectedItem(gp.verPublicacion(titulo).verTipo());
         this.ventana.getComboGrupos().setSelectedItem(gp.verPublicacion(titulo).verMiembro().verGrupos());
+        JOptionPane.showMessageDialog(ventana, "Advertencia!\nSolo se mostrarán los grupos que tengan miembros agregados!");
         Date date = Date.from(gp.verPublicacion(titulo).verFechaPublicacion().atStartOfDay(ZoneId.systemDefault()).toInstant());
         this.ventana.getDateChooserFecha().setDate(date);
         this.ventana.getTxtEnlace().setText(gp.verPublicacion(titulo).verEnlace());
@@ -87,6 +91,7 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
         this.ventana.setLocationRelativeTo(null);
         this.hayPalabrasClaves();
         this.ventana.setVisible(true); 
+        
     }
     
     
@@ -100,12 +105,9 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
         Lugar lugar = ((ModeloComboLugares)this.ventana.getComboLugares().getModel()).obtenerLugar();
         Idioma idioma = ((ModeloComboIdiomas)this.ventana.getComboIdiomas().getModel()).obtenerIdioma();
         Tipo tipo = ((ModeloComboTipos)this.ventana.getComboTipos().getModel()).obtenerTipo();
-        String grupo = ((ModeloComboGrupos)this.ventana.getComboGrupos().getModel()).obtenerGrupo();
-        Date date = this.ventana.getDateChooserFecha().getCalendar().getTime();
-        LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        IGestorGrupos gg = GestorGrupos.crear();
-        MiembroEnGrupo miembro = new MiembroEnGrupo(gg.verGrupo(grupo).verMiembros().get(0).verAutores(), gg.verGrupo(grupo), gg.verGrupo(grupo).verMiembros().get(0).verRol());
-        if((!titulo.isBlank() && titulo!= null) && (!resumen.isBlank() && resumen != null) && (!enlace.isBlank() && enlace != null) && (lugar != null) && (idioma != null) && (tipo != null) && (!grupo.isBlank() && grupo!= null) && (fecha != null)){
+        LocalDate fecha = this.verFecha();
+        MiembroEnGrupo miembro = this.verMiembro();
+        if((!titulo.isBlank() && titulo!= null) && (!resumen.isBlank() && resumen != null) && (!enlace.isBlank() && enlace != null) && (lugar != null) && (idioma != null) && (tipo != null) && (miembro != null) && (fecha != null)){
             if(this.ventana.getTxtTitulo().isEditable()){
                 List<PalabraClave> palabrasClave = new ArrayList<>();
                 ListSelectionModel modeloSeleccion = this.ventana.getTablaPalabrasClaves().getSelectionModel();
@@ -126,7 +128,7 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
                         }
                     }
                     gp.nuevaPublicacion(titulo, miembro, fecha, tipo, idioma, lugar, palabrasClave, enlace, resumen);
-                    this.ventana.dispose();    
+                    this.ventana.dispose();
             }
             else{
                 if(!this.ventana.getTxtTitulo().isEditable()){
@@ -155,6 +157,9 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
             }
             
         }
+        else{
+            JOptionPane.showMessageDialog(ventana, "Hay un campo inválido");
+        }
     }
 
     @Override
@@ -180,6 +185,32 @@ public class ControladorAMPublicacion implements IControladorAMPublicacion{
     public void btnNingunaPalabraClaveClic(ActionEvent evt) {
         ListSelectionModel modeloSeleccion = this.ventana.getTablaPalabrasClaves().getSelectionModel();
         modeloSeleccion.clearSelection();
+    }
+    
+    public LocalDate verFecha(){
+        if(this.ventana.getDateChooserFecha().getDate() != null){
+            Date date = this.ventana.getDateChooserFecha().getCalendar().getTime();
+            LocalDate fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            return fecha;
+        }
+        else{
+            LocalDate fecha = null;
+            return fecha;
+        }
+    }
+    
+    public MiembroEnGrupo verMiembro(){
+        IGestorGrupos gg = GestorGrupos.crear();
+        String grupo = ((ModeloComboGrupos)this.ventana.getComboGrupos().getModel()).obtenerGrupo();
+        if(grupo != null && !grupo.isBlank()){
+            MiembroEnGrupo miembro = new MiembroEnGrupo(gg.verGrupo(grupo).verMiembros().get(0).verAutores(), gg.verGrupo(grupo), gg.verGrupo(grupo).verMiembros().get(0).verRol()); 
+            return miembro;
+        }
+        else{
+           MiembroEnGrupo miembro = null;
+           return miembro;
+        }
+        
     }
 
     @Override
