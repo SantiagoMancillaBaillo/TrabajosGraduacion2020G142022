@@ -64,6 +64,9 @@ public class VentanaAMProfesor extends JDialog {
 
         txtApellidos.setToolTipText("Apellidos del profesor");
         txtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtApellidosEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApellidosPresionarTecla(evt);
             }
@@ -73,6 +76,9 @@ public class VentanaAMProfesor extends JDialog {
 
         txtNombres.setToolTipText("Nombres del profesor");
         txtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombresEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombresPresionarTecla(evt);
             }
@@ -93,6 +99,9 @@ public class VentanaAMProfesor extends JDialog {
 
         txtDNI.setToolTipText("Documento del profesor");
         txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDocumentoEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDocumentoPresionarTecla(evt);
             }
@@ -100,6 +109,9 @@ public class VentanaAMProfesor extends JDialog {
 
         passClave.setToolTipText("Clave del Profesor");
         passClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passClaveEnter(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passClavePresionarTecla(evt);
             }
@@ -108,11 +120,19 @@ public class VentanaAMProfesor extends JDialog {
         jLabel6.setText("Clave:");
 
         comboCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                comboCargosEnter(evt);
+            }
+        });
 
         jLabel5.setText("Repetir Clave");
 
         passClaveRepetida.setToolTipText("Clave del Profesor");
         passClaveRepetida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passRepetirClave(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passRepetirClavePresionarTecla(evt);
             }
@@ -246,6 +266,42 @@ public class VentanaAMProfesor extends JDialog {
     private void btnCancelarClic(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClic
         this.controlador.btnCancelarClic(evt);
     }//GEN-LAST:event_btnCancelarClic
+
+    private void txtDocumentoEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getTxtApellidos().requestFocus();
+        }
+    }//GEN-LAST:event_txtDocumentoEnter
+
+    private void txtApellidosEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidosEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getTxtNombres().requestFocus();
+        }
+    }//GEN-LAST:event_txtApellidosEnter
+
+    private void txtNombresEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getComboCargo().requestFocus();
+        }
+    }//GEN-LAST:event_txtNombresEnter
+
+    private void comboCargosEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_comboCargosEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getPassClave().requestFocus();
+        }
+    }//GEN-LAST:event_comboCargosEnter
+
+    private void passClaveEnter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passClaveEnter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.getPassClaveRepetida().requestFocus();
+        }
+    }//GEN-LAST:event_passClaveEnter
+
+    private void passRepetirClave(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passRepetirClave
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            this.controlador.btnGuardarClic(null);
+        }
+    }//GEN-LAST:event_passRepetirClave
 
     public JComboBox getComboCargo() {
         return comboCargo;
