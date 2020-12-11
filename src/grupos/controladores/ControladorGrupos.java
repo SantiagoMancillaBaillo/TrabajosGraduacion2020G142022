@@ -69,7 +69,6 @@ public class ControladorGrupos implements IControladorGrupos{
             ModeloTablaGrupos mtg = (ModeloTablaGrupos)this.ventana.getTablaGrupos().getModel();
             Grupo gr = mtg.verGrupo(this.ventana.getTablaGrupos().getSelectedRow());
             IControladorAMGrupo cgr = new ControladorAMGrupo(String.valueOf(gr.verNombre()), String.valueOf(gr.verDescripcion()));
-//            IControladorAMGrupo cgr = new ControladorAMGrupo(gr);
             mtg.actualizar();
             this.tablavacia();
         }
@@ -116,6 +115,7 @@ public class ControladorGrupos implements IControladorGrupos{
     @Override
     public void ventanaObtenerFoco(WindowEvent evt) {
         this.ventana.requestFocus();
+        this.ventana.getTxtGrupos().requestFocus();
         ModeloTablaGrupos mtg = (ModeloTablaGrupos)this.ventana.getTablaGrupos().getModel();
         mtg.actualizar();
     }
