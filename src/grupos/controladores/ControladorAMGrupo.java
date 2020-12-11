@@ -31,6 +31,7 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
         this.ventana.setTitle(TITULO_NUEVO);
         this.ventana.setLocationRelativeTo(null);
         this.ventana.getTablaMiembros().setModel(new ModeloTablaMiembros());
+        this.ventana.getTxtNombre().requestFocus();
         this.ventana.getBtnModificar().setEnabled(false);
         this.ventana.setVisible(true);
     }
@@ -42,7 +43,10 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
         this.ventana.getTxtNombre().setEditable(false);
         this.ventana.getTxtNombre().setText(gg.verGrupo(nombre).verNombre());
         this.ventana.getTablaMiembros().setModel(new ModeloTablaMiembros(gg.verGrupo(nombre)));
+        ModeloTablaMiembros mta = (ModeloTablaMiembros)this.ventana.getTablaMiembros().getModel();
+        mta.actualizar(gg.verGrupo(nombre));
         this.ventana.getTxtDescripcion().setText(gg.verGrupo(nombre).verDescripcion());
+        this.ventana.getTxtDescripcion().requestFocus();
         this.ventana.setLocationRelativeTo(null);
         this.ventana.setVisible(true); 
     }
@@ -67,8 +71,17 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
                     mta.actualizar(gg.verGrupo(nombre));
                     this.ventana.dispose();
                     
-                    }
                 }
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(ventana, "Hay un campo inválido");
+            if(!ventana.getTxtNombre().isEditable()){
+                ventana.getTxtDescripcion().requestFocus();
+            }
+            else{
+                ventana.getTxtNombre().requestFocus();
+            }
         }
     }
 
@@ -81,7 +94,6 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
     public void btnModificarMiembrosClic(ActionEvent evt) {
         ModeloTablaMiembros mta = (ModeloTablaMiembros)this.ventana.getTablaMiembros().getModel();
         String nombre = this.ventana.getTxtNombre().getText().trim();
-        String descripcion = this.ventana.getTxtDescripcion().getText().trim();
         IGestorGrupos gg = GestorGrupos.crear();
         mta.actualizar(gg.verGrupo(nombre));
         IControladorModificarMiembros cmm = new ControladorModificarMiembros(gg.verGrupo(nombre));
@@ -105,8 +117,8 @@ public class ControladorAMGrupo implements IControladorAMGrupo{
     @Override
     public void ventanaObtenerFoco(WindowEvent evt) {
         this.ventana.requestFocus();
-//        ModeloTablaMiembros mta = (ModeloTablaMiembros)this.ventana.getTablaMiembros().getModel();
-//        mta.actualizar();
+        ModeloTablaMiembros mtm = (ModeloTablaMiembros)this.ventana.getTablaMiembros().getModel();
+        mtm.actualizar();
     }
     
 }
