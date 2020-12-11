@@ -17,7 +17,9 @@ public class ModeloComboGrupos extends DefaultComboBoxModel {
     public ModeloComboGrupos() {
         IGestorGrupos gg = GestorGrupos.crear();
         for(Grupo grupo : gg.verGrupos())
-            this.addElement(grupo.verNombre());
+            if(grupo.tieneMiembros()){
+                this.addElement(grupo.verNombre());
+            }
     }
     
     public String obtenerGrupo(){
