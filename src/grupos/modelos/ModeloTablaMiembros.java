@@ -5,6 +5,9 @@
  */
 package grupos.modelos;
 
+import autores.modelos.Autor;
+import autores.modelos.GestorAutores;
+import interfaces.IGestorAutores;
 import interfaces.IGestorGrupos;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +34,7 @@ public class ModeloTablaMiembros extends AbstractTableModel{
         IGestorGrupos gg = GestorGrupos.crear();
         grupos = gg.verGrupos();
         if(gg.verGrupos().contains(g)){
-            miembros = g.verMiembros();
+            miembros = gg.verGrupo(g.verNombre()).verMiembros();
             Collections.sort(miembros);
         }
     }
@@ -73,8 +76,7 @@ public class ModeloTablaMiembros extends AbstractTableModel{
     public void actualizar(Grupo g){
         IGestorGrupos gg = GestorGrupos.crear();
             if(gg.verGrupos().contains(g)){
-//                miembros = gg.verGrupo(g.verNombre()).verMiembros();
-                miembros = g.verMiembros();
+                miembros = gg.verGrupo(g.verNombre()).verMiembros();
                 Collections.sort(miembros);
             }
         this.fireTableDataChanged();
